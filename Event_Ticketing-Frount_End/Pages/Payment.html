@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Payment — Smart Event Ticketing</title>
+  <link rel="stylesheet" href="../css/Style.css" />
+</head>
+<body class="page-payment">
+<div class="bg-blob"></div><div class="bg-blob-2"></div>
+<nav class="topbar">
+  <a href="User.html" class="topbar-brand"><div class="brand-icon">🎫</div><span class="brand-name">EventTix</span></a>
+  <div class="topbar-nav">
+    <a href="User.html" class="nav-link">👤 User</a>
+    <a href="Role.html" class="nav-link">🔐 Role</a>
+    <a href="Event.html" class="nav-link">🎪 Event</a>
+    <a href="Seat.html" class="nav-link">💺 Seat</a>
+    <a href="Booking.html" class="nav-link">🎫 Booking</a>
+    <a href="BookingSeat.html" class="nav-link">🗂 Booking Seat</a>
+    <a href="Payment.html" class="nav-link">💳 Payment</a>
+    <a href="Refund.html" class="nav-link">↩ Refund</a>
+    <a href="Coupon.html" class="nav-link">🎟 Coupon</a>
+    <a href="Notification.html" class="nav-link">🔔 Notification</a>
+  </div>
+</nav>
+<div class="page-wrapper">
+  <header class="page-header">
+    <div class="entity-badge">✦ Entity 07 · No QR</div>
+    <h1 class="page-title">PAYMENT<br><span>RECORDS</span></h1>
+    <p class="page-desc">Track all payment transactions linked to bookings. Integrates with Stripe, PayPal, and Razorpay payment gateways for secure online processing.</p>
+  </header>
+  <div class="stats-row">
+    <div class="stat-card"><div class="stat-label">Total Fields</div><div class="stat-value">7</div><div class="stat-unit">attributes</div></div>
+    <div class="stat-card"><div class="stat-label">QR Fields</div><div class="stat-value">0</div><div class="stat-unit">no QR</div></div>
+    <div class="stat-card"><div class="stat-label">Primary Key</div><div class="stat-value">ID</div><div class="stat-unit">paymentId</div></div>
+    <div class="stat-card"><div class="stat-label">Gateways</div><div class="stat-value">3</div><div class="stat-unit">Stripe/PP/Razorpay</div></div>
+  </div>
+  <div class="no-qr-notice" style="margin-bottom:24px;">ℹ️&nbsp; QR generation is not available for Payment. Use <a href="booking.html" style="color:var(--info);font-weight:600;text-decoration:none;">Booking</a> to generate the e-ticket QR linked to this payment.</div>
+  <div style="animation: fadeSlideUp 0.55s 0.15s ease both;">
+    <div class="card">
+      <div class="card-header"><span class="card-title">Payment Record</span><div class="card-icon">💳</div></div>
+      <form id="entityForm">
+        <div class="form-grid">
+          <div class="form-group">
+            <label for="f_paymentId">Payment ID</label>
+            <input type="text" id="f_paymentId" placeholder="PAY-001" value="PAY-001" />
+          </div>
+          <div class="form-group">
+            <label for="f_bookingId">Booking ID</label>
+            <input type="text" id="f_bookingId" placeholder="BKG-20250620-001" value="BKG-20250620-001" />
+          </div>
+          <div class="form-group">
+            <label for="f_amount">Amount (LKR)</label>
+            <input type="number" id="f_amount" placeholder="5000" value="5000" min="0" />
+          </div>
+          <div class="form-group">
+            <label for="f_gateway">Payment Gateway</label>
+            <select id="f_gateway">
+              <option value="Stripe" selected>Stripe</option>
+              <option value="PayPal">PayPal</option>
+              <option value="Razorpay">Razorpay</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="f_transactionId">Transaction ID</label>
+            <input type="text" id="f_transactionId" placeholder="TXN-STRIPE-9876" value="TXN-STRIPE-9876" />
+          </div>
+          <div class="form-group">
+            <label for="f_status">Payment Status</label>
+            <select id="f_status">
+              <option value="Success" selected>Success</option>
+              <option value="Pending">Pending</option>
+              <option value="Failed">Failed</option>
+              <option value="Refunded">Refunded</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="f_paidAt">Paid At</label>
+            <input type="datetime-local" id="f_paidAt" value="2025-05-10T10:31" />
+          </div>
+        </div>
+        <div class="divider"></div>
+        <div class="section-heading">Field Reference</div>
+        <div class="record-list">
+          <div class="record-row"><span class="record-key">paymentId</span><span class="record-val">Unique payment identifier (PK)</span></div>
+          <div class="record-row"><span class="record-key">bookingId</span><span class="record-val">Linked booking (FK → Booking)</span></div>
+          <div class="record-row"><span class="record-key">amount</span><span class="record-val">Amount charged in LKR</span></div>
+          <div class="record-row"><span class="record-key">gateway</span><span class="record-val">Stripe / PayPal / Razorpay</span></div>
+          <div class="record-row"><span class="record-key">transactionId</span><span class="record-val">Gateway transaction reference</span></div>
+          <div class="record-row"><span class="record-key">status</span><span class="record-val">Success / Pending / Failed</span></div>
+          <div class="record-row"><span class="record-key">paidAt</span><span class="record-val">Payment confirmation timestamp</span></div>
+        </div>
+        <div class="btn-group">
+          <button type="submit" class="btn btn-primary">💾 Save Record</button>
+          <button type="button" class="btn btn-ghost" onclick="resetForm('entityForm')">↺ Reset</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<script src="../js/App.js"></script>
+<script>
+  document.getElementById('entityForm').addEventListener('submit', function(e){
+    e.preventDefault(); showToast('Payment record saved!', 'success');
+  });
+</script>
+</body>
+</html>

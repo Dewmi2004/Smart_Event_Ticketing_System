@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Notification — Smart Event Ticketing</title>
+    <link rel="stylesheet" href="../css/Style.css" />
+</head>
+<body class="page-notif">
+<div class="bg-blob"></div><div class="bg-blob-2"></div>
+<nav class="topbar">
+    <a href="User.html" class="topbar-brand"><div class="brand-icon">🎫</div><span class="brand-name">EventTix</span></a>
+    <div class="topbar-nav">
+        <a href="User.html"    class="nav-link">👤 User</a>
+        <a href="Role.html"    class="nav-link">🔐 Role</a>
+        <a href="Event.html"   class="nav-link">🎪 Event</a>
+        <a href="Seat.html"    class="nav-link">💺 Seat</a>
+        <a href="Booking.html" class="nav-link">🎫 Booking</a>
+        <a href="BookingSeat.html"   class="nav-link">🗂 Booking Seat</a>
+        <a href="Payment.html" class="nav-link">💳 Payment</a>
+        <a href="Refund.html"  class="nav-link">↩ Refund</a>
+        <a href="Coupon.html"  class="nav-link">🎟 Coupon</a>
+        <a href="Notification.html"   class="nav-link active">🔔 Notification</a>
+    </div>
+</nav>
+<div class="page-wrapper">
+    <header class="page-header">
+        <div class="entity-badge">✦ Entity 10 · No QR</div>
+        <h1 class="page-title">NOTIFICATION<br><span>LOGS</span></h1>
+        <p class="page-desc">Logs every outbound notification sent to users via Email (SMTP) or SMS (Twilio). Tracks delivery status for booking confirmations, payment updates, and event alerts.</p>
+    </header>
+    <div class="stats-row">
+        <div class="stat-card"><div class="stat-label">Total Fields</div><div class="stat-value">7</div><div class="stat-unit">attributes</div></div>
+        <div class="stat-card"><div class="stat-label">QR Fields</div><div class="stat-value">0</div><div class="stat-unit">no QR</div></div>
+        <div class="stat-card"><div class="stat-label">Primary Key</div><div class="stat-value">ID</div><div class="stat-unit">notificationId</div></div>
+        <div class="stat-card"><div class="stat-label">Channels</div><div class="stat-value">2</div><div class="stat-unit">Email / SMS</div></div>
+    </div>
+    <div class="no-qr-notice" style="margin-bottom:24px;">ℹ️&nbsp; QR generation is not available for Notification. Notifications are triggered automatically when a <a href="booking.html" style="color:var(--info);font-weight:600;text-decoration:none;">Booking</a> or <a href="payment.html" style="color:var(--info);font-weight:600;text-decoration:none;">Payment</a> event occurs.</div>
+    <div style="animation: fadeSlideUp 0.55s 0.15s ease both;">
+        <div class="card">
+            <div class="card-header"><span class="card-title">Notification Record</span><div class="card-icon">🔔</div></div>
+            <form id="entityForm">
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="f_notificationId">Notification ID</label>
+                        <input type="text" id="f_notificationId" placeholder="NOTIF-001" value="NOTIF-001" />
+                    </div>
+                    <div class="form-group">
+                        <label for="f_userId">User ID</label>
+                        <input type="text" id="f_userId" placeholder="USR-001" value="USR-001" />
+                    </div>
+                    <div class="form-group">
+                        <label for="f_type">Notification Type</label>
+                        <select id="f_type">
+                            <option value="BookingConfirmation" selected>Booking Confirmation</option>
+                            <option value="PaymentSuccess">Payment Success</option>
+                            <option value="PaymentFailed">Payment Failed</option>
+                            <option value="EventUpdate">Event Update</option>
+                            <option value="RefundProcessed">Refund Processed</option>
+                            <option value="Promotion">Promotion</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="f_channel">Channel</label>
+                        <select id="f_channel">
+                            <option value="Email" selected>Email (SMTP)</option>
+                            <option value="SMS">SMS (Twilio)</option>
+                            <option value="Both">Email + SMS</option>
+                        </select>
+                    </div>
+                    <div class="form-group full-width">
+                        <label for="f_message">Message</label>
+                        <textarea id="f_message" placeholder="Your booking BKG-20250620-001 is confirmed! Enjoy the event.">Your booking BKG-20250620-001 is confirmed! Enjoy the event.</textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="f_status">Delivery Status</label>
+                        <select id="f_status">
+                            <option value="Delivered" selected>Delivered</option>
+                            <option value="Pending">Pending</option>
+                            <option value="Failed">Failed</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="f_sentAt">Sent At</label>
+                        <input type="datetime-local" id="f_sentAt" value="2025-05-10T10:35" />
+                    </div>
+                </div>
+                <div class="divider"></div>
+                <div class="section-heading">Field Reference</div>
+                <div class="record-list">
+                    <div class="record-row"><span class="record-key">notificationId</span><span class="record-val">Unique notification identifier (PK)</span></div>
+                    <div class="record-row"><span class="record-key">userId</span><span class="record-val">Recipient user reference (FK → User)</span></div>
+                    <div class="record-row"><span class="record-key">type</span><span class="record-val">Booking Confirmation / Payment / Event Update / Promo</span></div>
+                    <div class="record-row"><span class="record-key">message</span><span class="record-val">Full text content of the notification</span></div>
+                    <div class="record-row"><span class="record-key">channel</span><span class="record-val">Delivery channel — Email (SMTP) or SMS (Twilio)</span></div>
+                    <div class="record-row"><span class="record-key">sentAt</span><span class="record-val">Timestamp when notification was dispatched</span></div>
+                    <div class="record-row"><span class="record-key">status</span><span class="record-val">Delivered / Pending / Failed</span></div>
+                </div>
+                <div class="btn-group">
+                    <button type="submit" class="btn btn-primary">💾 Save Record</button>
+                    <button type="button" class="btn btn-ghost" onclick="resetForm('entityForm')">↺ Reset</button>
+                </div>
+            </form>
+        </div>
+        <div class="card" style="margin-top:22px;">
+            <div class="card-header"><span class="card-title">Notification Triggers</span><div class="card-icon">⚡</div></div>
+            <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px;">
+                <div style="background:var(--bg-input);border:1px solid var(--border);border-radius:var(--radius);padding:16px 18px;">
+                    <p style="font-size:12px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--accent);margin-bottom:6px;">📋 Booking</p>
+                    <p style="font-size:12.5px;color:var(--text-sub);line-height:1.6;">Fired on booking creation or status change to <em>Confirmed</em> or <em>Cancelled</em>.</p>
+                </div>
+                <div style="background:var(--bg-input);border:1px solid var(--border);border-radius:var(--radius);padding:16px 18px;">
+                    <p style="font-size:12px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--accent);margin-bottom:6px;">💳 Payment</p>
+                    <p style="font-size:12.5px;color:var(--text-sub);line-height:1.6;">Fired when payment gateway webhook returns <em>Success</em> or <em>Failed</em> status.</p>
+                </div>
+                <div style="background:var(--bg-input);border:1px solid var(--border);border-radius:var(--radius);padding:16px 18px;">
+                    <p style="font-size:12px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--accent);margin-bottom:6px;">🎪 Event Update</p>
+                    <p style="font-size:12.5px;color:var(--text-sub);line-height:1.6;">Admin-triggered alerts when event details change — time, venue, or cancellation.</p>
+                </div>
+                <div style="background:var(--bg-input);border:1px solid var(--border);border-radius:var(--radius);padding:16px 18px;">
+                    <p style="font-size:12px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--accent);margin-bottom:6px;">↩ Refund</p>
+                    <p style="font-size:12.5px;color:var(--text-sub);line-height:1.6;">Sent when a refund is processed or rejected, including the refund amount.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="../js/App.js"></script>
+<script>
+    document.getElementById('entityForm').addEventListener('submit', function(e){
+        e.preventDefault(); showToast('Notification record saved!', 'success');
+    });
+</script>
+</body>
+</html>

@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Booking Seat — Smart Event Ticketing</title>
+    <link rel="stylesheet" href="../css/Style.css" />
+</head>
+<body class="page-bseat">
+<div class="bg-blob"></div><div class="bg-blob-2"></div>
+<nav class="topbar">
+    <a href="User.html" class="topbar-brand"><div class="brand-icon">🎫</div><span class="brand-name">EventTix</span></a>
+    <div class="topbar-nav">
+        <a href="User.html"    class="nav-link">👤 User</a>
+        <a href="Role.html"    class="nav-link">🔐 Role</a>
+        <a href="Event.html"   class="nav-link">🎪 Event</a>
+        <a href="Seat.html"    class="nav-link">💺 Seat</a>
+        <a href="Booking.html" class="nav-link">🎫 Booking</a>
+        <a href="BookingSeat.html"   class="nav-link active">🗂 Booking Seat</a>
+        <a href="Payment.html" class="nav-link">💳 Payment</a>
+        <a href="Refund.html"  class="nav-link">↩ Refund</a>
+        <a href="Coupon.html"  class="nav-link">🎟 Coupon</a>
+        <a href="Notification.html"   class="nav-link">🔔 Notification</a>
+    </div>
+</nav>
+<div class="page-wrapper">
+    <header class="page-header">
+        <div class="entity-badge">✦ Entity 06 · No QR</div>
+        <h1 class="page-title">BOOKING<br><span>SEAT</span></h1>
+        <p class="page-desc">Maps reserved seats to specific bookings. Tracks exactly which seat numbers are assigned to each reservation, preventing double-booking conflicts.</p>
+    </header>
+    <div class="stats-row">
+        <div class="stat-card"><div class="stat-label">Total Fields</div><div class="stat-value">4</div><div class="stat-unit">attributes</div></div>
+        <div class="stat-card"><div class="stat-label">QR Fields</div><div class="stat-value">0</div><div class="stat-unit">no QR</div></div>
+        <div class="stat-card"><div class="stat-label">Primary Key</div><div class="stat-value">ID</div><div class="stat-unit">auto-generated</div></div>
+        <div class="stat-card"><div class="stat-label">Links</div><div class="stat-value">2</div><div class="stat-unit">Booking + Seat FK</div></div>
+    </div>
+    <div class="no-qr-notice" style="margin-bottom:24px;">ℹ️&nbsp; QR generation is not available for Booking Seat. View the linked <a href="booking.html" style="color:var(--info);font-weight:600;text-decoration:none;">Booking</a> to generate the e-ticket QR that covers this seat assignment.</div>
+    <div style="animation: fadeSlideUp 0.55s 0.15s ease both;">
+        <div class="card">
+            <div class="card-header"><span class="card-title">Booking Seat Record</span><div class="card-icon">🗂️</div></div>
+            <form id="entityForm">
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="f_id">Record ID</label>
+                        <input type="text" id="f_id" placeholder="BS-001" value="BS-001" />
+                    </div>
+                    <div class="form-group">
+                        <label for="f_bookingId">Booking ID</label>
+                        <input type="text" id="f_bookingId" placeholder="BKG-20250620-001" value="BKG-20250620-001" />
+                    </div>
+                    <div class="form-group">
+                        <label for="f_seatId">Seat ID</label>
+                        <input type="text" id="f_seatId" placeholder="SEAT-A12" value="SEAT-A12" />
+                    </div>
+                    <div class="form-group">
+                        <label for="f_assignedAt">Assigned At</label>
+                        <input type="datetime-local" id="f_assignedAt" value="2025-05-10T10:30" />
+                    </div>
+                </div>
+                <div class="divider"></div>
+                <div class="section-heading">Field Reference</div>
+                <div class="record-list">
+                    <div class="record-row"><span class="record-key">id</span><span class="record-val">Unique mapping identifier (PK)</span></div>
+                    <div class="record-row"><span class="record-key">bookingId</span><span class="record-val">Linked booking reference (FK → Booking)</span></div>
+                    <div class="record-row"><span class="record-key">seatId</span><span class="record-val">Linked seat reference (FK → Seat)</span></div>
+                    <div class="record-row"><span class="record-key">assignedAt</span><span class="record-val">Timestamp when seat was assigned</span></div>
+                </div>
+                <div class="btn-group">
+                    <button type="submit" class="btn btn-primary">💾 Save Record</button>
+                    <button type="button" class="btn btn-ghost" onclick="resetForm('entityForm')">↺ Reset</button>
+                </div>
+            </form>
+        </div>
+        <div class="card" style="margin-top:22px;">
+            <div class="card-header"><span class="card-title">Entity Relationships</span><div class="card-icon">🔗</div></div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+                <div style="background:var(--bg-input);border:1px solid var(--border);border-radius:var(--radius);padding:20px;">
+                    <p style="font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-sub);margin-bottom:10px;">Parent · Booking</p>
+                    <p style="font-size:13px;color:var(--text);line-height:1.7;">Each <strong>BookingSeat</strong> row belongs to one <strong>Booking</strong> via <code style="font-family:'DM Mono',monospace;font-size:12px;color:var(--accent);">bookingId</code>. A single booking can own multiple rows — one per selected seat.</p>
+                </div>
+                <div style="background:var(--bg-input);border:1px solid var(--border);border-radius:var(--radius);padding:20px;">
+                    <p style="font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-sub);margin-bottom:10px;">Parent · Seat</p>
+                    <p style="font-size:13px;color:var(--text);line-height:1.7;">Each row references one <strong>Seat</strong> via <code style="font-family:'DM Mono',monospace;font-size:12px;color:var(--accent);">seatId</code>. Once assigned, the Seat status is set to <em>Booked</em> to prevent conflicts.</p>
+                </div>
+            </div>
+            <p style="margin-top:16px;font-size:13px;color:var(--text-sub);line-height:1.75;">This is a <strong style="color:var(--text)">junction / mapping table</strong> that resolves the many-to-many relationship between Bookings and Seats. It records the exact timestamp of seat assignment and enables temporary seat locking during the payment window.</p>
+        </div>
+    </div>
+</div>
+<script src="../js/App.js"></script>
+<script>
+    document.getElementById('entityForm').addEventListener('submit', function(e){
+        e.preventDefault(); showToast('Booking Seat record saved!', 'success');
+    });
+</script>
+</body>
+</html>

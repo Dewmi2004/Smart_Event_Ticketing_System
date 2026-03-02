@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Refund — Smart Event Ticketing</title>
+  <link rel="stylesheet" href="../css/Style.css" />
+</head>
+<body class="page-refund">
+<div class="bg-blob"></div><div class="bg-blob-2"></div>
+<nav class="topbar">
+  <a href="User.html" class="topbar-brand"><div class="brand-icon">🎫</div><span class="brand-name">EventTix</span></a>
+  <div class="topbar-nav">
+    <a href="User.html" class="nav-link">👤 User</a>
+    <a href="Role.html" class="nav-link">🔐 Role</a>
+    <a href="Event.html" class="nav-link">🎪 Event</a>
+    <a href="Seat.html" class="nav-link">💺 Seat</a>
+    <a href="Booking.html" class="nav-link">🎫 Booking</a>
+    <a href="BookingSeat.html" class="nav-link">🗂 Booking Seat</a>
+    <a href="Payment.html" class="nav-link">💳 Payment</a>
+    <a href="Refund.html" class="nav-link">↩ Refund</a>
+    <a href="Coupon.html" class="nav-link">🎟 Coupon</a>
+    <a href="Notification.html" class="nav-link">🔔 Notification</a>
+  </div>
+</nav>
+<div class="page-wrapper">
+  <header class="page-header">
+    <div class="entity-badge">✦ Entity 08 · No QR</div>
+    <h1 class="page-title">REFUND<br><span>MANAGEMENT</span></h1>
+    <p class="page-desc">Handle and track refund requests linked to payments. Manages full and partial refund workflows with status tracking for admin oversight.</p>
+  </header>
+  <div class="stats-row">
+    <div class="stat-card"><div class="stat-label">Total Fields</div><div class="stat-value">6</div><div class="stat-unit">attributes</div></div>
+    <div class="stat-card"><div class="stat-label">QR Fields</div><div class="stat-value">0</div><div class="stat-unit">no QR</div></div>
+    <div class="stat-card"><div class="stat-label">Primary Key</div><div class="stat-value">ID</div><div class="stat-unit">refundId</div></div>
+    <div class="stat-card"><div class="stat-label">Link</div><div class="stat-value">PAY</div><div class="stat-unit">paymentId (FK)</div></div>
+  </div>
+  <div class="no-qr-notice" style="margin-bottom:24px;">ℹ️&nbsp; QR generation is not available for Refund. See <a href="payment.html" style="color:var(--info);font-weight:600;text-decoration:none;">Payment</a> for the linked transaction record.</div>
+  <div style="animation: fadeSlideUp 0.55s 0.15s ease both;">
+    <div class="card">
+      <div class="card-header"><span class="card-title">Refund Record</span><div class="card-icon">↩</div></div>
+      <form id="entityForm">
+        <div class="form-grid">
+          <div class="form-group">
+            <label for="f_refundId">Refund ID</label>
+            <input type="text" id="f_refundId" placeholder="RFD-001" value="RFD-001" />
+          </div>
+          <div class="form-group">
+            <label for="f_paymentId">Payment ID</label>
+            <input type="text" id="f_paymentId" placeholder="PAY-001" value="PAY-001" />
+          </div>
+          <div class="form-group">
+            <label for="f_amount">Refund Amount (LKR)</label>
+            <input type="number" id="f_amount" placeholder="5000" value="5000" min="0" />
+          </div>
+          <div class="form-group">
+            <label for="f_reason">Reason</label>
+            <select id="f_reason">
+              <option value="Event Cancelled" selected>Event Cancelled</option>
+              <option value="Double Booking">Double Booking</option>
+              <option value="User Request">User Request</option>
+              <option value="Technical Error">Technical Error</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="f_status">Refund Status</label>
+            <select id="f_status">
+              <option value="Pending" selected>Pending</option>
+              <option value="Processed">Processed</option>
+              <option value="Rejected">Rejected</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="f_refundedAt">Refunded At</label>
+            <input type="date" id="f_refundedAt" value="2025-05-15" />
+          </div>
+        </div>
+        <div class="divider"></div>
+        <div class="section-heading">Field Reference</div>
+        <div class="record-list">
+          <div class="record-row"><span class="record-key">refundId</span><span class="record-val">Unique refund identifier (PK)</span></div>
+          <div class="record-row"><span class="record-key">paymentId</span><span class="record-val">Original payment (FK → Payment)</span></div>
+          <div class="record-row"><span class="record-key">amount</span><span class="record-val">Amount to be refunded (LKR)</span></div>
+          <div class="record-row"><span class="record-key">reason</span><span class="record-val">Reason for refund request</span></div>
+          <div class="record-row"><span class="record-key">status</span><span class="record-val">Pending / Processed / Rejected</span></div>
+          <div class="record-row"><span class="record-key">refundedAt</span><span class="record-val">Date refund was processed</span></div>
+        </div>
+        <div class="btn-group">
+          <button type="submit" class="btn btn-primary">💾 Save Record</button>
+          <button type="button" class="btn btn-ghost" onclick="resetForm('entityForm')">↺ Reset</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<script src="../js/App.js"></script>
+<script>
+  document.getElementById('entityForm').addEventListener('submit', function(e){
+    e.preventDefault(); showToast('Refund record saved!', 'success');
+  });
+</script>
+</body>
+</html>

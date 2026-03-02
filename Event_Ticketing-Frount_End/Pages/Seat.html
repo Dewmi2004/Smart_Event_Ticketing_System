@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Seat — Smart Event Ticketing</title>
+    <link rel="stylesheet" href="../css/Style.css" />
+</head>
+<body class="page-seat">
+<div class="bg-blob"></div><div class="bg-blob-2"></div>
+<nav class="topbar">
+    <a href="User.html" class="topbar-brand"><div class="brand-icon">🎫</div><span class="brand-name">EventTix</span></a>
+    <div class="topbar-nav">
+        <a href="User.html" class="nav-link">👤 User</a>
+        <a href="Role.html" class="nav-link">🔐 Role</a>
+        <a href="Event.html" class="nav-link">🎪 Event</a>
+        <a href="Seat.html" class="nav-link">💺 Seat</a>
+        <a href="Booking.html" class="nav-link">🎫 Booking</a>
+        <a href="BookingSeat.html" class="nav-link">🗂 Booking Seat</a>
+        <a href="Payment.html" class="nav-link">💳 Payment</a>
+        <a href="Refund.html" class="nav-link">↩ Refund</a>
+        <a href="Coupon.html" class="nav-link">🎟 Coupon</a>
+        <a href="Notification.html" class="nav-link">🔔 Notification</a>
+    </div>
+</nav>
+<div class="page-wrapper">
+    <header class="page-header">
+        <div class="entity-badge">✦ Entity 04 · QR Enabled</div>
+        <h1 class="page-title">SEAT<br><span>MANAGEMENT</span></h1>
+        <p class="page-desc">Manage seat availability and locking. Generate a QR code for each seat to enable rapid seat assignment and status verification on the venue floor.</p>
+    </header>
+    <div class="stats-row">
+        <div class="stat-card"><div class="stat-label">Total Fields</div><div class="stat-value">6</div><div class="stat-unit">attributes</div></div>
+        <div class="stat-card"><div class="stat-label">QR Fields</div><div class="stat-value">4</div><div class="stat-unit">encoded in QR</div></div>
+        <div class="stat-card"><div class="stat-label">Primary Key</div><div class="stat-value">ID</div><div class="stat-unit">seatId</div></div>
+        <div class="stat-card"><div class="stat-label">QR Feature</div><div class="stat-value">ON</div><div class="stat-unit">seat validation</div></div>
+    </div>
+    <div class="content-grid">
+        <div class="card">
+            <div class="card-header"><span class="card-title">Seat Record</span><div class="card-icon">💺</div></div>
+            <form id="entityForm">
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="f_seatId">Seat ID <span class="qr-tag">QR</span></label>
+                        <input type="text" id="f_seatId" placeholder="SEAT-A12" value="SEAT-A12" />
+                    </div>
+                    <div class="form-group">
+                        <label for="f_eventId">Event ID <span class="qr-tag">QR</span></label>
+                        <input type="text" id="f_eventId" placeholder="EVT-2025-001" value="EVT-2025-001" />
+                    </div>
+                    <div class="form-group">
+                        <label for="f_seatNumber">Seat Number <span class="qr-tag">QR</span></label>
+                        <input type="text" id="f_seatNumber" placeholder="12" value="12" />
+                    </div>
+                    <div class="form-group">
+                        <label for="f_row">Row <span class="qr-tag">QR</span></label>
+                        <input type="text" id="f_row" placeholder="A" value="A" maxlength="3" />
+                    </div>
+                    <div class="form-group">
+                        <label for="f_type">Seat Type</label>
+                        <select id="f_type">
+                            <option value="VIP" selected>VIP</option>
+                            <option value="General">General</option>
+                            <option value="Premium">Premium</option>
+                            <option value="Accessible">Accessible</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="f_status">Seat Status</label>
+                        <select id="f_status">
+                            <option value="Available" selected>Available</option>
+                            <option value="Booked">Booked</option>
+                            <option value="Locked">Locked</option>
+                            <option value="Maintenance">Maintenance</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="divider"></div>
+                <div class="section-heading">Field Reference</div>
+                <div class="record-list">
+                    <div class="record-row"><span class="record-key">seatId</span><span class="record-val">Unique seat identifier (PK)</span><span class="qr-tag">QR</span></div>
+                    <div class="record-row"><span class="record-key">eventId</span><span class="record-val">Associated event (FK → Event)</span><span class="qr-tag">QR</span></div>
+                    <div class="record-row"><span class="record-key">seatNumber</span><span class="record-val">Seat number within row</span><span class="qr-tag">QR</span></div>
+                    <div class="record-row"><span class="record-key">row</span><span class="record-val">Row letter / identifier</span><span class="qr-tag">QR</span></div>
+                    <div class="record-row"><span class="record-key">type</span><span class="record-val">VIP / General / Premium</span></div>
+                    <div class="record-row"><span class="record-key">status</span><span class="record-val">Available / Booked / Locked</span></div>
+                </div>
+                <div class="btn-group">
+                    <button type="submit" class="btn btn-primary">⚡ Generate QR</button>
+                    <button type="button" class="btn btn-ghost" onclick="resetForm('entityForm')">↺ Reset</button>
+                </div>
+            </form>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:18px;">
+            <div class="qr-section">
+                <span class="qr-label">Generated QR Code</span>
+                <div class="qr-frame"><img id="qrImage" src="" alt="QR Code" style="display:none;" /></div>
+                <div id="qrPreview" class="qr-data-preview">— fill in form fields to generate QR —</div>
+                <div class="qr-actions">
+                    <button id="btnDownload" class="btn btn-primary btn-sm">⬇ Download</button>
+                    <button class="btn btn-ghost btn-sm" onclick="copyText(document.getElementById('qrPreview').textContent)">📋 Copy</button>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-header"><span class="card-title">QR Use Case</span><div class="card-icon">🔍</div></div>
+                <p style="font-size:13px;color:var(--text-sub);line-height:1.75;">Attach a QR sticker to each <strong style="color:var(--text)">physical seat</strong>. Ushers scan to confirm correct seating, prevent seat theft, and instantly view availability status.</p>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="../js/App.js"></script>
+<script>initEntityForm({ formId:'entityForm', qrFields:['f_seatId','f_eventId','f_seatNumber','f_row'], filenamePrefix:'seat' });</script>
+</body>
+</html>

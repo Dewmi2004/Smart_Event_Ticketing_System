@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Role — Smart Event Ticketing</title>
+    <link rel="stylesheet" href="../css/Style.css" />
+</head>
+<body class="page-role">
+<div class="bg-blob"></div><div class="bg-blob-2"></div>
+<nav class="topbar">
+    <a href="User.html" class="topbar-brand"><div class="brand-icon">🎫</div><span class="brand-name">EventTix</span></a>
+    <div class="topbar-nav">
+        <a href="User.html" class="nav-link">👤 User</a>
+        <a href="Role.html" class="nav-link">🔐 Role</a>
+        <a href="Event.html" class="nav-link">🎪 Event</a>
+        <a href="Seat.html" class="nav-link">💺 Seat</a>
+        <a href="Booking.html" class="nav-link">🎫 Booking</a>
+        <a href="BookingSeat.html" class="nav-link">🗂 Booking Seat</a>
+        <a href="Payment.html" class="nav-link">💳 Payment</a>
+        <a href="Refund.html" class="nav-link">↩ Refund</a>
+        <a href="Coupon.html" class="nav-link">🎟 Coupon</a>
+        <a href="Notification.html" class="nav-link">🔔 Notification</a>
+    </div>
+</nav>
+<div class="page-wrapper">
+    <header class="page-header">
+        <div class="entity-badge">✦ Entity 02 · QR Enabled</div>
+        <h1 class="page-title">ROLE<br><span>MANAGEMENT</span></h1>
+        <p class="page-desc">Define user roles for role-based access control (RBAC). Generate a QR code encoding the role ID and name for access verification.</p>
+    </header>
+    <div class="stats-row">
+        <div class="stat-card"><div class="stat-label">Total Fields</div><div class="stat-value">3</div><div class="stat-unit">attributes</div></div>
+        <div class="stat-card"><div class="stat-label">QR Fields</div><div class="stat-value">2</div><div class="stat-unit">encoded in QR</div></div>
+        <div class="stat-card"><div class="stat-label">Primary Key</div><div class="stat-value">ID</div><div class="stat-unit">roleId</div></div>
+        <div class="stat-card"><div class="stat-label">QR Feature</div><div class="stat-value">ON</div><div class="stat-unit">access control</div></div>
+    </div>
+    <div class="content-grid">
+        <div class="card">
+            <div class="card-header"><span class="card-title">Role Record</span><div class="card-icon">🔐</div></div>
+            <form id="entityForm">
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="f_roleId">Role ID <span class="qr-tag">QR</span></label>
+                        <input type="text" id="f_roleId" placeholder="ROLE-001" value="ROLE-001" />
+                    </div>
+                    <div class="form-group">
+                        <label for="f_roleName">Role Name <span class="qr-tag">QR</span></label>
+                        <select id="f_roleName">
+                            <option value="Admin" selected>Admin</option>
+                            <option value="User">User</option>
+                            <option value="Staff">Staff</option>
+                            <option value="Organizer">Organizer</option>
+                        </select>
+                    </div>
+                    <div class="form-group full-width">
+                        <label for="f_description">Description</label>
+                        <textarea id="f_description" placeholder="Describe the permissions for this role...">Full system access — manage events, bookings, users, and reports.</textarea>
+                    </div>
+                </div>
+                <div class="divider"></div>
+                <div class="section-heading">Field Reference</div>
+                <div class="record-list">
+                    <div class="record-row"><span class="record-key">roleId</span><span class="record-val">Unique role identifier (PK)</span><span class="qr-tag">QR</span></div>
+                    <div class="record-row"><span class="record-key">roleName</span><span class="record-val">Role name (Admin / User)</span><span class="qr-tag">QR</span></div>
+                    <div class="record-row"><span class="record-key">description</span><span class="record-val">Role permission description</span></div>
+                </div>
+                <div class="btn-group">
+                    <button type="submit" class="btn btn-primary">⚡ Generate QR</button>
+                    <button type="button" class="btn btn-ghost" onclick="resetForm('entityForm')">↺ Reset</button>
+                </div>
+            </form>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:18px;">
+            <div class="qr-section">
+                <span class="qr-label">Generated QR Code</span>
+                <div class="qr-frame"><img id="qrImage" src="" alt="QR Code" style="display:none;" /></div>
+                <div id="qrPreview" class="qr-data-preview">— fill in form fields to generate QR —</div>
+                <div class="qr-actions">
+                    <button id="btnDownload" class="btn btn-primary btn-sm">⬇ Download</button>
+                    <button class="btn btn-ghost btn-sm" onclick="copyText(document.getElementById('qrPreview').textContent)">📋 Copy</button>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-header"><span class="card-title">QR Use Case</span><div class="card-icon">🔍</div></div>
+                <p style="font-size:13px;color:var(--text-sub);line-height:1.75;">Used for <strong style="color:var(--text)">role-based access verification</strong>. Scan to confirm a staff member's role and permission level before granting access to admin areas or backstage.</p>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="../js/App.js"></script>
+<script>initEntityForm({ formId:'entityForm', qrFields:['f_roleId','f_roleName'], filenamePrefix:'role' });</script>
+</body>
+</html>

@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Event — Smart Event Ticketing</title>
+    <link rel="stylesheet" href="../css/Style.css" />
+</head>
+<body class="page-event">
+<div class="bg-blob"></div><div class="bg-blob-2"></div>
+<nav class="topbar">
+    <a href="User.html" class="topbar-brand"><div class="brand-icon">🎫</div><span class="brand-name">EventTix</span></a>
+    <div class="topbar-nav">
+        <a href="User.html" class="nav-link">👤 User</a>
+        <a href="Role.html" class="nav-link">🔐 Role</a>
+        <a href="Event.html" class="nav-link">🎪 Event</a>
+        <a href="Seat.html" class="nav-link">💺 Seat</a>
+        <a href="Booking.html" class="nav-link">🎫 Booking</a>
+        <a href="BookingSeat.html" class="nav-link">🗂 Booking Seat</a>
+        <a href="Payment.html" class="nav-link">💳 Payment</a>
+        <a href="Refund.html" class="nav-link">↩ Refund</a>
+        <a href="Coupon.html" class="nav-link">🎟 Coupon</a>
+        <a href="Notification.html" class="nav-link">🔔 Notification</a>
+    </div>
+</nav>
+<div class="page-wrapper">
+    <header class="page-header">
+        <div class="entity-badge">✦ Entity 03 · QR Enabled</div>
+        <h1 class="page-title">EVENT<br><span>MANAGEMENT</span></h1>
+        <p class="page-desc">Create and manage events with location, schedule, and pricing. Generate a QR code linking to event details for easy attendee check-in.</p>
+    </header>
+    <div class="stats-row">
+        <div class="stat-card"><div class="stat-label">Total Fields</div><div class="stat-value">8</div><div class="stat-unit">attributes</div></div>
+        <div class="stat-card"><div class="stat-label">QR Fields</div><div class="stat-value">4</div><div class="stat-unit">encoded in QR</div></div>
+        <div class="stat-card"><div class="stat-label">Primary Key</div><div class="stat-value">ID</div><div class="stat-unit">eventId</div></div>
+        <div class="stat-card"><div class="stat-label">QR Feature</div><div class="stat-value">ON</div><div class="stat-unit">event check-in</div></div>
+    </div>
+    <div class="content-grid">
+        <div class="card">
+            <div class="card-header"><span class="card-title">Event Record</span><div class="card-icon">🎪</div></div>
+            <form id="entityForm">
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="f_eventId">Event ID <span class="qr-tag">QR</span></label>
+                        <input type="text" id="f_eventId" placeholder="EVT-2025-001" value="EVT-2025-001" />
+                    </div>
+                    <div class="form-group">
+                        <label for="f_title">Event Title <span class="qr-tag">QR</span></label>
+                        <input type="text" id="f_title" placeholder="Tech Summit Colombo 2025" value="Tech Summit Colombo 2025" />
+                    </div>
+                    <div class="form-group">
+                        <label for="f_location">Location <span class="qr-tag">QR</span></label>
+                        <input type="text" id="f_location" placeholder="BMICH, Colombo" value="BMICH, Colombo" />
+                    </div>
+                    <div class="form-group">
+                        <label for="f_date">Event Date <span class="qr-tag">QR</span></label>
+                        <input type="date" id="f_date" value="2025-06-20" />
+                    </div>
+                    <div class="form-group">
+                        <label for="f_time">Start Time</label>
+                        <input type="time" id="f_time" value="09:00" />
+                    </div>
+                    <div class="form-group">
+                        <label for="f_ticketPrice">Ticket Price (LKR)</label>
+                        <input type="number" id="f_ticketPrice" placeholder="2500" value="2500" min="0" />
+                    </div>
+                    <div class="form-group">
+                        <label for="f_totalSeats">Total Seats</label>
+                        <input type="number" id="f_totalSeats" placeholder="500" value="500" min="1" />
+                    </div>
+                    <div class="form-group">
+                        <label for="f_status">Status</label>
+                        <select id="f_status">
+                            <option value="Active" selected>Active</option>
+                            <option value="Upcoming">Upcoming</option>
+                            <option value="Completed">Completed</option>
+                            <option value="Cancelled">Cancelled</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="divider"></div>
+                <div class="section-heading">Field Reference</div>
+                <div class="record-list">
+                    <div class="record-row"><span class="record-key">eventId</span><span class="record-val">Unique event identifier (PK)</span><span class="qr-tag">QR</span></div>
+                    <div class="record-row"><span class="record-key">title</span><span class="record-val">Name / title of the event</span><span class="qr-tag">QR</span></div>
+                    <div class="record-row"><span class="record-key">location</span><span class="record-val">Venue address / city</span><span class="qr-tag">QR</span></div>
+                    <div class="record-row"><span class="record-key">date</span><span class="record-val">Event date</span><span class="qr-tag">QR</span></div>
+                    <div class="record-row"><span class="record-key">time</span><span class="record-val">Event start time</span></div>
+                    <div class="record-row"><span class="record-key">ticketPrice</span><span class="record-val">Price per ticket (LKR)</span></div>
+                    <div class="record-row"><span class="record-key">totalSeats</span><span class="record-val">Maximum seat capacity</span></div>
+                    <div class="record-row"><span class="record-key">status</span><span class="record-val">Active / Upcoming / Completed</span></div>
+                </div>
+                <div class="btn-group">
+                    <button type="submit" class="btn btn-primary">⚡ Generate QR</button>
+                    <button type="button" class="btn btn-ghost" onclick="resetForm('entityForm')">↺ Reset</button>
+                </div>
+            </form>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:18px;">
+            <div class="qr-section">
+                <span class="qr-label">Generated QR Code</span>
+                <div class="qr-frame"><img id="qrImage" src="" alt="QR Code" style="display:none;" /></div>
+                <div id="qrPreview" class="qr-data-preview">— fill in form fields to generate QR —</div>
+                <div class="qr-actions">
+                    <button id="btnDownload" class="btn btn-primary btn-sm">⬇ Download</button>
+                    <button class="btn btn-ghost btn-sm" onclick="copyText(document.getElementById('qrPreview').textContent)">📋 Copy</button>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-header"><span class="card-title">QR Use Case</span><div class="card-icon">🔍</div></div>
+                <p style="font-size:13px;color:var(--text-sub);line-height:1.75;">Display the event QR on <strong style="color:var(--text)">posters and digital banners</strong>. Attendees scan to get event details, date, location, and register interest instantly.</p>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="../js/App.js"></script>
+<script>initEntityForm({ formId:'entityForm', qrFields:['f_eventId','f_title','f_location','f_date'], filenamePrefix:'event' });</script>
+</body>
+</html>
