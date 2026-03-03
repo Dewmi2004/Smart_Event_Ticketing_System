@@ -11,11 +11,9 @@
     <a href="User.html" class="topbar-brand"><div class="brand-icon">🎫</div><span class="brand-name">EventTix</span></a>
     <div class="topbar-nav">
         <a href="User.html" class="nav-link">👤 User</a>
-        <a href="Role.html" class="nav-link">🔐 Role</a>
         <a href="Event.html" class="nav-link">🎪 Event</a>
         <a href="Seat.html" class="nav-link">💺 Seat</a>
         <a href="Booking.html" class="nav-link">🎫 Booking</a>
-        <a href="BookingSeat.html" class="nav-link">🗂 Booking Seat</a>
         <a href="Payment.html" class="nav-link">💳 Payment</a>
         <a href="Refund.html" class="nav-link">↩ Refund</a>
         <a href="Coupon.html" class="nav-link">🎟 Coupon</a>
@@ -24,7 +22,7 @@
 </nav>
 <div class="page-wrapper">
     <header class="page-header">
-        <div class="entity-badge">✦ Entity 01 · QR Enabled</div>
+        <div class="entity-badge">✦ QR Enabled</div>
         <h1 class="page-title">USER<br><span>MANAGEMENT</span></h1>
         <p class="page-desc">Store and manage user accounts. Generate a personal QR code encoding User ID, name, and email for identity verification at events.</p>
     </header>
@@ -65,15 +63,15 @@
                     </div>
                 </div>
                 <div class="divider"></div>
-                <div class="section-heading">Field Reference</div>
-                <div class="record-list">
-                    <div class="record-row"><span class="record-key">userId</span><span class="record-val">Unique user identifier (PK)</span><span class="qr-tag">QR</span></div>
-                    <div class="record-row"><span class="record-key">name</span><span class="record-val">Full name of the user</span><span class="qr-tag">QR</span></div>
-                    <div class="record-row"><span class="record-key">email</span><span class="record-val">Email address (unique)</span><span class="qr-tag">QR</span></div>
-                    <div class="record-row"><span class="record-key">phone</span><span class="record-val">Contact phone number</span></div>
-                    <div class="record-row"><span class="record-key">role</span><span class="record-val">Assigned role (FK → Role)</span></div>
-                    <div class="record-row"><span class="record-key">createdAt</span><span class="record-val">Account creation timestamp</span></div>
-                </div>
+<!--                <div class="section-heading">Field Reference</div>-->
+<!--                <div class="record-list">-->
+<!--                    <div class="record-row"><span class="record-key">userId</span><span class="record-val">Unique user identifier (PK)</span><span class="qr-tag">QR</span></div>-->
+<!--                    <div class="record-row"><span class="record-key">name</span><span class="record-val">Full name of the user</span><span class="qr-tag">QR</span></div>-->
+<!--                    <div class="record-row"><span class="record-key">email</span><span class="record-val">Email address (unique)</span><span class="qr-tag">QR</span></div>-->
+<!--                    <div class="record-row"><span class="record-key">phone</span><span class="record-val">Contact phone number</span></div>-->
+<!--                    <div class="record-row"><span class="record-key">role</span><span class="record-val">Assigned role (FK → Role)</span></div>-->
+<!--                    <div class="record-row"><span class="record-key">createdAt</span><span class="record-val">Account creation timestamp</span></div>-->
+<!--                </div>-->
                 <div class="btn-group">
                     <button type="submit" class="btn btn-primary">⚡ Generate QR</button>
                     <button type="button" class="btn btn-ghost" onclick="resetForm('entityForm')">↺ Reset</button>

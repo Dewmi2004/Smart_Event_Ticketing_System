@@ -11,11 +11,9 @@
     <a href="User.html" class="topbar-brand"><div class="brand-icon">🎫</div><span class="brand-name">EventTix</span></a>
     <div class="topbar-nav">
         <a href="User.html" class="nav-link">👤 User</a>
-        <a href="Role.html" class="nav-link">🔐 Role</a>
         <a href="Event.html" class="nav-link">🎪 Event</a>
         <a href="Seat.html" class="nav-link">💺 Seat</a>
         <a href="Booking.html" class="nav-link">🎫 Booking</a>
-        <a href="BookingSeat.html" class="nav-link">🗂 Booking Seat</a>
         <a href="Payment.html" class="nav-link">💳 Payment</a>
         <a href="Refund.html" class="nav-link">↩ Refund</a>
         <a href="Coupon.html" class="nav-link">🎟 Coupon</a>
@@ -24,7 +22,7 @@
 </nav>
 <div class="page-wrapper">
     <header class="page-header">
-        <div class="entity-badge">✦ Entity 03 · QR Enabled</div>
+        <div class="entity-badge">✦ QR Enabled</div>
         <h1 class="page-title">EVENT<br><span>MANAGEMENT</span></h1>
         <p class="page-desc">Create and manage events with location, schedule, and pricing. Generate a QR code linking to event details for easy attendee check-in.</p>
     </header>
@@ -78,17 +76,17 @@
                     </div>
                 </div>
                 <div class="divider"></div>
-                <div class="section-heading">Field Reference</div>
-                <div class="record-list">
-                    <div class="record-row"><span class="record-key">eventId</span><span class="record-val">Unique event identifier (PK)</span><span class="qr-tag">QR</span></div>
-                    <div class="record-row"><span class="record-key">title</span><span class="record-val">Name / title of the event</span><span class="qr-tag">QR</span></div>
-                    <div class="record-row"><span class="record-key">location</span><span class="record-val">Venue address / city</span><span class="qr-tag">QR</span></div>
-                    <div class="record-row"><span class="record-key">date</span><span class="record-val">Event date</span><span class="qr-tag">QR</span></div>
-                    <div class="record-row"><span class="record-key">time</span><span class="record-val">Event start time</span></div>
-                    <div class="record-row"><span class="record-key">ticketPrice</span><span class="record-val">Price per ticket (LKR)</span></div>
-                    <div class="record-row"><span class="record-key">totalSeats</span><span class="record-val">Maximum seat capacity</span></div>
-                    <div class="record-row"><span class="record-key">status</span><span class="record-val">Active / Upcoming / Completed</span></div>
-                </div>
+<!--                <div class="section-heading">Field Reference</div>-->
+<!--                <div class="record-list">-->
+<!--                    <div class="record-row"><span class="record-key">eventId</span><span class="record-val">Unique event identifier (PK)</span><span class="qr-tag">QR</span></div>-->
+<!--                    <div class="record-row"><span class="record-key">title</span><span class="record-val">Name / title of the event</span><span class="qr-tag">QR</span></div>-->
+<!--                    <div class="record-row"><span class="record-key">location</span><span class="record-val">Venue address / city</span><span class="qr-tag">QR</span></div>-->
+<!--                    <div class="record-row"><span class="record-key">date</span><span class="record-val">Event date</span><span class="qr-tag">QR</span></div>-->
+<!--                    <div class="record-row"><span class="record-key">time</span><span class="record-val">Event start time</span></div>-->
+<!--                    <div class="record-row"><span class="record-key">ticketPrice</span><span class="record-val">Price per ticket (LKR)</span></div>-->
+<!--                    <div class="record-row"><span class="record-key">totalSeats</span><span class="record-val">Maximum seat capacity</span></div>-->
+<!--                    <div class="record-row"><span class="record-key">status</span><span class="record-val">Active / Upcoming / Completed</span></div>-->
+<!--                </div>-->
                 <div class="btn-group">
                     <button type="submit" class="btn btn-primary">⚡ Generate QR</button>
                     <button type="button" class="btn btn-ghost" onclick="resetForm('entityForm')">↺ Reset</button>

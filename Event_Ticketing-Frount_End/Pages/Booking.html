@@ -11,11 +11,9 @@
     <a href="User.html" class="topbar-brand"><div class="brand-icon">🎫</div><span class="brand-name">EventTix</span></a>
     <div class="topbar-nav">
         <a href="User.html" class="nav-link">👤 User</a>
-        <a href="Role.html" class="nav-link">🔐 Role</a>
         <a href="Event.html" class="nav-link">🎪 Event</a>
         <a href="Seat.html" class="nav-link">💺 Seat</a>
         <a href="Booking.html" class="nav-link">🎫 Booking</a>
-        <a href="BookingSeat.html" class="nav-link">🗂 Booking Seat</a>
         <a href="Payment.html" class="nav-link">💳 Payment</a>
         <a href="Refund.html" class="nav-link">↩ Refund</a>
         <a href="Coupon.html" class="nav-link">🎟 Coupon</a>
@@ -24,7 +22,7 @@
 </nav>
 <div class="page-wrapper">
     <header class="page-header">
-        <div class="entity-badge">✦ Entity 05 · QR Enabled</div>
+        <div class="entity-badge">✦ QR Enabled</div>
         <h1 class="page-title">BOOKING<br><span>MANAGEMENT</span></h1>
         <p class="page-desc">Core reservation record. The booking QR is the primary e-ticket — scan at the venue gate to validate entry, confirm payment, and identify the attendee.</p>
     </header>
@@ -72,18 +70,22 @@
                             <option value="Refunded">Refunded</option>
                         </select>
                     </div>
+                    <div class="form-group">
+                        <label for="f_seatId">Seat ID</label>
+                        <input type="text" id="f_seatId" placeholder="SEAT-A12" value="SEAT-A12" />
+                    </div>
                 </div>
                 <div class="divider"></div>
-                <div class="section-heading">Field Reference</div>
-                <div class="record-list">
-                    <div class="record-row"><span class="record-key">bookingId</span><span class="record-val">Unique booking reference (PK)</span><span class="qr-tag">QR</span></div>
-                    <div class="record-row"><span class="record-key">userId</span><span class="record-val">Booked by (FK → User)</span><span class="qr-tag">QR</span></div>
-                    <div class="record-row"><span class="record-key">eventId</span><span class="record-val">Target event (FK → Event)</span><span class="qr-tag">QR</span></div>
-                    <div class="record-row"><span class="record-key">bookingDate</span><span class="record-val">Date reservation was made</span></div>
-                    <div class="record-row"><span class="record-key">totalAmount</span><span class="record-val">Total amount charged (LKR)</span><span class="qr-tag">QR</span></div>
-                    <div class="record-row"><span class="record-key">couponCode</span><span class="record-val">Applied discount code</span></div>
-                    <div class="record-row"><span class="record-key">status</span><span class="record-val">Confirmed / Pending / Cancelled</span><span class="qr-tag">QR</span></div>
-                </div>
+<!--                <div class="section-heading">Field Reference</div>-->
+<!--                <div class="record-list">-->
+<!--                    <div class="record-row"><span class="record-key">bookingId</span><span class="record-val">Unique booking reference (PK)</span><span class="qr-tag">QR</span></div>-->
+<!--                    <div class="record-row"><span class="record-key">userId</span><span class="record-val">Booked by (FK → User)</span><span class="qr-tag">QR</span></div>-->
+<!--                    <div class="record-row"><span class="record-key">eventId</span><span class="record-val">Target event (FK → Event)</span><span class="qr-tag">QR</span></div>-->
+<!--                    <div class="record-row"><span class="record-key">bookingDate</span><span class="record-val">Date reservation was made</span></div>-->
+<!--                    <div class="record-row"><span class="record-key">totalAmount</span><span class="record-val">Total amount charged (LKR)</span><span class="qr-tag">QR</span></div>-->
+<!--                    <div class="record-row"><span class="record-key">couponCode</span><span class="record-val">Applied discount code</span></div>-->
+<!--                    <div class="record-row"><span class="record-key">status</span><span class="record-val">Confirmed / Pending / Cancelled</span><span class="qr-tag">QR</span></div>-->
+<!--                </div>-->
                 <div class="btn-group">
                     <button type="submit" class="btn btn-primary">⚡ Generate QR</button>
                     <button type="button" class="btn btn-ghost" onclick="resetForm('entityForm')">↺ Reset</button>

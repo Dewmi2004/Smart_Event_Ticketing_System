@@ -11,11 +11,9 @@
   <a href="User.html" class="topbar-brand"><div class="brand-icon">🎫</div><span class="brand-name">EventTix</span></a>
   <div class="topbar-nav">
     <a href="User.html" class="nav-link">👤 User</a>
-    <a href="Role.html" class="nav-link">🔐 Role</a>
     <a href="Event.html" class="nav-link">🎪 Event</a>
     <a href="Seat.html" class="nav-link">💺 Seat</a>
     <a href="Booking.html" class="nav-link">🎫 Booking</a>
-    <a href="BookingSeat.html" class="nav-link">🗂 Booking Seat</a>
     <a href="Payment.html" class="nav-link">💳 Payment</a>
     <a href="Refund.html" class="nav-link">↩ Refund</a>
     <a href="Coupon.html" class="nav-link">🎟 Coupon</a>
@@ -24,7 +22,7 @@
 </nav>
 <div class="page-wrapper">
   <header class="page-header">
-    <div class="entity-badge">✦ Entity 09 · No QR</div>
+    <div class="entity-badge">✦ QR Unabled</div>
     <h1 class="page-title">COUPON<br><span>MANAGEMENT</span></h1>
     <p class="page-desc">Create and manage promotional discount codes. Admins define discount type, value, expiry date, and usage limits for marketing campaigns.</p>
   </header>
@@ -73,16 +71,16 @@
           </div>
         </div>
         <div class="divider"></div>
-        <div class="section-heading">Field Reference</div>
-        <div class="record-list">
-          <div class="record-row"><span class="record-key">couponId</span><span class="record-val">Unique coupon identifier (PK)</span></div>
-          <div class="record-row"><span class="record-key">code</span><span class="record-val">Promo code string (unique)</span></div>
-          <div class="record-row"><span class="record-key">discountType</span><span class="record-val">Percentage or Fixed amount</span></div>
-          <div class="record-row"><span class="record-key">discountValue</span><span class="record-val">Discount value / percentage</span></div>
-          <div class="record-row"><span class="record-key">expiryDate</span><span class="record-val">Expiry date of the coupon</span></div>
-          <div class="record-row"><span class="record-key">usageLimit</span><span class="record-val">Max number of redemptions</span></div>
-          <div class="record-row"><span class="record-key">usedCount</span><span class="record-val">Times already redeemed</span></div>
-        </div>
+<!--        <div class="section-heading">Field Reference</div>-->
+<!--        <div class="record-list">-->
+<!--          <div class="record-row"><span class="record-key">couponId</span><span class="record-val">Unique coupon identifier (PK)</span></div>-->
+<!--          <div class="record-row"><span class="record-key">code</span><span class="record-val">Promo code string (unique)</span></div>-->
+<!--          <div class="record-row"><span class="record-key">discountType</span><span class="record-val">Percentage or Fixed amount</span></div>-->
+<!--          <div class="record-row"><span class="record-key">discountValue</span><span class="record-val">Discount value / percentage</span></div>-->
+<!--          <div class="record-row"><span class="record-key">expiryDate</span><span class="record-val">Expiry date of the coupon</span></div>-->
+<!--          <div class="record-row"><span class="record-key">usageLimit</span><span class="record-val">Max number of redemptions</span></div>-->
+<!--          <div class="record-row"><span class="record-key">usedCount</span><span class="record-val">Times already redeemed</span></div>-->
+<!--        </div>-->
         <div class="btn-group">
           <button type="submit" class="btn btn-primary">💾 Save Record</button>
           <button type="button" class="btn btn-ghost" onclick="resetForm('entityForm')">↺ Reset</button>
