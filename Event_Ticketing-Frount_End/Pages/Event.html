@@ -76,20 +76,15 @@
                     </div>
                 </div>
                 <div class="divider"></div>
-<!--                <div class="section-heading">Field Reference</div>-->
-<!--                <div class="record-list">-->
-<!--                    <div class="record-row"><span class="record-key">eventId</span><span class="record-val">Unique event identifier (PK)</span><span class="qr-tag">QR</span></div>-->
-<!--                    <div class="record-row"><span class="record-key">title</span><span class="record-val">Name / title of the event</span><span class="qr-tag">QR</span></div>-->
-<!--                    <div class="record-row"><span class="record-key">location</span><span class="record-val">Venue address / city</span><span class="qr-tag">QR</span></div>-->
-<!--                    <div class="record-row"><span class="record-key">date</span><span class="record-val">Event date</span><span class="qr-tag">QR</span></div>-->
-<!--                    <div class="record-row"><span class="record-key">time</span><span class="record-val">Event start time</span></div>-->
-<!--                    <div class="record-row"><span class="record-key">ticketPrice</span><span class="record-val">Price per ticket (LKR)</span></div>-->
-<!--                    <div class="record-row"><span class="record-key">totalSeats</span><span class="record-val">Maximum seat capacity</span></div>-->
-<!--                    <div class="record-row"><span class="record-key">status</span><span class="record-val">Active / Upcoming / Completed</span></div>-->
-<!--                </div>-->
                 <div class="btn-group">
                     <button type="submit" class="btn btn-primary">⚡ Generate QR</button>
                     <button type="button" class="btn btn-ghost" onclick="resetForm('entityForm')">↺ Reset</button>
+                </div>
+                <!-- ── NEW: Save / Update / Delete buttons ── -->
+                <div class="crud-btn-group">
+                    <button type="button" class="btn btn-save" onclick="saveEvent()">💾 Save Event</button>
+                    <button type="button" class="btn btn-update" id="btnUpdate" onclick="updateEvent()" disabled>✏️ Update Event</button>
+                    <button type="button" class="btn btn-delete btn-ghost" id="btnDelete" onclick="deleteEventFromForm()" disabled>🗑 Delete Event</button>
                 </div>
             </form>
         </div>
@@ -109,8 +104,208 @@
             </div>
         </div>
     </div>
-</div>
+
+    <!-- ═══════════════════════════════════════════════
+         NEW: Event Records Table
+         ═══════════════════════════════════════════════ -->
+    <div class="table-section">
+        <div class="section-heading">📋 All Event Records</div>
+        <div class="table-wrap">
+            <table id="eventsTable">
+                <thead>
+                <tr>
+                    <th>Event ID</th>
+                    <th>Title</th>
+                    <th>Location</th>
+                    <th>Date</th>
+                    <th>Time</th>
+                    <th>Price (LKR)</th>
+                    <th>Seats</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                </tr>
+                </thead>
+                <tbody id="eventsTableBody">
+                <!-- Populated by JS -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</div><!-- /page-wrapper -->
+
+<!-- Toast container -->
+<div id="evtToastWrap"></div>
+
 <script src="../js/App.js"></script>
 <script>initEntityForm({ formId:'entityForm', qrFields:['f_eventId','f_title','f_location','f_date'], filenamePrefix:'event' });</script>
+
+<!-- ── CRUD Table Logic ── -->
+<script>
+    /* ─────────────────────────────────────────────────────
+       In-memory store (mirrors what would be sent to the
+       Spring Boot API in a real integration)
+    ───────────────────────────────────────────────────── */
+    let eventsData = [
+        { id:1, eventId:'EVT-2025-001', title:'Tech Summit Colombo 2025',  location:'BMICH, Colombo',        date:'2025-06-20', time:'09:00', ticketPrice:2500,  totalSeats:500, status:'Active'    },
+        { id:2, eventId:'EVT-2025-002', title:'GDSE Musical Night 2025',    location:'Nelum Pokuna, Colombo', date:'2025-08-15', time:'19:00', ticketPrice:3500,  totalSeats:600, status:'Upcoming'  },
+        { id:3, eventId:'EVT-2025-003', title:'SL Cricket Premier Final',   location:'SSC Ground, Colombo',  date:'2025-07-22', time:'14:00', ticketPrice:1000,  totalSeats:2000, status:'Active'   },
+        { id:4, eventId:'EVT-2024-010', title:'Comedy Night — Season 3',    location:'Galadari Hotel',       date:'2024-12-10', time:'20:00', ticketPrice:1800,  totalSeats:400, status:'Completed' },
+    ];
+    let nextId      = 5;
+    let editingId   = null;   // tracks which record is being edited
+
+    /* ─── Helpers ─── */
+    function getFormValues() {
+        return {
+            eventId:     document.getElementById('f_eventId').value.trim(),
+            title:       document.getElementById('f_title').value.trim(),
+            location:    document.getElementById('f_location').value.trim(),
+            date:        document.getElementById('f_date').value,
+            time:        document.getElementById('f_time').value,
+            ticketPrice: parseFloat(document.getElementById('f_ticketPrice').value) || 0,
+            totalSeats:  parseInt(document.getElementById('f_totalSeats').value) || 0,
+            status:      document.getElementById('f_status').value,
+        };
+    }
+
+    function populateForm(rec) {
+        document.getElementById('f_eventId').value     = rec.eventId;
+        document.getElementById('f_title').value       = rec.title;
+        document.getElementById('f_location').value    = rec.location;
+        document.getElementById('f_date').value        = rec.date;
+        document.getElementById('f_time').value        = rec.time;
+        document.getElementById('f_ticketPrice').value = rec.ticketPrice;
+        document.getElementById('f_totalSeats').value  = rec.totalSeats;
+        document.getElementById('f_status').value      = rec.status;
+    }
+
+    function setEditingMode(on, id) {
+        editingId = on ? id : null;
+        document.getElementById('btnUpdate').disabled = !on;
+        document.getElementById('btnDelete').disabled = !on;
+        // Highlight / unhighlight editing row
+        document.querySelectorAll('#eventsTableBody tr').forEach(tr => tr.classList.remove('tbl-row-editing'));
+        if (on) {
+            const tr = document.querySelector(`#eventsTableBody tr[data-id="${id}"]`);
+            if (tr) tr.classList.add('tbl-row-editing');
+        }
+    }
+
+    function statusClass(s) {
+        const map = { Active:'badge-active', Upcoming:'badge-upcoming', Completed:'badge-completed', Cancelled:'badge-cancelled' };
+        return map[s] || 'badge-completed';
+    }
+
+    function formatDate(d) {
+        if (!d) return '—';
+        const parts = d.split('-');
+        if (parts.length < 3) return d;
+        return `${parts[2]}/${parts[1]}/${parts[0]}`;
+    }
+
+    /* ─── Render table ─── */
+    function renderTable() {
+        const tbody = document.getElementById('eventsTableBody');
+        if (eventsData.length === 0) {
+            tbody.innerHTML = `<tr><td colspan="9"><div class="tbl-empty">No events saved yet. Fill the form and click <strong>💾 Save Event</strong>.</div></td></tr>`;
+            return;
+        }
+        tbody.innerHTML = eventsData.map(rec => `
+        <tr data-id="${rec.id}" class="${editingId === rec.id ? 'tbl-row-editing' : ''}">
+            <td class="muted">${rec.eventId}</td>
+            <td><strong>${rec.title}</strong></td>
+            <td class="muted">${rec.location}</td>
+            <td class="muted">${formatDate(rec.date)}</td>
+            <td class="muted">${rec.time}</td>
+            <td>LKR ${Number(rec.ticketPrice).toLocaleString()}</td>
+            <td class="muted">${Number(rec.totalSeats).toLocaleString()}</td>
+            <td><span class="status-badge ${statusClass(rec.status)}">${rec.status}</span></td>
+            <td>
+                <div class="tbl-actions">
+                    <button class="tbl-btn tbl-btn-edit" onclick="editRow(${rec.id})">✏️ Edit</button>
+                    <button class="tbl-btn tbl-btn-delete" onclick="deleteRow(${rec.id})">🗑 Delete</button>
+                </div>
+            </td>
+        </tr>
+    `).join('');
+    }
+
+    /* ─── Save ─── */
+    function saveEvent() {
+        const vals = getFormValues();
+        if (!vals.eventId || !vals.title) {
+            evtToast('Event ID and Title are required.', 'warning'); return;
+        }
+        if (eventsData.find(r => r.eventId === vals.eventId)) {
+            evtToast(`Event ID "${vals.eventId}" already exists. Use Update instead.`, 'warning'); return;
+        }
+        eventsData.push({ id: nextId++, ...vals });
+        renderTable();
+        evtToast(`✅ Event "${vals.title}" saved successfully!`, 'success');
+    }
+
+    /* ─── Edit (load row into form) ─── */
+    function editRow(id) {
+        const rec = eventsData.find(r => r.id === id);
+        if (!rec) return;
+        populateForm(rec);
+        setEditingMode(true, id);
+        evtToast(`✏️ Editing: ${rec.title}`, 'warning');
+        document.querySelector('.card').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    /* ─── Update ─── */
+    function updateEvent() {
+        if (!editingId) return;
+        const vals  = getFormValues();
+        const idx   = eventsData.findIndex(r => r.id === editingId);
+        if (idx === -1) return;
+        // Check duplicate eventId (excluding self)
+        const dup = eventsData.find(r => r.eventId === vals.eventId && r.id !== editingId);
+        if (dup) { evtToast(`Event ID "${vals.eventId}" is already used by another record.`, 'warning'); return; }
+        eventsData[idx] = { ...eventsData[idx], ...vals };
+        setEditingMode(false, null);
+        renderTable();
+        evtToast(`✏️ Event "${vals.title}" updated successfully!`, 'success');
+    }
+
+    /* ─── Delete from form (when editing) ─── */
+    function deleteEventFromForm() {
+        if (!editingId) return;
+        const rec = eventsData.find(r => r.id === editingId);
+        if (!rec) return;
+        if (!confirm(`Delete event "${rec.title}"? This cannot be undone.`)) return;
+        eventsData = eventsData.filter(r => r.id !== editingId);
+        setEditingMode(false, null);
+        renderTable();
+        evtToast(`🗑 Event "${rec.title}" deleted.`, 'error');
+    }
+
+    /* ─── Delete from table row ─── */
+    function deleteRow(id) {
+        const rec = eventsData.find(r => r.id === id);
+        if (!rec) return;
+        if (!confirm(`Delete event "${rec.title}"? This cannot be undone.`)) return;
+        eventsData = eventsData.filter(r => r.id !== id);
+        if (editingId === id) setEditingMode(false, null);
+        renderTable();
+        evtToast(`🗑 Event "${rec.title}" deleted.`, 'error');
+    }
+
+    /* ─── Toast ─── */
+    function evtToast(msg, type = 'success') {
+        const icons = { success:'✅', warning:'⚠️', error:'❌' };
+        const wrap  = document.getElementById('evtToastWrap');
+        const el    = document.createElement('div');
+        el.className = `evt-toast ${type}`;
+        el.innerHTML = `<span>${icons[type] || 'ℹ️'}</span><span>${msg}</span>`;
+        wrap.appendChild(el);
+        setTimeout(() => { el.style.transition='opacity .3s'; el.style.opacity='0'; setTimeout(()=>el.remove(),300); }, 3200);
+    }
+
+    /* ─── Init ─── */
+    document.addEventListener('DOMContentLoaded', renderTable);
+</script>
 </body>
 </html>
