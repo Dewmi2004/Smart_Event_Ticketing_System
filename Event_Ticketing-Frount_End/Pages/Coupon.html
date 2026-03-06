@@ -4,6 +4,132 @@
   <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Coupon — Smart Event Ticketing</title>
   <link rel="stylesheet" href="../css/Style.css" />
+  <style>
+    /* ── Coupon table & CRUD — scoped styles only ── */
+    .crud-btn-group {
+      display: flex; gap: 10px; flex-wrap: wrap;
+      padding-top: 14px;
+      border-top: 1px solid var(--border, rgba(255,255,255,0.07));
+    }
+    .btn-update {
+      background: linear-gradient(135deg, #f59e0b, #d97706);
+      color: #000;
+      box-shadow: 0 4px 14px rgba(245,158,11,0.22);
+    }
+    .btn-update:hover { transform: translateY(-1px); box-shadow: 0 6px 20px rgba(245,158,11,0.32); }
+    .btn-delete-crud {
+      background: rgba(239,68,68,0.1);
+      border: 1px solid rgba(239,68,68,0.28);
+      color: #ef4444;
+    }
+    .btn-delete-crud:hover { background: rgba(239,68,68,0.2); }
+
+    /* Table section */
+    .table-section { margin-top: 36px; }
+    .table-section .section-heading {
+      font-size: 0.72rem; font-weight: 700;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--text-sub, #7a8899); margin-bottom: 14px;
+    }
+    .table-wrap {
+      overflow-x: auto;
+      border-radius: 14px;
+      border: 1px solid var(--border, rgba(255,255,255,0.07));
+    }
+    .table-wrap table { width: 100%; border-collapse: collapse; font-size: 0.83rem; }
+    .table-wrap thead th {
+      background: rgba(255,255,255,0.035);
+      padding: 12px 16px; text-align: left;
+      font-size: 0.68rem; font-weight: 700;
+      letter-spacing: 0.09em; text-transform: uppercase;
+      color: var(--text-sub, #7a8899);
+      border-bottom: 1px solid var(--border, rgba(255,255,255,0.07));
+      white-space: nowrap;
+    }
+    .table-wrap tbody tr {
+      border-bottom: 1px solid var(--border, rgba(255,255,255,0.07));
+      transition: background 0.18s;
+    }
+    .table-wrap tbody tr:last-child { border-bottom: none; }
+    .table-wrap tbody tr:hover { background: rgba(255,255,255,0.025); }
+    .table-wrap tbody td {
+      padding: 11px 16px; vertical-align: middle;
+      color: var(--text, #e8edf5);
+    }
+    .table-wrap tbody td.muted { color: var(--text-sub, #7a8899); font-size: 0.78rem; }
+
+    /* Status badges */
+    .cpn-badge {
+      display: inline-flex; align-items: center; gap: 5px;
+      padding: 3px 10px; border-radius: 20px;
+      font-size: 0.7rem; font-weight: 700;
+    }
+    .cpn-badge::before { content:''; width:6px; height:6px; border-radius:50%; background:currentColor; }
+    .badge-active   { background: rgba(16,185,129,0.12); color: #10b981; }
+    .badge-expired  { background: rgba(239,68,68,0.12);  color: #ef4444; }
+    .badge-maxed    { background: rgba(122,136,153,0.15); color: #7a8899; }
+
+    /* Discount type chip */
+    .type-chip {
+      display: inline-block; padding: 2px 9px;
+      border-radius: 6px; font-size: 0.72rem; font-weight: 700;
+    }
+    .type-pct   { background: rgba(124,58,237,0.12); color: #a78bfa; }
+    .type-fixed { background: rgba(0,229,255,0.10);  color: #00e5ff; }
+
+    /* Progress bar for usage */
+    .usage-bar-wrap { display: flex; align-items: center; gap: 8px; }
+    .usage-bar { flex: 1; height: 5px; background: rgba(255,255,255,0.08); border-radius: 3px; min-width: 60px; }
+    .usage-fill { height: 100%; border-radius: 3px; background: linear-gradient(90deg,#7c3aed,#00e5ff); }
+    .usage-txt  { font-size: 0.72rem; color: var(--text-sub,#7a8899); white-space: nowrap; }
+
+    /* Row action buttons */
+    .tbl-actions { display: flex; gap: 6px; }
+    .tbl-btn {
+      display: inline-flex; align-items: center; gap: 5px;
+      padding: 5px 11px; border-radius: 7px;
+      font-size: 0.74rem; font-weight: 600;
+      cursor: pointer; border: none; font-family: inherit;
+      transition: all 0.18s; white-space: nowrap;
+    }
+    .tbl-btn-edit {
+      background: rgba(0,229,255,0.08); border: 1px solid rgba(0,229,255,0.2); color: #00e5ff;
+    }
+    .tbl-btn-edit:hover { background: rgba(0,229,255,0.18); border-color: rgba(0,229,255,0.45); }
+    .tbl-btn-del {
+      background: rgba(239,68,68,0.08); border: 1px solid rgba(239,68,68,0.2); color: #ef4444;
+    }
+    .tbl-btn-del:hover { background: rgba(239,68,68,0.18); border-color: rgba(239,68,68,0.4); }
+
+    /* Editing row highlight */
+    .tbl-row-editing { background: rgba(245,158,11,0.06) !important; }
+
+    /* Empty state */
+    .tbl-empty { text-align:center; padding:36px 16px; color:var(--text-sub,#7a8899); font-size:0.85rem; }
+
+    /* Toast */
+    #cpnToastWrap {
+      position: fixed; bottom: 24px; right: 24px; z-index: 9999;
+      display: flex; flex-direction: column; gap: 8px;
+    }
+    .cpn-toast {
+      background: var(--card-bg, #0d1420);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 10px; padding: 12px 16px;
+      display: flex; align-items: center; gap: 10px;
+      font-size: 0.82rem; min-width: 230px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.5);
+      animation: cpnToastIn 0.25s ease;
+      color: var(--text, #e8edf5);
+    }
+    .cpn-toast.success { border-color: rgba(16,185,129,0.4); }
+    .cpn-toast.warning { border-color: rgba(245,158,11,0.4); }
+    .cpn-toast.error   { border-color: rgba(239,68,68,0.4); }
+    @keyframes cpnToastIn {
+      from { transform: translateX(24px); opacity: 0; }
+      to   { transform: translateX(0);    opacity: 1; }
+    }
+  </style>
 </head>
 <body class="page-coupon">
 <div class="bg-blob"></div><div class="bg-blob-2"></div>
@@ -71,29 +197,240 @@
           </div>
         </div>
         <div class="divider"></div>
-<!--        <div class="section-heading">Field Reference</div>-->
-<!--        <div class="record-list">-->
-<!--          <div class="record-row"><span class="record-key">couponId</span><span class="record-val">Unique coupon identifier (PK)</span></div>-->
-<!--          <div class="record-row"><span class="record-key">code</span><span class="record-val">Promo code string (unique)</span></div>-->
-<!--          <div class="record-row"><span class="record-key">discountType</span><span class="record-val">Percentage or Fixed amount</span></div>-->
-<!--          <div class="record-row"><span class="record-key">discountValue</span><span class="record-val">Discount value / percentage</span></div>-->
-<!--          <div class="record-row"><span class="record-key">expiryDate</span><span class="record-val">Expiry date of the coupon</span></div>-->
-<!--          <div class="record-row"><span class="record-key">usageLimit</span><span class="record-val">Max number of redemptions</span></div>-->
-<!--          <div class="record-row"><span class="record-key">usedCount</span><span class="record-val">Times already redeemed</span></div>-->
-<!--        </div>-->
         <div class="btn-group">
           <button type="submit" class="btn btn-primary">💾 Save Record</button>
           <button type="button" class="btn btn-ghost" onclick="resetForm('entityForm')">↺ Reset</button>
         </div>
+
+        <!-- ── NEW: Update / Delete buttons ── -->
+        <div class="crud-btn-group">
+          <button type="button" class="btn btn-update" id="btnUpdate" onclick="updateCoupon()" disabled>✏️ Update Coupon</button>
+          <button type="button" class="btn btn-delete-crud btn-ghost" id="btnDelete" onclick="deleteCouponFromForm()" disabled>🗑 Delete Coupon</button>
+        </div>
+
       </form>
     </div>
   </div>
-</div>
+
+  <!-- ══════════════════════════════════════════
+       NEW: Coupon Records Table
+  ══════════════════════════════════════════ -->
+  <div class="table-section">
+    <div class="section-heading">📋 All Coupon Records</div>
+    <div class="table-wrap">
+      <table id="couponsTable">
+        <thead>
+        <tr>
+          <th>Coupon ID</th>
+          <th>Code</th>
+          <th>Type</th>
+          <th>Value</th>
+          <th>Expiry Date</th>
+          <th>Usage</th>
+          <th>Status</th>
+          <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody id="couponsTableBody">
+        <!-- Populated by JS -->
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+</div><!-- /page-wrapper -->
+
+<!-- Toast container -->
+<div id="cpnToastWrap"></div>
+
 <script src="../js/App.js"></script>
 <script>
+  /* ── original submit handler — unchanged ── */
   document.getElementById('entityForm').addEventListener('submit', function(e){
-    e.preventDefault(); showToast('Coupon record saved!', 'success');
+    e.preventDefault();
+    saveCoupon();
   });
+</script>
+
+<!-- ── CRUD Table Logic ── -->
+<script>
+  /* ── In-memory store ── */
+  let couponsData = [
+    { id:1, couponId:'CPN-001', code:'SAVE10',    discountType:'Percentage', discountValue:10,   expiryDate:'2025-12-31', usageLimit:100, usedCount:23  },
+    { id:2, couponId:'CPN-002', code:'GDSE2024',  discountType:'Percentage', discountValue:20,   expiryDate:'2024-12-31', usageLimit:100, usedCount:100 },
+    { id:3, couponId:'CPN-003', code:'FLAT500',   discountType:'Fixed',      discountValue:500,  expiryDate:'2025-08-15', usageLimit:50,  usedCount:12  },
+    { id:4, couponId:'CPN-004', code:'EARLYBIRD', discountType:'Percentage', discountValue:15,   expiryDate:'2025-06-01', usageLimit:200, usedCount:198 },
+  ];
+  let nextId    = 5;
+  let editingId = null;
+
+  /* ── Helpers ── */
+  function getFormValues() {
+    return {
+      couponId:      document.getElementById('f_couponId').value.trim(),
+      code:          document.getElementById('f_code').value.trim().toUpperCase(),
+      discountType:  document.getElementById('f_discountType').value,
+      discountValue: parseFloat(document.getElementById('f_discountValue').value) || 0,
+      expiryDate:    document.getElementById('f_expiryDate').value,
+      usageLimit:    parseInt(document.getElementById('f_usageLimit').value) || 0,
+      usedCount:     parseInt(document.getElementById('f_usedCount').value) || 0,
+    };
+  }
+
+  function populateForm(rec) {
+    document.getElementById('f_couponId').value      = rec.couponId;
+    document.getElementById('f_code').value          = rec.code;
+    document.getElementById('f_discountType').value  = rec.discountType;
+    document.getElementById('f_discountValue').value = rec.discountValue;
+    document.getElementById('f_expiryDate').value    = rec.expiryDate;
+    document.getElementById('f_usageLimit').value    = rec.usageLimit;
+    document.getElementById('f_usedCount').value     = rec.usedCount;
+  }
+
+  function setEditingMode(on, id) {
+    editingId = on ? id : null;
+    document.getElementById('btnUpdate').disabled = !on;
+    document.getElementById('btnDelete').disabled = !on;
+    document.querySelectorAll('#couponsTableBody tr').forEach(tr => tr.classList.remove('tbl-row-editing'));
+    if (on) {
+      const tr = document.querySelector(`#couponsTableBody tr[data-id="${id}"]`);
+      if (tr) tr.classList.add('tbl-row-editing');
+    }
+  }
+
+  function getCouponStatus(rec) {
+    const today = new Date(); today.setHours(0,0,0,0);
+    const expiry = new Date(rec.expiryDate);
+    if (expiry < today)                    return { label:'Expired',  cls:'badge-expired' };
+    if (rec.usedCount >= rec.usageLimit)   return { label:'Maxed Out', cls:'badge-maxed'  };
+    return                                        { label:'Active',   cls:'badge-active'  };
+  }
+
+  function formatDate(d) {
+    if (!d) return '—';
+    const p = d.split('-');
+    return p.length < 3 ? d : `${p[2]}/${p[1]}/${p[0]}`;
+  }
+
+  function usagePct(rec) {
+    if (!rec.usageLimit) return 0;
+    return Math.min(100, Math.round((rec.usedCount / rec.usageLimit) * 100));
+  }
+
+  /* ── Render table ── */
+  function renderTable() {
+    const tbody = document.getElementById('couponsTableBody');
+    if (couponsData.length === 0) {
+      tbody.innerHTML = `<tr><td colspan="8"><div class="tbl-empty">No coupons saved yet. Fill the form and click <strong>💾 Save Record</strong>.</div></td></tr>`;
+      return;
+    }
+    tbody.innerHTML = couponsData.map(rec => {
+      const st  = getCouponStatus(rec);
+      const pct = usagePct(rec);
+      const typeClass = rec.discountType === 'Percentage' ? 'type-pct' : 'type-fixed';
+      const typeLabel = rec.discountType === 'Percentage' ? '%' : 'LKR';
+      return `
+        <tr data-id="${rec.id}" class="${editingId === rec.id ? 'tbl-row-editing' : ''}">
+          <td class="muted">${rec.couponId}</td>
+          <td><strong>${rec.code}</strong></td>
+          <td><span class="type-chip ${typeClass}">${rec.discountType}</span></td>
+          <td><strong>${rec.discountValue} ${typeLabel}</strong></td>
+          <td class="muted">${formatDate(rec.expiryDate)}</td>
+          <td>
+            <div class="usage-bar-wrap">
+              <div class="usage-bar"><div class="usage-fill" style="width:${pct}%"></div></div>
+              <span class="usage-txt">${rec.usedCount} / ${rec.usageLimit}</span>
+            </div>
+          </td>
+          <td><span class="cpn-badge ${st.cls}">${st.label}</span></td>
+          <td>
+            <div class="tbl-actions">
+              <button class="tbl-btn tbl-btn-edit" onclick="editRow(${rec.id})">✏️ Edit</button>
+              <button class="tbl-btn tbl-btn-del"  onclick="deleteRow(${rec.id})">🗑 Delete</button>
+            </div>
+          </td>
+        </tr>`;
+    }).join('');
+  }
+
+  /* ── Save ── */
+  function saveCoupon() {
+    const vals = getFormValues();
+    if (!vals.couponId || !vals.code) {
+      cpnToast('Coupon ID and Code are required.', 'warning'); return;
+    }
+    if (couponsData.find(r => r.couponId === vals.couponId)) {
+      cpnToast(`Coupon ID "${vals.couponId}" already exists. Use Update instead.`, 'warning'); return;
+    }
+    if (couponsData.find(r => r.code === vals.code)) {
+      cpnToast(`Coupon code "${vals.code}" already exists.`, 'warning'); return;
+    }
+    couponsData.push({ id: nextId++, ...vals });
+    renderTable();
+    cpnToast(`✅ Coupon "${vals.code}" saved!`, 'success');
+    showToast('Coupon record saved!', 'success');
+  }
+
+  /* ── Edit ── */
+  function editRow(id) {
+    const rec = couponsData.find(r => r.id === id);
+    if (!rec) return;
+    populateForm(rec);
+    setEditingMode(true, id);
+    cpnToast(`✏️ Editing: ${rec.code}`, 'warning');
+    document.querySelector('.card').scrollIntoView({ behavior:'smooth', block:'start' });
+  }
+
+  /* ── Update ── */
+  function updateCoupon() {
+    if (!editingId) return;
+    const vals = getFormValues();
+    const idx  = couponsData.findIndex(r => r.id === editingId);
+    if (idx === -1) return;
+    const dup = couponsData.find(r => r.code === vals.code && r.id !== editingId);
+    if (dup) { cpnToast(`Code "${vals.code}" is already used by another coupon.`, 'warning'); return; }
+    couponsData[idx] = { ...couponsData[idx], ...vals };
+    setEditingMode(false, null);
+    renderTable();
+    cpnToast(`✏️ Coupon "${vals.code}" updated!`, 'success');
+  }
+
+  /* ── Delete from form ── */
+  function deleteCouponFromForm() {
+    if (!editingId) return;
+    const rec = couponsData.find(r => r.id === editingId);
+    if (!rec) return;
+    if (!confirm(`Delete coupon "${rec.code}"? This cannot be undone.`)) return;
+    couponsData = couponsData.filter(r => r.id !== editingId);
+    setEditingMode(false, null);
+    renderTable();
+    cpnToast(`🗑 Coupon "${rec.code}" deleted.`, 'error');
+  }
+
+  /* ── Delete from table row ── */
+  function deleteRow(id) {
+    const rec = couponsData.find(r => r.id === id);
+    if (!rec) return;
+    if (!confirm(`Delete coupon "${rec.code}"? This cannot be undone.`)) return;
+    couponsData = couponsData.filter(r => r.id !== id);
+    if (editingId === id) setEditingMode(false, null);
+    renderTable();
+    cpnToast(`🗑 Coupon "${rec.code}" deleted.`, 'error');
+  }
+
+  /* ── Toast ── */
+  function cpnToast(msg, type = 'success') {
+    const icons = { success:'✅', warning:'⚠️', error:'❌' };
+    const wrap  = document.getElementById('cpnToastWrap');
+    const el    = document.createElement('div');
+    el.className = `cpn-toast ${type}`;
+    el.innerHTML = `<span>${icons[type]||'ℹ️'}</span><span>${msg}</span>`;
+    wrap.appendChild(el);
+    setTimeout(() => { el.style.transition='opacity .3s'; el.style.opacity='0'; setTimeout(()=>el.remove(),300); }, 3200);
+  }
+
+  /* ── Init ── */
+  document.addEventListener('DOMContentLoaded', renderTable);
 </script>
 </body>
 </html>
