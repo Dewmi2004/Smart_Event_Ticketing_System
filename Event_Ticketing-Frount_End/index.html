@@ -1,10 +1,673 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>EventHub — Discover Extraordinary Events</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        :root {
+            --purple: #7C3AED;
+            --grad: linear-gradient(90deg, #7C3AED 0%, #C026D3 60%, #EC4899 100%);
+            --white: #ffffff;
+            --off-white: #F8F8FC;
+            --text-dark: #111827;
+            --text-mid: #374151;
+            --text-muted: #6B7280;
+            --border: rgba(0,0,0,0.09);
+            --nav-h: 68px;
+            --font: 'Manrope', sans-serif;
+        }
+        html { scroll-behavior: smooth; }
+        body { font-family: var(--font); background: var(--off-white); color: var(--text-dark); overflow-x: hidden; }
+
+        /* NAV */
+        .site-nav {
+            position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+            height: var(--nav-h);
+            background: rgba(255,255,255,0.96);
+            backdrop-filter: blur(16px);
+            border-bottom: 1px solid var(--border);
+            display: flex; align-items: center;
+        }
+        .nav-inner {
+            width: 100%; max-width: 1280px; margin: 0 auto; padding: 0 28px;
+            display: flex; align-items: center; gap: 12px;
+        }
+        .nav-brand { display: flex; align-items: center; gap: 10px; text-decoration: none; flex-shrink: 0; }
+        .nav-logo {
+            width: 38px; height: 38px; border-radius: 10px;
+            background: var(--grad);
+            display: flex; align-items: center; justify-content: center;
+            color: #fff; font-size: 1.1rem;
+        }
+        .nav-brand-name { font-size: 1.15rem; font-weight: 800; color: var(--text-dark); }
+        .nav-links { display: flex; align-items: center; gap: 4px; margin: 0 auto; }
+        .nav-pill {
+            padding: 8px 20px; border-radius: 999px;
+            font-size: 0.9rem; font-weight: 500; color: var(--text-mid);
+            text-decoration: none; transition: all 0.2s;
+            border: none; background: transparent; cursor: pointer; font-family: var(--font);
+        }
+        .nav-pill:hover { color: var(--purple); background: rgba(124,58,237,0.06); }
+        .nav-pill.active { background: #F3F0FF; color: var(--purple); font-weight: 600; }
+        .nav-right { display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
+        .btn-signin {
+            display: flex; align-items: center; gap: 8px;
+            padding: 9px 20px; border-radius: 999px;
+            border: 1.5px solid var(--border); background: transparent;
+            color: var(--text-dark); font-family: var(--font);
+            font-size: 0.88rem; font-weight: 600;
+            cursor: pointer; text-decoration: none; transition: all 0.2s;
+        }
+        .btn-signin:hover { border-color: var(--purple); color: var(--purple); }
+        .nav-toggle { display: none; background: none; border: none; font-size: 1.3rem; color: var(--text-dark); cursor: pointer; }
+        .mobile-menu {
+            display: none; position: fixed;
+            top: var(--nav-h); left: 0; right: 0;
+            background: rgba(255,255,255,0.98); backdrop-filter: blur(16px);
+            border-bottom: 1px solid var(--border);
+            padding: 16px 28px 24px; z-index: 999;
+            flex-direction: column; gap: 6px;
+        }
+        .mobile-menu.open { display: flex; }
+        .mobile-menu .nav-pill { padding: 12px 16px; border-radius: 10px; }
+
+        /* HERO */
+        .hero {
+            min-height: 100vh; position: relative;
+            display: flex; align-items: flex-end; padding-bottom: 100px; overflow: hidden;
+        }
+        .hero-bg {
+            position: absolute; inset: 0;
+            background: url('https://images.unsplash.com/photo-1540039155733-5bb30b53aa14?w=1800&q=85') center/cover no-repeat;
+            z-index: 0;
+        }
+        .hero-bg::after {
+            content: ''; position: absolute; inset: 0;
+            background: linear-gradient(160deg, rgba(10,5,30,0.85) 0%, rgba(20,10,50,0.72) 40%, rgba(10,5,20,0.80) 100%);
+        }
+        .hero-content {
+            position: relative; z-index: 2;
+            width: 100%; max-width: 1280px; margin: 0 auto; padding: 0 28px;
+            padding-top: calc(var(--nav-h) + 40px);
+        }
+        .hero-badge {
+            display: inline-flex; align-items: center; gap: 8px;
+            background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.18);
+            backdrop-filter: blur(8px); color: #fff;
+            font-size: 0.78rem; font-weight: 600; letter-spacing: 1px; text-transform: uppercase;
+            padding: 7px 16px; border-radius: 999px; margin-bottom: 28px;
+            animation: fadeUp 0.7s ease both;
+        }
+        .badge-dot {
+            width: 7px; height: 7px; border-radius: 50%; background: #A78BFA;
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.4;transform:scale(1.6)} }
+        @keyframes fadeUp { from{opacity:0;transform:translateY(30px)} to{opacity:1;transform:translateY(0)} }
+
+        .hero-title {
+            font-size: clamp(3.2rem, 7.5vw, 6.5rem);
+            font-weight: 900; line-height: 1.02; letter-spacing: -2px; color: #fff;
+            margin-bottom: 24px; animation: fadeUp 0.7s 0.1s ease both;
+        }
+        .grad-text {
+            background: var(--grad);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+        }
+        .hero-sub {
+            font-size: 1.1rem; color: rgba(255,255,255,0.75);
+            max-width: 560px; line-height: 1.7; margin-bottom: 40px;
+            animation: fadeUp 0.7s 0.2s ease both;
+        }
+        .hero-btns { display: flex; flex-wrap: wrap; gap: 14px; animation: fadeUp 0.7s 0.3s ease both; }
+        .btn-hero-primary {
+            display: inline-flex; align-items: center; gap: 10px;
+            padding: 16px 32px; background: var(--grad); color: #fff;
+            font-family: var(--font); font-size: 1rem; font-weight: 700;
+            border-radius: 14px; border: none; cursor: pointer; text-decoration: none;
+            transition: all 0.25s; box-shadow: 0 8px 30px rgba(124,58,237,0.5);
+        }
+        .btn-hero-primary:hover { transform: translateY(-2px); box-shadow: 0 12px 40px rgba(124,58,237,0.65); color: #fff; }
+        .btn-hero-secondary {
+            display: inline-flex; align-items: center; gap: 10px;
+            padding: 16px 32px; background: rgba(255,255,255,0.12); color: #fff;
+            font-family: var(--font); font-size: 1rem; font-weight: 600;
+            border-radius: 14px; border: 1.5px solid rgba(255,255,255,0.3);
+            cursor: pointer; text-decoration: none; transition: all 0.25s; backdrop-filter: blur(8px);
+        }
+        .btn-hero-secondary:hover { background: rgba(255,255,255,0.22); color: #fff; transform: translateY(-2px); }
+        .scroll-hint {
+            position: absolute; bottom: 32px; left: 50%; transform: translateX(-50%); z-index: 2;
+            display: flex; flex-direction: column; align-items: center; gap: 8px;
+            color: rgba(255,255,255,0.4); font-size: 0.7rem; letter-spacing: 2px; text-transform: uppercase;
+            animation: fadeUp 1s 0.6s ease both;
+        }
+        .scroll-mouse {
+            width: 24px; height: 38px; border: 2px solid rgba(255,255,255,0.25); border-radius: 999px; position: relative;
+        }
+        .scroll-mouse::after {
+            content: ''; position: absolute; top: 6px; left: 50%; transform: translateX(-50%);
+            width: 3px; height: 7px; background: rgba(255,255,255,0.5); border-radius: 999px;
+            animation: scrollBob 2s ease-in-out infinite;
+        }
+        @keyframes scrollBob { 0%,100%{top:6px;opacity:1} 80%{top:18px;opacity:0} }
+
+        /* STATS */
+        .stats-bar { background: #fff; border-bottom: 1px solid var(--border); padding: 28px 0; }
+        .stats-inner { max-width: 1280px; margin: 0 auto; padding: 0 28px; display: flex; justify-content: space-around; flex-wrap: wrap; gap: 20px; }
+        .stat-item { text-align: center; }
+        .stat-num { font-size: 2rem; font-weight: 900; background: var(--grad); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; line-height: 1; margin-bottom: 4px; }
+        .stat-label { font-size: 0.82rem; color: var(--text-muted); font-weight: 500; }
+
+        /* SEARCH */
+        .search-section { background: var(--off-white); padding: 48px 0 0; }
+        .search-wrap { max-width: 780px; margin: 0 auto; padding: 0 28px; }
+        .search-box {
+            display: flex; background: #fff; border: 1.5px solid var(--border); border-radius: 16px;
+            overflow: hidden; box-shadow: 0 4px 30px rgba(0,0,0,0.07); transition: all 0.2s;
+        }
+        .search-box:focus-within { border-color: var(--purple); box-shadow: 0 4px 30px rgba(124,58,237,0.15); }
+        .search-input { flex: 1; padding: 18px 22px; border: none; outline: none; font-family: var(--font); font-size: 0.95rem; color: var(--text-dark); background: transparent; }
+        .search-input::placeholder { color: var(--text-muted); }
+        .search-divider { width: 1px; background: var(--border); margin: 14px 0; }
+        .search-select { padding: 18px 20px; border: none; outline: none; font-family: var(--font); font-size: 0.9rem; color: var(--text-mid); background: transparent; cursor: pointer; min-width: 140px; }
+        .search-btn {
+            padding: 14px 28px; margin: 8px; background: var(--grad);
+            border: none; border-radius: 10px; color: #fff;
+            font-family: var(--font); font-size: 0.9rem; font-weight: 700;
+            cursor: pointer; display: flex; align-items: center; gap: 8px; white-space: nowrap; transition: all 0.2s;
+        }
+        .search-btn:hover { opacity: 0.9; }
+
+        /* CATEGORIES */
+        .categories-section { padding: 36px 0 60px; background: var(--off-white); }
+        .cats-inner { max-width: 1280px; margin: 0 auto; padding: 0 28px; }
+        .cats-label { font-size: 0.78rem; font-weight: 600; color: var(--text-muted); letter-spacing: 1px; text-transform: uppercase; margin-bottom: 16px; }
+        .cats-row { display: flex; gap: 10px; flex-wrap: wrap; }
+        .cat-pill {
+            display: inline-flex; align-items: center; gap: 7px;
+            padding: 9px 18px; border-radius: 999px; border: 1.5px solid var(--border);
+            background: #fff; font-family: var(--font); font-size: 0.85rem; font-weight: 600;
+            color: var(--text-mid); cursor: pointer; transition: all 0.2s;
+        }
+        .cat-pill:hover, .cat-pill.active { border-color: var(--purple); color: var(--purple); background: #F3F0FF; }
+
+        /* EVENTS */
+        .events-section { padding: 70px 0 90px; background: #fff; }
+        .events-inner { max-width: 1280px; margin: 0 auto; padding: 0 28px; }
+        .events-header { display: flex; align-items: flex-end; justify-content: space-between; margin-bottom: 40px; flex-wrap: wrap; gap: 16px; }
+        .section-eyebrow { display: inline-block; font-size: 0.73rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; background: var(--grad); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; margin-bottom: 8px; }
+        .section-heading { font-size: clamp(1.9rem, 4vw, 2.8rem); font-weight: 900; color: var(--text-dark); letter-spacing: -1px; line-height: 1.1; }
+        .view-all { display: inline-flex; align-items: center; gap: 6px; font-size: 0.88rem; font-weight: 700; color: var(--purple); text-decoration: none; transition: gap 0.2s; }
+        .view-all:hover { gap: 10px; color: var(--purple); }
+
+        .event-card { background: #fff; border: 1.5px solid var(--border); border-radius: 20px; overflow: hidden; transition: all 0.25s; cursor: pointer; }
+        .event-card:hover { transform: translateY(-6px); box-shadow: 0 20px 50px rgba(0,0,0,0.10); border-color: rgba(124,58,237,0.25); }
+        .ec-img-wrap { position: relative; height: 210px; overflow: hidden; }
+        .ec-img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s; }
+        .event-card:hover .ec-img { transform: scale(1.06); }
+        .ec-badge { position: absolute; top: 14px; left: 14px; padding: 5px 13px; border-radius: 999px; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase; backdrop-filter: blur(10px); }
+        .badge-purple { background: rgba(124,58,237,0.85); color: #fff; }
+        .badge-pink { background: rgba(236,72,153,0.85); color: #fff; }
+        .badge-blue { background: rgba(59,130,246,0.85); color: #fff; }
+        .badge-green { background: rgba(16,185,129,0.85); color: #fff; }
+        .ec-save { position: absolute; top: 14px; right: 14px; width: 36px; height: 36px; background: rgba(255,255,255,0.9); border: none; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 0.85rem; color: var(--text-muted); transition: all 0.2s; }
+        .ec-save:hover { color: #EF4444; transform: scale(1.1); }
+        .ec-save.saved { color: #EF4444; }
+        .ec-body { padding: 20px; }
+        .ec-date { font-size: 0.75rem; font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase; background: var(--grad); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; margin-bottom: 8px; }
+        .ec-title { font-size: 1.05rem; font-weight: 800; color: var(--text-dark); line-height: 1.3; margin-bottom: 10px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+        .ec-location { display: flex; align-items: center; gap: 6px; font-size: 0.83rem; color: var(--text-muted); margin-bottom: 16px; }
+        .ec-location i { color: var(--purple); font-size: 0.78rem; }
+        .ec-footer { display: flex; align-items: center; justify-content: space-between; border-top: 1px solid var(--border); padding-top: 14px; }
+        .ec-price { font-size: 1.1rem; font-weight: 900; color: var(--text-dark); }
+        .ec-price span { font-size: 0.78rem; font-weight: 400; color: var(--text-muted); }
+        .btn-book { padding: 9px 20px; background: var(--grad); border: none; border-radius: 10px; color: #fff; font-family: var(--font); font-size: 0.82rem; font-weight: 700; cursor: pointer; transition: all 0.2s; }
+        .btn-book:hover { opacity: 0.88; transform: scale(0.97); }
+
+        /* HOW IT WORKS */
+        .how-section { padding: 90px 0; background: var(--off-white); }
+        .steps-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; margin-top: 56px; }
+        .step-card { background: #fff; border: 1.5px solid var(--border); border-radius: 20px; padding: 36px 28px; position: relative; overflow: hidden; transition: all 0.25s; }
+        .step-card:hover { transform: translateY(-4px); box-shadow: 0 16px 40px rgba(0,0,0,0.08); }
+        .step-num { position: absolute; top: 20px; right: 24px; font-size: 5rem; font-weight: 900; opacity: 0.04; color: var(--purple); line-height: 1; user-select: none; }
+        .step-icon { width: 56px; height: 56px; border-radius: 16px; background: linear-gradient(135deg, rgba(124,58,237,0.12), rgba(236,72,153,0.08)); display: flex; align-items: center; justify-content: center; font-size: 1.4rem; margin-bottom: 20px; }
+        .step-title { font-size: 1.1rem; font-weight: 800; color: var(--text-dark); margin-bottom: 10px; }
+        .step-text { font-size: 0.88rem; color: var(--text-muted); line-height: 1.7; }
+
+        /* TESTIMONIALS */
+        .testi-section { padding: 90px 0; background: #fff; }
+        .testi-card { background: var(--off-white); border: 1.5px solid var(--border); border-radius: 20px; padding: 32px; height: 100%; transition: all 0.25s; }
+        .testi-card:hover { transform: translateY(-4px); box-shadow: 0 16px 40px rgba(0,0,0,0.07); }
+        .testi-stars { color: #F59E0B; font-size: 0.9rem; letter-spacing: 2px; margin-bottom: 16px; }
+        .testi-text { font-size: 0.92rem; color: var(--text-mid); line-height: 1.8; margin-bottom: 24px; }
+        .testi-author { display: flex; align-items: center; gap: 12px; }
+        .testi-avatar { width: 44px; height: 44px; border-radius: 50%; object-fit: cover; }
+        .testi-name { font-size: 0.92rem; font-weight: 800; color: var(--text-dark); }
+        .testi-role { font-size: 0.78rem; color: var(--text-muted); }
+
+        /* CTA */
+        .cta-section { padding: 80px 0; }
+        .cta-card { max-width: 1280px; margin: 0 auto; padding: 70px 60px; border-radius: 28px; background: var(--grad); position: relative; overflow: hidden; text-align: center; }
+        .cta-card::before { content: ''; position: absolute; top: -60px; right: -60px; width: 300px; height: 300px; border-radius: 50%; background: rgba(255,255,255,0.06); }
+        .cta-heading { font-size: clamp(2rem, 4vw, 3rem); font-weight: 900; color: #fff; letter-spacing: -1px; margin-bottom: 14px; }
+        .cta-sub { font-size: 1rem; color: rgba(255,255,255,0.8); margin-bottom: 36px; }
+        .btn-cta { display: inline-flex; align-items: center; gap: 10px; padding: 16px 36px; background: #fff; color: var(--purple); font-family: var(--font); font-size: 1rem; font-weight: 800; border-radius: 14px; border: none; cursor: pointer; text-decoration: none; transition: all 0.2s; box-shadow: 0 8px 30px rgba(0,0,0,0.15); }
+        .btn-cta:hover { transform: translateY(-2px); color: var(--purple); }
+
+        /* FOOTER */
+        footer { background: #fff; border-top: 1px solid var(--border); padding: 60px 0 30px; }
+        .footer-inner { max-width: 1280px; margin: 0 auto; padding: 0 28px; }
+        .footer-brand { display: flex; align-items: center; gap: 10px; margin-bottom: 14px; }
+        .footer-brand-name { font-size: 1.15rem; font-weight: 800; color: var(--text-dark); }
+        .footer-desc { font-size: 0.88rem; color: var(--text-muted); line-height: 1.7; max-width: 260px; }
+        .footer-col-title { font-size: 0.8rem; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--text-dark); margin-bottom: 16px; }
+        .footer-links { list-style: none; padding: 0; }
+        .footer-links li { margin-bottom: 10px; }
+        .footer-links a { font-size: 0.88rem; color: var(--text-muted); text-decoration: none; transition: color 0.2s; }
+        .footer-links a:hover { color: var(--purple); }
+        .footer-bottom { margin-top: 50px; padding-top: 24px; border-top: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; }
+        .footer-bottom p { font-size: 0.82rem; color: var(--text-muted); }
+        .footer-socials { display: flex; gap: 10px; }
+        .footer-socials a { width: 36px; height: 36px; border-radius: 10px; border: 1.5px solid var(--border); display: flex; align-items: center; justify-content: center; color: var(--text-muted); font-size: 0.85rem; text-decoration: none; transition: all 0.2s; }
+        .footer-socials a:hover { background: var(--grad); border-color: transparent; color: #fff; }
+
+        /* REVEAL */
+        .reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.6s ease, transform 0.6s ease; }
+        .reveal.visible { opacity: 1; transform: translateY(0); }
+        .reveal-d1 { transition-delay: 0.1s; }
+        .reveal-d2 { transition-delay: 0.2s; }
+        .reveal-d3 { transition-delay: 0.3s; }
+
+        /* RESPONSIVE */
+        @media (max-width: 991px) { .steps-grid { grid-template-columns: 1fr 1fr; } .nav-links { display: none; } .nav-toggle { display: block; } }
+        @media (max-width: 767px) { .steps-grid { grid-template-columns: 1fr; } .hero-title { letter-spacing: -1px; } .cta-card { padding: 50px 28px; } }
+        @media (max-width: 575px) { .search-select, .search-divider { display: none; } }
+    </style>
 </head>
 <body>
 
+<!-- NAVBAR -->
+<nav class="site-nav">
+    <div class="nav-inner">
+        <a class="nav-brand" href="#">
+            <div class="nav-logo"><i class="fas fa-bolt"></i></div>
+            <span class="nav-brand-name">EventHub</span>
+        </a>
+        <div class="nav-links">
+            <a href="#" class="nav-pill active">Home</a>
+            <a href="#events" class="nav-pill">Events</a>
+            <a href="#how" class="nav-pill">How It Works</a>
+            <a href="#" class="nav-pill">Organizers</a>
+        </div>
+        <div class="nav-right">
+            <a href="#" class="btn-signin"><i class="far fa-user"></i> Sign In</a>
+            <button class="nav-toggle" id="navToggle"><i class="fas fa-bars"></i></button>
+        </div>
+    </div>
+</nav>
+<div class="mobile-menu" id="mobileMenu">
+    <a href="#" class="nav-pill active">Home</a>
+    <a href="#events" class="nav-pill">Events</a>
+    <a href="#how" class="nav-pill">How It Works</a>
+    <a href="#" class="nav-pill">Organizers</a>
+    <a href="#" class="nav-pill" style="color:var(--purple);margin-top:6px">Sign In</a>
+</div>
+
+<!-- HERO -->
+<section class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-content">
+        <div class="hero-badge"><div class="badge-dot"></div>500+ Events happening near you</div>
+        <h1 class="hero-title">Discover<br><span class="grad-text">Extraordinary</span><br>Events</h1>
+        <p class="hero-sub">Browse, book, and experience the best events in your city. Secure seats instantly with QR-powered digital tickets.</p>
+        <div class="hero-btns">
+            <a href="#events" class="btn-hero-primary">Explore Events <i class="fas fa-arrow-right"></i></a>
+            <a href="#" class="btn-hero-secondary"><i class="fas fa-play-circle"></i> Get Started</a>
+        </div>
+    </div>
+    <div class="scroll-hint"><div class="scroll-mouse"></div><span>Scroll</span></div>
+</section>
+
+<!-- STATS -->
+<div class="stats-bar">
+    <div class="stats-inner">
+        <div class="stat-item reveal"><div class="stat-num" data-count="500">0</div><div class="stat-label">Events Listed</div></div>
+        <div class="stat-item reveal reveal-d1"><div class="stat-num" data-count="12000">0</div><div class="stat-label">Happy Attendees</div></div>
+        <div class="stat-item reveal reveal-d2"><div class="stat-num" data-count="98">0</div><div class="stat-label">% Satisfaction</div></div>
+        <div class="stat-item reveal reveal-d3"><div class="stat-num" data-count="50">0</div><div class="stat-label">Cities Covered</div></div>
+    </div>
+</div>
+
+<!-- SEARCH -->
+<div class="search-section">
+    <div class="search-wrap">
+        <div class="search-box reveal">
+            <i class="fas fa-search" style="margin-left:20px;color:var(--text-muted);align-self:center"></i>
+            <input class="search-input" type="text" placeholder="Search for concerts, festivals, workshops..." />
+            <div class="search-divider"></div>
+            <select class="search-select">
+                <option>All Categories</option><option>Music</option><option>Conference</option>
+                <option>Sports</option><option>Art & Culture</option><option>Food & Drink</option>
+            </select>
+            <button class="search-btn"><i class="fas fa-search"></i> Search</button>
+        </div>
+    </div>
+</div>
+
+<!-- CATEGORIES -->
+<div class="categories-section">
+    <div class="cats-inner">
+        <p class="cats-label reveal">Browse by Category</p>
+        <div class="cats-row reveal reveal-d1">
+            <button class="cat-pill active"><i class="fas fa-fire"></i> All Events</button>
+            <button class="cat-pill"><i class="fas fa-music"></i> Music</button>
+            <button class="cat-pill"><i class="fas fa-microphone"></i> Conference</button>
+            <button class="cat-pill"><i class="fas fa-futbol"></i> Sports</button>
+            <button class="cat-pill"><i class="fas fa-paint-brush"></i> Art & Culture</button>
+            <button class="cat-pill"><i class="fas fa-utensils"></i> Food & Drink</button>
+            <button class="cat-pill"><i class="fas fa-laptop"></i> Tech</button>
+            <button class="cat-pill"><i class="fas fa-heart"></i> Wellness</button>
+        </div>
+    </div>
+</div>
+
+<!-- EVENTS -->
+<section class="events-section" id="events">
+    <div class="events-inner">
+        <div class="events-header reveal">
+            <div><p class="section-eyebrow">This Week's Picks</p><h2 class="section-heading">Upcoming Events</h2></div>
+            <a href="events.html" class="view-all">View All <i class="fas fa-arrow-right"></i></a>
+        </div>
+        <div class="row g-4">
+            <div class="col-md-6 col-lg-4 reveal reveal-d1">
+                <div class="event-card">
+                    <div class="ec-img-wrap">
+                        <img src="https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3?w=600&q=80" class="ec-img" alt="">
+                        <span class="ec-badge badge-purple">Music</span>
+                        <button class="ec-save"><i class="far fa-heart"></i></button>
+                    </div>
+                    <div class="ec-body">
+                        <p class="ec-date"><i class="far fa-calendar-alt me-1"></i>Sept 20, 2025 · 7:00 PM</p>
+                        <h5 class="ec-title">Neon Nights Music Festival 2025</h5>
+                        <p class="ec-location"><i class="fas fa-map-marker-alt"></i> Grand Ballroom, Colombo</p>
+                        <div class="ec-footer"><div class="ec-price">LKR 4,500 <span>/ person</span></div><button class="btn-book">Book Now</button></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-4 reveal reveal-d2">
+                <div class="event-card">
+                    <div class="ec-img-wrap">
+                        <img src="https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=600&q=80" class="ec-img" alt="">
+                        <span class="ec-badge badge-blue">Conference</span>
+                        <button class="ec-save"><i class="far fa-heart"></i></button>
+                    </div>
+                    <div class="ec-body">
+                        <p class="ec-date"><i class="far fa-calendar-alt me-1"></i>Oct 5, 2025 · 9:00 AM</p>
+                        <h5 class="ec-title">Business Leaders Summit 2025</h5>
+                        <p class="ec-location"><i class="fas fa-map-marker-alt"></i> Cinnamon Grand, Colombo</p>
+                        <div class="ec-footer"><div class="ec-price">LKR 12,000 <span>/ person</span></div><button class="btn-book">Book Now</button></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-4 reveal reveal-d3">
+                <div class="event-card">
+                    <div class="ec-img-wrap">
+                        <img src="https://images.unsplash.com/photo-1511795409834-ef04bbd61622?w=600&q=80" class="ec-img" alt="">
+                        <span class="ec-badge badge-pink">Wedding</span>
+                        <button class="ec-save"><i class="far fa-heart"></i></button>
+                    </div>
+                    <div class="ec-body">
+                        <p class="ec-date"><i class="far fa-calendar-alt me-1"></i>Nov 12, 2025 · 5:00 PM</p>
+                        <h5 class="ec-title">Luxury Bridal Showcase & Expo</h5>
+                        <p class="ec-location"><i class="fas fa-map-marker-alt"></i> Heritance Kandalama</p>
+                        <div class="ec-footer"><div class="ec-price">LKR 5,000 <span>/ person</span></div><button class="btn-book">Book Now</button></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-4 reveal">
+                <div class="event-card">
+                    <div class="ec-img-wrap">
+                        <img src="https://images.unsplash.com/photo-1530103862676-de8c9debad1d?w=600&q=80" class="ec-img" alt="">
+                        <span class="ec-badge badge-pink">Party</span>
+                        <button class="ec-save"><i class="far fa-heart"></i></button>
+                    </div>
+                    <div class="ec-body">
+                        <p class="ec-date"><i class="far fa-calendar-alt me-1"></i>Dec 1, 2025 · 9:00 PM</p>
+                        <h5 class="ec-title">NYE Rooftop Soirée — Sky Colombo</h5>
+                        <p class="ec-location"><i class="fas fa-map-marker-alt"></i> Sky Colombo, Rooftop</p>
+                        <div class="ec-footer"><div class="ec-price">LKR 15,000 <span>/ person</span></div><button class="btn-book">Book Now</button></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-4 reveal reveal-d1">
+                <div class="event-card">
+                    <div class="ec-img-wrap">
+                        <img src="https://images.unsplash.com/photo-1501281668745-f7f57925c3b4?w=600&q=80" class="ec-img" alt="">
+                        <span class="ec-badge badge-blue">Tech</span>
+                        <button class="ec-save"><i class="far fa-heart"></i></button>
+                    </div>
+                    <div class="ec-body">
+                        <p class="ec-date"><i class="far fa-calendar-alt me-1"></i>Feb 8, 2026 · 8:30 AM</p>
+                        <h5 class="ec-title">Tech & Innovation Forum 2026</h5>
+                        <p class="ec-location"><i class="fas fa-map-marker-alt"></i> BMICH, Colombo</p>
+                        <div class="ec-footer"><div class="ec-price">LKR 9,500 <span>/ person</span></div><button class="btn-book">Book Now</button></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-4 reveal reveal-d2">
+                <div class="event-card">
+                    <div class="ec-img-wrap">
+                        <img src="https://images.unsplash.com/photo-1464366400600-7168b8af9bc3?w=600&q=80" class="ec-img" alt="">
+                        <span class="ec-badge badge-green">Art & Culture</span>
+                        <button class="ec-save"><i class="far fa-heart"></i></button>
+                    </div>
+                    <div class="ec-body">
+                        <p class="ec-date"><i class="far fa-calendar-alt me-1"></i>Jan 18, 2026 · 6:00 PM</p>
+                        <h5 class="ec-title">Charity Art Gala — National Museum</h5>
+                        <p class="ec-location"><i class="fas fa-map-marker-alt"></i> National Museum, Colombo</p>
+                        <div class="ec-footer"><div class="ec-price">LKR 20,000 <span>/ person</span></div><button class="btn-book">Book Now</button></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="how-section" id="how">
+    <div class="events-inner">
+        <div class="text-center reveal">
+            <p class="section-eyebrow">Simple & Fast</p>
+            <h2 class="section-heading">How It Works</h2>
+            <p style="font-size:1rem;color:var(--text-muted);max-width:480px;margin:12px auto 0">Getting into your next event is just three steps away.</p>
+        </div>
+        <div class="steps-grid">
+            <div class="step-card reveal reveal-d1">
+                <div class="step-num">1</div>
+                <div class="step-icon"><i class="fas fa-search" style="background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text"></i></div>
+                <h4 class="step-title">Discover Events</h4>
+                <p class="step-text">Browse hundreds of events by category, location, or date. Filter to find exactly what excites you.</p>
+            </div>
+            <div class="step-card reveal reveal-d2">
+                <div class="step-num">2</div>
+                <div class="step-icon"><i class="fas fa-ticket-alt" style="background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text"></i></div>
+                <h4 class="step-title">Book Your Seat</h4>
+                <p class="step-text">Choose your tickets and pay securely in seconds. Instant confirmation sent to your inbox.</p>
+            </div>
+            <div class="step-card reveal reveal-d3">
+                <div class="step-num">3</div>
+                <div class="step-icon"><i class="fas fa-qrcode" style="background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text"></i></div>
+                <h4 class="step-title">Scan & Enjoy</h4>
+                <p class="step-text">Show your QR-powered digital ticket at the gate and enjoy a seamless, paperless entry experience.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="testi-section">
+    <div class="events-inner">
+        <div class="text-center reveal" style="margin-bottom:48px">
+            <p class="section-eyebrow">What People Say</p>
+            <h2 class="section-heading">Loved by Thousands</h2>
+        </div>
+        <div class="row g-4">
+            <div class="col-md-4 reveal reveal-d1">
+                <div class="testi-card">
+                    <div class="testi-stars">★★★★★</div>
+                    <p class="testi-text">"EventHub made finding and booking the perfect concert tickets so easy. The QR entry was instant. I'll never go back to paper tickets!"</p>
+                    <div class="testi-author">
+                        <img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?w=100&q=80" class="testi-avatar" alt="">
+                        <div><div class="testi-name">Amali Perera</div><div class="testi-role">Music Enthusiast</div></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 reveal reveal-d2">
+                <div class="testi-card">
+                    <div class="testi-stars">★★★★★</div>
+                    <p class="testi-text">"We used EventHub to manage our corporate summit. The organizer tools are incredible and the attendee experience was world class."</p>
+                    <div class="testi-author">
+                        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&q=80" class="testi-avatar" alt="">
+                        <div><div class="testi-name">Roshan Fernando</div><div class="testi-role">CEO, Apex Holdings</div></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 reveal reveal-d3">
+                <div class="testi-card">
+                    <div class="testi-stars">★★★★★</div>
+                    <p class="testi-text">"Found an amazing art gala I never would have discovered otherwise. The filtering tools are powerful and the UI is beautiful to use."</p>
+                    <div class="testi-author">
+                        <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=100&q=80" class="testi-avatar" alt="">
+                        <div><div class="testi-name">Nilufar Rashid</div><div class="testi-role">Art Lover</div></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+    <div style="max-width:1280px;margin:0 auto;padding:0 28px">
+        <div class="cta-card reveal">
+            <h2 class="cta-heading">Ready to Experience Something Amazing?</h2>
+            <p class="cta-sub">Join thousands of event-goers discovering and booking unforgettable experiences every day.</p>
+            <a href="events.html" class="btn-cta">Explore Events <i class="fas fa-arrow-right"></i></a>
+        </div>
+    </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+    <div class="footer-inner">
+        <div class="row g-5">
+            <div class="col-lg-4">
+                <div class="footer-brand">
+                    <div class="nav-logo"><i class="fas fa-bolt"></i></div>
+                    <span class="footer-brand-name">EventHub</span>
+                </div>
+                <p class="footer-desc">Discover, book, and experience the best events near you. Powered by QR digital tickets.</p>
+            </div>
+            <div class="col-6 col-lg-2">
+                <p class="footer-col-title">Explore</p>
+                <ul class="footer-links"><li><a href="#">Home</a></li><li><a href="#">Events</a></li><li><a href="#">Categories</a></li><li><a href="#">Organizers</a></li></ul>
+            </div>
+            <div class="col-6 col-lg-2">
+                <p class="footer-col-title">Company</p>
+                <ul class="footer-links"><li><a href="about.html">About</a></li><li><a href="#">Blog</a></li><li><a href="#">Careers</a></li><li><a href="contact.html">Contact</a></li></ul>
+            </div>
+            <div class="col-lg-4">
+                <p class="footer-col-title">Contact</p>
+                <ul class="footer-links">
+                    <li><i class="fas fa-map-marker-alt" style="color:var(--purple);margin-right:8px"></i>45 Galle Road, Colombo 03</li>
+                    <li style="margin-top:8px"><i class="fas fa-phone" style="color:var(--purple);margin-right:8px"></i>+94 11 234 5678</li>
+                    <li style="margin-top:8px"><i class="fas fa-envelope" style="color:var(--purple);margin-right:8px"></i>hello@eventhub.lk</li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2025 EventHub. All rights reserved.</p>
+            <div class="footer-socials">
+                <a href="#"><i class="fab fa-facebook-f"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-twitter"></i></a>
+                <a href="#"><i class="fab fa-linkedin-in"></i></a>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    // Mobile nav
+    const navToggle = document.getElementById('navToggle');
+    const mobileMenu = document.getElementById('mobileMenu');
+    navToggle.addEventListener('click', () => {
+        mobileMenu.classList.toggle('open');
+        const icon = navToggle.querySelector('i');
+        icon.classList.toggle('fa-bars'); icon.classList.toggle('fa-times');
+    });
+
+    // Scroll reveal
+    const revEls = document.querySelectorAll('.reveal');
+    new IntersectionObserver((entries) => {
+        entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' }).observe
+        ? (() => {
+            const obs = new IntersectionObserver((entries) => {
+                entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+            }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+            revEls.forEach(el => obs.observe(el));
+        })() : revEls.forEach(el => el.classList.add('visible'));
+
+    // Counter
+    document.querySelectorAll('[data-count]').forEach(el => {
+        const obs2 = new IntersectionObserver(entries => {
+            entries.forEach(entry => {
+                if (!entry.isIntersecting || entry.target.dataset.animated) return;
+                entry.target.dataset.animated = true;
+                const target = +entry.target.dataset.count;
+                const dur = 1600;
+                const start = performance.now();
+                const tick = now => {
+                    const p = Math.min((now - start) / dur, 1);
+                    const v = Math.floor((1 - Math.pow(1-p,3)) * target);
+                    entry.target.textContent = target >= 1000 ? (v/1000).toFixed(1)+'k' : v + (target === 98 ? '%' : '+');
+                    if (p < 1) requestAnimationFrame(tick);
+                    else entry.target.textContent = target >= 1000 ? (target/1000)+'k+' : target+(target===98?'%':'+');
+                };
+                requestAnimationFrame(tick);
+            });
+        }, { threshold: 0.5 });
+        obs2.observe(el);
+    });
+
+    // Category active
+    document.querySelectorAll('.cat-pill').forEach(btn => {
+        btn.addEventListener('click', () => { document.querySelectorAll('.cat-pill').forEach(b => b.classList.remove('active')); btn.classList.add('active'); });
+    });
+
+    // Heart toggle
+    document.querySelectorAll('.ec-save').forEach(btn => {
+        btn.addEventListener('click', e => {
+            e.stopPropagation(); btn.classList.toggle('saved');
+            const i = btn.querySelector('i'); i.classList.toggle('far'); i.classList.toggle('fas');
+        });
+    });
+
+    // Smooth anchor scroll
+    document.querySelectorAll('a[href^="#"]').forEach(a => {
+        a.addEventListener('click', e => {
+            const t = document.querySelector(a.getAttribute('href'));
+            if (t) { e.preventDefault(); t.scrollIntoView({ behavior: 'smooth' }); }
+        });
+    });
+</script>
 </body>
 </html>
