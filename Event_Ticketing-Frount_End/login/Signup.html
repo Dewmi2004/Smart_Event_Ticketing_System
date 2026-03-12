@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Create Account — EventHub</title>
+    <link rel="stylesheet" href="../css/Style.css" />
+    <link rel="stylesheet" href="../css/Auth.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+</head>
+<body class="page-auth">
+
+<div class="bg-blob"></div>
+<div class="bg-blob-2"></div>
+
+<!-- ═══════════════════════════════════════════════
+     NAVBAR  —  brand  +  Sign In / Sign Up only
+════════════════════════════════════════════════ -->
+<nav class="topbar">
+    <a href="../index.html" class="topbar-brand">
+        <div class="brand-icon">🎫</div>
+        <span class="brand-name">EventHub</span>
+    </a>
+    <div class="auth-topbar-links">
+        <a href="Signin.html" class="auth-nav-pill ghost">Sign In</a>
+        <a href="Signup.html" class="auth-nav-pill active">Create Account</a>
+    </div>
+</nav>
+
+<!-- ═══════════════════════════════════════════════
+     SPLIT LAYOUT  (form left, panel right)
+════════════════════════════════════════════════ -->
+<div class="auth-layout">
+
+    <!-- ── LEFT: sign-up form ─────────────────────── -->
+    <div class="auth-form-side align-top">
+        <div class="auth-form-box">
+
+            <!-- header -->
+            <div class="afb-header">
+                <h2 class="afb-title">Join <span>EventHub</span> free</h2>
+                <p class="afb-sub">
+                    Already have an account? <a href="SignIn.html">Sign in →</a>
+                </p>
+            </div>
+
+            <!-- progress steps -->
+            <div class="auth-progress" id="authProgress">
+                <div class="prog-step active" id="ps1">
+                    <div class="prog-num">1</div>
+                    <span class="prog-lbl">Details</span>
+                </div>
+                <div class="prog-step" id="ps2">
+                    <div class="prog-num">2</div>
+                    <span class="prog-lbl">Account</span>
+                </div>
+                <div class="prog-step" id="ps3">
+                    <div class="prog-num">3</div>
+                    <span class="prog-lbl">Done</span>
+                </div>
+            </div>
+
+            <!-- social sign-up -->
+            <div class="social-row" id="socialRow">
+                <button class="btn-social" type="button">
+                    <i class="fab fa-google ic-google"></i> Google
+                </button>
+                <button class="btn-social" type="button">
+                    <i class="fab fa-facebook ic-facebook"></i> Facebook
+                </button>
+            </div>
+
+            <div class="or-divider" id="orDivider"><span>or sign up with email</span></div>
+
+            <!-- form -->
+            <form id="signupForm" novalidate>
+
+                <div class="auth-fields">
+
+                    <!-- first + last name -->
+                    <div class="fields-2col">
+
+                        <div class="auth-field">
+                            <label class="auth-label" for="su-first">First Name</label>
+                            <div class="auth-input-wrap">
+                                <i class="fas fa-user auth-input-icon"></i>
+                                <input
+                                        type="text"
+                                        id="su-first"
+                                        class="auth-input"
+                                        placeholder="Amali"
+                                        autocomplete="given-name"
+                                />
+                            </div>
+                            <div class="field-err" id="err-first">
+                                <i class="fas fa-circle-exclamation"></i> Required.
+                            </div>
+                        </div>
+
+                        <div class="auth-field">
+                            <label class="auth-label" for="su-last">Last Name</label>
+                            <div class="auth-input-wrap">
+                                <i class="fas fa-user auth-input-icon"></i>
+                                <input
+                                        type="text"
+                                        id="su-last"
+                                        class="auth-input"
+                                        placeholder="Perera"
+                                        autocomplete="family-name"
+                                />
+                            </div>
+                            <div class="field-err" id="err-last">
+                                <i class="fas fa-circle-exclamation"></i> Required.
+                            </div>
+                        </div>
+
+                    </div><!-- /fields-2col -->
+
+                    <!-- email -->
+                    <div class="auth-field">
+                        <label class="auth-label" for="su-email">Email Address</label>
+                        <div class="auth-input-wrap">
+                            <i class="fas fa-envelope auth-input-icon"></i>
+                            <input
+                                    type="email"
+                                    id="su-email"
+                                    class="auth-input"
+                                    placeholder="you@example.com"
+                                    autocomplete="email"
+                            />
+                        </div>
+                        <div class="field-err" id="err-email">
+                            <i class="fas fa-circle-exclamation"></i>
+                            Please enter a valid email address.
+                        </div>
+                    </div>
+
+                    <!-- phone -->
+                    <div class="auth-field">
+                        <label class="auth-label" for="su-phone">Phone Number</label>
+                        <div class="auth-input-wrap">
+                            <i class="fas fa-phone auth-input-icon"></i>
+                            <input
+                                    type="tel"
+                                    id="su-phone"
+                                    class="auth-input"
+                                    placeholder="+94 77 123 4567"
+                                    autocomplete="tel"
+                            />
+                        </div>
+                        <span class="field-hint">Used for ticket delivery and event reminders.</span>
+                    </div>
+
+                    <!-- account type -->
+                    <div class="auth-field">
+                        <label class="auth-label">I want to</label>
+                        <div class="type-cards">
+
+                            <label class="type-card selected" id="tc-attend">
+                                <input type="radio" name="actype" value="attendee" checked />
+                                <div class="tc-icon">🎟️</div>
+                                <div class="tc-name">Attend Events</div>
+                                <div class="tc-desc">Browse &amp; book tickets</div>
+                            </label>
+
+                            <label class="type-card" id="tc-organise">
+                                <input type="radio" name="actype" value="organizer" />
+                                <div class="tc-icon">🎪</div>
+                                <div class="tc-name">Organise Events</div>
+                                <div class="tc-desc">Create &amp; manage events</div>
+                            </label>
+
+                        </div>
+                    </div>
+
+                    <!-- password -->
+                    <div class="auth-field">
+                        <label class="auth-label" for="su-pwd">Password</label>
+                        <div class="auth-input-wrap">
+                            <i class="fas fa-lock auth-input-icon"></i>
+                            <input
+                                    type="password"
+                                    id="su-pwd"
+                                    class="auth-input"
+                                    placeholder="Min. 8 characters"
+                                    autocomplete="new-password"
+                            />
+                            <button type="button" class="auth-eye" id="su-eye-btn">
+                                <i class="far fa-eye"></i>
+                            </button>
+                        </div>
+                        <div class="pwd-strength" id="pwdStrength" style="display:none">
+                            <div class="pwd-bars">
+                                <div class="pwd-bar" id="pb1"></div>
+                                <div class="pwd-bar" id="pb2"></div>
+                                <div class="pwd-bar" id="pb3"></div>
+                                <div class="pwd-bar" id="pb4"></div>
+                            </div>
+                            <span class="pwd-lbl" id="pwdLbl">Too short</span>
+                        </div>
+                        <div class="field-err" id="err-pwd">
+                            <i class="fas fa-circle-exclamation"></i>
+                            Must be at least 8 characters.
+                        </div>
+                    </div>
+
+                    <!-- confirm password -->
+                    <div class="auth-field">
+                        <label class="auth-label" for="su-confirm">Confirm Password</label>
+                        <div class="auth-input-wrap">
+                            <i class="fas fa-lock auth-input-icon"></i>
+                            <input
+                                    type="password"
+                                    id="su-confirm"
+                                    class="auth-input"
+                                    placeholder="Repeat your password"
+                                    autocomplete="new-password"
+                            />
+                            <button type="button" class="auth-eye" id="su-confirm-eye-btn">
+                                <i class="far fa-eye"></i>
+                            </button>
+                        </div>
+                        <div class="field-err" id="err-confirm">
+                            <i class="fas fa-circle-exclamation"></i>
+                            Passwords do not match.
+                        </div>
+                    </div>
+
+                </div><!-- /auth-fields -->
+
+                <!-- terms checkbox -->
+                <div class="terms-row">
+                    <input type="checkbox" class="terms-cb" id="su-terms" />
+                    <label class="terms-lbl" for="su-terms">
+                        I agree to EventHub's <a href="#">Terms of Service</a> and
+                        <a href="#">Privacy Policy</a>, and consent to receiving
+                        event-related communications.
+                    </label>
+                </div>
+
+                <button type="submit" class="btn-auth-submit" id="signupBtn">
+                    <div class="spin-ring"></div>
+                    <span class="btn-txt">
+              Create Free Account &nbsp;<i class="fas fa-arrow-right"></i>
+            </span>
+                </button>
+
+            </form><!-- /signupForm -->
+
+            <!-- success state -->
+            <div class="auth-success" id="suSuccess">
+                <div class="success-circle">🎉</div>
+                <h3 class="success-title">Account Created!</h3>
+                <p class="success-sub">
+                    Welcome to EventHub! Check your email to verify your account,
+                    then start exploring events near you.
+                </p>
+                <a href="SignIn.html" class="btn-success-link">
+                    Sign In Now &nbsp;<i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
+
+        </div><!-- /auth-form-box -->
+    </div><!-- /auth-form-side -->
+
+    <!-- ── RIGHT: decorative panel ────────────────── -->
+    <div class="auth-panel">
+        <div class="ap-ring"></div>
+        <div class="ap-ring"></div>
+        <div class="ap-ring"></div>
+
+        <div class="ap-eyebrow">
+            <div class="ap-dot"></div>
+            Join 12,000+ event-goers
+        </div>
+
+        <h1 class="ap-headline">
+            Everything events,<br>in one place.
+        </h1>
+
+        <p class="ap-sub">
+            Create a free account and instantly access hundreds of events,
+            seamless booking, and QR-powered digital tickets.
+        </p>
+
+        <div class="ap-stats">
+            <div class="ap-stat">
+                <div class="ap-stat-num">500+</div>
+                <div class="ap-stat-label">Events this month</div>
+            </div>
+            <div class="ap-stat">
+                <div class="ap-stat-num">12k+</div>
+                <div class="ap-stat-label">Happy attendees</div>
+            </div>
+            <div class="ap-stat">
+                <div class="ap-stat-num">98%</div>
+                <div class="ap-stat-label">Satisfaction rate</div>
+            </div>
+            <div class="ap-stat">
+                <div class="ap-stat-num">Free</div>
+                <div class="ap-stat-label">Always free to join</div>
+            </div>
+        </div>
+
+        <div class="ap-steps">
+            <div class="ap-step-item">
+                <div class="ap-step-num">1</div>
+                <span class="ap-step-text">Create your free account in under 2 minutes</span>
+            </div>
+            <div class="ap-step-item">
+                <div class="ap-step-num">2</div>
+                <span class="ap-step-text">Browse and book events near you instantly</span>
+            </div>
+            <div class="ap-step-item">
+                <div class="ap-step-num">3</div>
+                <span class="ap-step-text">Receive your QR e-ticket and scan at the gate</span>
+            </div>
+        </div>
+
+    </div><!-- /auth-panel -->
+
+</div><!-- /auth-layout -->
+
+<div class="toast-wrap" id="toastWrap"></div>
+<script src="../js/App.js"></script>
+
+<script>
+    /* ── account type card selection ── */
+    document.querySelectorAll('.type-card').forEach(function (card) {
+        card.addEventListener('click', function () {
+            document.querySelectorAll('.type-card').forEach(function (c) {
+                c.classList.remove('selected');
+            });
+            this.classList.add('selected');
+            this.querySelector('input[type="radio"]').checked = true;
+        });
+    });
+
+    /* ── password eye toggles ── */
+    function makeEye(btnId, inputId) {
+        document.getElementById(btnId).addEventListener('click', function () {
+            var inp = document.getElementById(inputId);
+            var ico = this.querySelector('i');
+            inp.type      = inp.type === 'password' ? 'text' : 'password';
+            ico.className = inp.type === 'text' ? 'far fa-eye-slash' : 'far fa-eye';
+        });
+    }
+    makeEye('su-eye-btn', 'su-pwd');
+    makeEye('su-confirm-eye-btn', 'su-confirm');
+
+    /* ── password strength meter ── */
+    document.getElementById('su-pwd').addEventListener('input', function () {
+        var val  = this.value;
+        var wrap = document.getElementById('pwdStrength');
+        var lbl  = document.getElementById('pwdLbl');
+
+        if (!val) { wrap.style.display = 'none'; return; }
+        wrap.style.display = 'block';
+
+        var score = 0;
+        if (val.length >= 8)                score++;
+        if (/[A-Z]/.test(val))              score++;
+        if (/[0-9]/.test(val))              score++;
+        if (/[^A-Za-z0-9]/.test(val))       score++;
+
+        var cls  = ['', 'weak', 'fair', 'fair', 'strong'][score];
+        var text = ['Too short', 'Weak', 'Fair', 'Good', 'Strong'][score];
+
+        [1,2,3,4].forEach(function (i) {
+            var bar = document.getElementById('pb' + i);
+            bar.className = 'pwd-bar' + (i <= score && cls ? ' ' + cls : '');
+        });
+
+        lbl.className   = 'pwd-lbl' + (cls ? ' ' + cls : '');
+        lbl.textContent = text;
+
+        /* clear error when typing */
+        this.classList.remove('is-error');
+        document.getElementById('err-pwd').classList.remove('on');
+    });
+
+    /* ── clear errors on input ── */
+    var clearMap = {
+        'su-first':   'err-first',
+        'su-last':    'err-last',
+        'su-email':   'err-email',
+        'su-confirm': 'err-confirm'
+    };
+
+    Object.keys(clearMap).forEach(function (id) {
+        document.getElementById(id).addEventListener('input', function () {
+            this.classList.remove('is-error');
+            document.getElementById(clearMap[id]).classList.remove('on');
+        });
+    });
+
+    /* ── form submit ── */
+    document.getElementById('signupForm').addEventListener('submit', function (e) {
+        e.preventDefault();
+
+        var first   = document.getElementById('su-first');
+        var last    = document.getElementById('su-last');
+        var email   = document.getElementById('su-email');
+        var pwd     = document.getElementById('su-pwd');
+        var confirm = document.getElementById('su-confirm');
+        var terms   = document.getElementById('su-terms');
+        var btn     = document.getElementById('signupBtn');
+        var valid   = true;
+
+        function setErr(inputEl, errId, fail) {
+            inputEl.classList.toggle('is-error', fail);
+            document.getElementById(errId).classList.toggle('on', fail);
+            if (fail) valid = false;
+        }
+
+        setErr(first,   'err-first',   !first.value.trim());
+        setErr(last,    'err-last',    !last.value.trim());
+        setErr(email,   'err-email',   !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value.trim()));
+        setErr(pwd,     'err-pwd',     pwd.value.length < 8);
+        setErr(confirm, 'err-confirm', pwd.value !== confirm.value);
+
+        if (!terms.checked) {
+            terms.style.outline = '2px solid var(--danger)';
+            valid = false;
+        } else {
+            terms.style.outline = '';
+        }
+
+        if (!valid) return;
+
+        /* animate progress steps */
+        document.getElementById('ps1').classList.add('done');
+        document.getElementById('ps1').classList.remove('active');
+        document.getElementById('ps2').classList.add('active');
+
+        setTimeout(function () {
+            document.getElementById('ps2').classList.add('done');
+            document.getElementById('ps2').classList.remove('active');
+            document.getElementById('ps3').classList.add('active');
+        }, 700);
+
+        btn.classList.add('loading');
+
+        setTimeout(function () {
+            btn.classList.remove('loading');
+            document.getElementById('signupForm').style.display    = 'none';
+            document.getElementById('authProgress').style.display  = 'none';
+            document.getElementById('socialRow').style.display     = 'none';
+            document.getElementById('orDivider').style.display     = 'none';
+            document.getElementById('suSuccess').classList.add('on');
+        }, 1800);
+    });
+</script>
+
+</body>
+</html>

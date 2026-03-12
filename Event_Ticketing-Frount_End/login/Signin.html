@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sign In — EventHub</title>
+    <link rel="stylesheet" href="../css/Style.css" />
+    <link rel="stylesheet" href="../css/Auth.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+</head>
+<body class="page-auth">
+
+<div class="bg-blob"></div>
+<div class="bg-blob-2"></div>
+
+<!-- ═══════════════════════════════════════════════
+     NAVBAR  —  brand  +  Sign In / Sign Up only
+════════════════════════════════════════════════ -->
+<nav class="topbar">
+    <a href="../index.html" class="topbar-brand">
+        <div class="brand-icon">🎫</div>
+        <span class="brand-name">EventHub</span>
+    </a>
+    <div class="auth-topbar-links">
+        <a href="Signin.html" class="auth-nav-pill active">Sign In</a>
+        <a href="Signup.html" class="auth-nav-pill solid">Create Account</a>
+    </div>
+</nav>
+
+<!-- ═══════════════════════════════════════════════
+     SPLIT LAYOUT
+════════════════════════════════════════════════ -->
+<div class="auth-layout">
+
+    <!-- ── LEFT: decorative panel ─────────────────── -->
+    <div class="auth-panel">
+        <div class="ap-ring"></div>
+        <div class="ap-ring"></div>
+        <div class="ap-ring"></div>
+
+        <div class="ap-eyebrow">
+            <div class="ap-dot"></div>
+            Welcome back
+        </div>
+
+        <h1 class="ap-headline">
+            Your next<br>extraordinary<br>event awaits.
+        </h1>
+
+        <p class="ap-sub">
+            Sign in to browse hundreds of events, manage your bookings,
+            and access your QR-powered digital tickets instantly.
+        </p>
+
+        <div class="ap-features">
+
+            <div class="ap-feat">
+                <div class="ap-feat-icon">🎫</div>
+                <div>
+                    <div class="ap-feat-title">Instant QR Tickets</div>
+                    <div class="ap-feat-desc">Scan at the gate — no printing needed</div>
+                </div>
+            </div>
+
+            <div class="ap-feat">
+                <div class="ap-feat-icon">📍</div>
+                <div>
+                    <div class="ap-feat-title">Events Near You</div>
+                    <div class="ap-feat-desc">Discover local events in Colombo &amp; beyond</div>
+                </div>
+            </div>
+
+            <div class="ap-feat">
+                <div class="ap-feat-icon">💳</div>
+                <div>
+                    <div class="ap-feat-title">Secure Payments</div>
+                    <div class="ap-feat-desc">Stripe, PayPal &amp; Razorpay supported</div>
+                </div>
+            </div>
+
+        </div><!-- /ap-features -->
+
+        <!-- testimonial pinned to the bottom -->
+        <div class="ap-testi">
+            <p class="at-quote">
+                "EventHub completely changed how I attend events. Booking takes 30 seconds
+                and the QR entry is seamless."
+            </p>
+            <div class="at-author">
+                <img
+                        src="https://images.unsplash.com/photo-1580489944761-15a19d654956?w=100&q=80"
+                        class="at-avatar"
+                        alt="Amali Perera"
+                />
+                <div>
+                    <div class="at-name">Amali Perera</div>
+                    <div class="at-role">Verified Attendee · Colombo</div>
+                </div>
+            </div>
+        </div>
+
+    </div><!-- /auth-panel -->
+
+    <!-- ── RIGHT: sign-in form ───────────────────── -->
+    <div class="auth-form-side">
+        <div class="auth-form-box">
+
+            <!-- header -->
+            <div class="afb-header">
+                <h2 class="afb-title">Sign in to <span>EventHub</span></h2>
+                <p class="afb-sub">
+                    No account yet? <a href="SignUp.html">Create one free →</a>
+                </p>
+            </div>
+
+            <!-- social login -->
+            <div class="social-row">
+                <button class="btn-social" type="button">
+                    <i class="fab fa-google ic-google"></i> Google
+                </button>
+                <button class="btn-social" type="button">
+                    <i class="fab fa-facebook ic-facebook"></i> Facebook
+                </button>
+            </div>
+
+            <div class="or-divider"><span>or continue with email</span></div>
+
+            <!-- form -->
+            <form id="signinForm" novalidate>
+
+                <div class="auth-fields">
+
+                    <!-- email -->
+                    <div class="auth-field">
+                        <label class="auth-label" for="si-email">Email Address</label>
+                        <div class="auth-input-wrap">
+                            <i class="fas fa-envelope auth-input-icon"></i>
+                            <input
+                                    type="email"
+                                    id="si-email"
+                                    class="auth-input"
+                                    placeholder="you@example.com"
+                                    autocomplete="email"
+                            />
+                        </div>
+                        <div class="field-err" id="err-email">
+                            <i class="fas fa-circle-exclamation"></i>
+                            Please enter a valid email address.
+                        </div>
+                    </div>
+
+                    <!-- password -->
+                    <div class="auth-field">
+                        <label class="auth-label" for="si-pwd">Password</label>
+                        <div class="auth-input-wrap">
+                            <i class="fas fa-lock auth-input-icon"></i>
+                            <input
+                                    type="password"
+                                    id="si-pwd"
+                                    class="auth-input"
+                                    placeholder="Enter your password"
+                                    autocomplete="current-password"
+                            />
+                            <button type="button" class="auth-eye" id="si-eye-btn">
+                                <i class="far fa-eye"></i>
+                            </button>
+                        </div>
+                        <div class="field-err" id="err-pwd">
+                            <i class="fas fa-circle-exclamation"></i>
+                            Password must be at least 6 characters.
+                        </div>
+                    </div>
+
+                </div><!-- /auth-fields -->
+
+                <!-- remember me + forgot -->
+                <div class="auth-extra">
+                    <label class="auth-remember">
+                        <input type="checkbox" class="auth-cb" id="si-remember" />
+                        <span>Remember me</span>
+                    </label>
+                    <a href="#" class="auth-forgot">Forgot password?</a>
+                </div>
+
+                <button type="submit" class="btn-auth-submit" id="signinBtn">
+                    <div class="spin-ring"></div>
+                    <span class="btn-txt">Sign In &nbsp;<i class="fas fa-arrow-right"></i></span>
+                </button>
+
+            </form><!-- /signinForm -->
+
+            <!-- success state -->
+            <div class="auth-success" id="siSuccess">
+                <div class="success-circle">✅</div>
+                <h3 class="success-title">Welcome back!</h3>
+                <p class="success-sub">You're signed in successfully. Redirecting you now…</p>
+                <a href="../index.html" class="btn-success-link">
+                    Go to Home &nbsp;<i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
+
+            <p class="auth-note">
+                By signing in you agree to our
+                <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a>.
+            </p>
+
+        </div><!-- /auth-form-box -->
+    </div><!-- /auth-form-side -->
+
+</div><!-- /auth-layout -->
+
+<div class="toast-wrap" id="toastWrap"></div>
+<script src="../js/App.js"></script>
+
+<script>
+    /* ── password eye toggle ── */
+    document.getElementById('si-eye-btn').addEventListener('click', function () {
+        var inp = document.getElementById('si-pwd');
+        var ico = this.querySelector('i');
+        inp.type      = inp.type === 'password' ? 'text' : 'password';
+        ico.className = inp.type === 'text' ? 'far fa-eye-slash' : 'far fa-eye';
+    });
+
+    /* ── clear error on re-type ── */
+    document.getElementById('si-email').addEventListener('input', function () {
+        this.classList.remove('is-error');
+        document.getElementById('err-email').classList.remove('on');
+    });
+    document.getElementById('si-pwd').addEventListener('input', function () {
+        this.classList.remove('is-error');
+        document.getElementById('err-pwd').classList.remove('on');
+    });
+
+    /* ── form submit ── */
+    document.getElementById('signinForm').addEventListener('submit', function (e) {
+        e.preventDefault();
+
+        var email = document.getElementById('si-email');
+        var pwd   = document.getElementById('si-pwd');
+        var btn   = document.getElementById('signinBtn');
+        var valid = true;
+
+        var emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value.trim());
+        email.classList.toggle('is-error', !emailOk);
+        document.getElementById('err-email').classList.toggle('on', !emailOk);
+        if (!emailOk) valid = false;
+
+        var pwdOk = pwd.value.length >= 6;
+        pwd.classList.toggle('is-error', !pwdOk);
+        document.getElementById('err-pwd').classList.toggle('on', !pwdOk);
+        if (!pwdOk) valid = false;
+
+        if (!valid) return;
+
+        btn.classList.add('loading');
+
+        setTimeout(function () {
+            btn.classList.remove('loading');
+            document.getElementById('signinForm').style.display    = 'none';
+            document.querySelector('.social-row').style.display    = 'none';
+            document.querySelector('.or-divider').style.display    = 'none';
+            document.querySelector('.auth-note').style.display     = 'none';
+            document.getElementById('siSuccess').classList.add('on');
+        }, 1600);
+    });
+</script>
+
+</body>
+</html>
