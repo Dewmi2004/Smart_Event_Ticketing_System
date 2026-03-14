@@ -13,9 +13,6 @@
 <div class="bg-blob"></div>
 <div class="bg-blob-2"></div>
 
-<!-- ═══════════════════════════════════════════════
-     NAVBAR  —  brand  +  Sign In / Sign Up only
-════════════════════════════════════════════════ -->
 <nav class="topbar">
     <a href="../index.html" class="topbar-brand">
         <div class="brand-icon">🎫</div>
@@ -27,12 +24,9 @@
     </div>
 </nav>
 
-<!-- ═══════════════════════════════════════════════
-     SPLIT LAYOUT
-════════════════════════════════════════════════ -->
 <div class="auth-layout">
 
-    <!-- ── LEFT: decorative panel ─────────────────── -->
+    <!-- ── LEFT: decorative panel ── -->
     <div class="auth-panel">
         <div class="ap-ring"></div>
         <div class="ap-ring"></div>
@@ -53,7 +47,6 @@
         </p>
 
         <div class="ap-features">
-
             <div class="ap-feat">
                 <div class="ap-feat-icon">🎫</div>
                 <div>
@@ -61,7 +54,6 @@
                     <div class="ap-feat-desc">Scan at the gate — no printing needed</div>
                 </div>
             </div>
-
             <div class="ap-feat">
                 <div class="ap-feat-icon">📍</div>
                 <div>
@@ -69,7 +61,6 @@
                     <div class="ap-feat-desc">Discover local events in Colombo &amp; beyond</div>
                 </div>
             </div>
-
             <div class="ap-feat">
                 <div class="ap-feat-icon">💳</div>
                 <div>
@@ -77,10 +68,8 @@
                     <div class="ap-feat-desc">Stripe, PayPal &amp; Razorpay supported</div>
                 </div>
             </div>
+        </div>
 
-        </div><!-- /ap-features -->
-
-        <!-- testimonial pinned to the bottom -->
         <div class="ap-testi">
             <p class="at-quote">
                 "EventHub completely changed how I attend events. Booking takes 30 seconds
@@ -98,23 +87,20 @@
                 </div>
             </div>
         </div>
+    </div>
 
-    </div><!-- /auth-panel -->
-
-    <!-- ── RIGHT: sign-in form ───────────────────── -->
+    <!-- ── RIGHT: sign-in form ── -->
     <div class="auth-form-side">
         <div class="auth-form-box">
 
-            <!-- header -->
             <div class="afb-header">
                 <h2 class="afb-title">Sign in to <span>EventHub</span></h2>
                 <p class="afb-sub">
-                    No account yet? <a href="SignUp.html">Create one free →</a>
+                    No account yet? <a href="Signup.html">Create one free →</a>
                 </p>
             </div>
 
-            <!-- social login -->
-            <div class="social-row">
+            <div class="social-row" id="socialRow">
                 <button class="btn-social" type="button">
                     <i class="fab fa-google ic-google"></i> Google
                 </button>
@@ -123,14 +109,11 @@
                 </button>
             </div>
 
-            <div class="or-divider"><span>or continue with email</span></div>
+            <div class="or-divider" id="orDivider"><span>or continue with email</span></div>
 
-            <!-- form -->
             <form id="signinForm" novalidate>
-
                 <div class="auth-fields">
 
-                    <!-- email -->
                     <div class="auth-field">
                         <label class="auth-label" for="si-email">Email Address</label>
                         <div class="auth-input-wrap">
@@ -149,7 +132,6 @@
                         </div>
                     </div>
 
-                    <!-- password -->
                     <div class="auth-field">
                         <label class="auth-label" for="si-pwd">Password</label>
                         <div class="auth-input-wrap">
@@ -171,9 +153,8 @@
                         </div>
                     </div>
 
-                </div><!-- /auth-fields -->
+                </div>
 
-                <!-- remember me + forgot -->
                 <div class="auth-extra">
                     <label class="auth-remember">
                         <input type="checkbox" class="auth-cb" id="si-remember" />
@@ -186,84 +167,23 @@
                     <div class="spin-ring"></div>
                     <span class="btn-txt">Sign In &nbsp;<i class="fas fa-arrow-right"></i></span>
                 </button>
+            </form>
 
-            </form><!-- /signinForm -->
-
-            <!-- success state -->
-            <div class="auth-success" id="siSuccess">
-                <div class="success-circle">✅</div>
-                <h3 class="success-title">Welcome back!</h3>
-                <p class="success-sub">You're signed in successfully. Redirecting you now…</p>
-                <a href="../index.html" class="btn-success-link">
-                    Go to Home &nbsp;<i class="fas fa-arrow-right"></i>
-                </a>
-            </div>
-
-            <p class="auth-note">
+            <p class="auth-note" id="authNote">
                 By signing in you agree to our
                 <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a>.
             </p>
 
-        </div><!-- /auth-form-box -->
-    </div><!-- /auth-form-side -->
+        </div>
+    </div>
 
-</div><!-- /auth-layout -->
+</div>
 
 <div class="toast-wrap" id="toastWrap"></div>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="../js/App.js"></script>
-
-<script>
-    /* ── password eye toggle ── */
-    document.getElementById('si-eye-btn').addEventListener('click', function () {
-        var inp = document.getElementById('si-pwd');
-        var ico = this.querySelector('i');
-        inp.type      = inp.type === 'password' ? 'text' : 'password';
-        ico.className = inp.type === 'text' ? 'far fa-eye-slash' : 'far fa-eye';
-    });
-
-    /* ── clear error on re-type ── */
-    document.getElementById('si-email').addEventListener('input', function () {
-        this.classList.remove('is-error');
-        document.getElementById('err-email').classList.remove('on');
-    });
-    document.getElementById('si-pwd').addEventListener('input', function () {
-        this.classList.remove('is-error');
-        document.getElementById('err-pwd').classList.remove('on');
-    });
-
-    /* ── form submit ── */
-    document.getElementById('signinForm').addEventListener('submit', function (e) {
-        e.preventDefault();
-
-        var email = document.getElementById('si-email');
-        var pwd   = document.getElementById('si-pwd');
-        var btn   = document.getElementById('signinBtn');
-        var valid = true;
-
-        var emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value.trim());
-        email.classList.toggle('is-error', !emailOk);
-        document.getElementById('err-email').classList.toggle('on', !emailOk);
-        if (!emailOk) valid = false;
-
-        var pwdOk = pwd.value.length >= 6;
-        pwd.classList.toggle('is-error', !pwdOk);
-        document.getElementById('err-pwd').classList.toggle('on', !pwdOk);
-        if (!pwdOk) valid = false;
-
-        if (!valid) return;
-
-        btn.classList.add('loading');
-
-        setTimeout(function () {
-            btn.classList.remove('loading');
-            document.getElementById('signinForm').style.display    = 'none';
-            document.querySelector('.social-row').style.display    = 'none';
-            document.querySelector('.or-divider').style.display    = 'none';
-            document.querySelector('.auth-note').style.display     = 'none';
-            document.getElementById('siSuccess').classList.add('on');
-        }, 1600);
-    });
-</script>
+<script src="../js/Auth.js"></script>
+<script> AUTH.initSignIn(); </script>
 
 </body>
 </html>
