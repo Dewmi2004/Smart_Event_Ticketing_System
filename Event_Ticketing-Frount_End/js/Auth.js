@@ -82,7 +82,7 @@ var AUTH = (function () {
 
         var form = document.getElementById('signinForm');
         if (!form) return;
-
+// sign in
         form.addEventListener('submit', function (e) {
             e.preventDefault();
 
@@ -120,10 +120,15 @@ var AUTH = (function () {
                             rememberEl ? rememberEl.checked : false
                         );
 
+                        var role = body.data.role || 'USER';
+                        var redirectUrl = (role === 'ADMIN')
+                            ? '../Pages/Event.html'
+                            : '../index.html';
+
                         alertSuccess(
                             'Welcome back! 👋',
-                            'Signed in successfully. Taking you home…',
-                            function () { window.location.href = '../index.html'; }
+                            'Signed in successfully. Redirecting…',
+                            function () { window.location.href = redirectUrl; }
                         );
 
                     } else {
@@ -176,7 +181,7 @@ var AUTH = (function () {
 
         var form = document.getElementById('signupForm');
         if (!form) return;
-
+//sign up
         form.addEventListener('submit', function (e) {
             e.preventDefault();
 

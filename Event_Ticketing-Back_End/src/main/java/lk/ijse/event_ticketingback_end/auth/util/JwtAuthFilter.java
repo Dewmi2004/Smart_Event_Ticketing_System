@@ -28,10 +28,8 @@ public class JwtAuthFilter extends OncePerRequestFilter {
                                     FilterChain filterChain)
             throws ServletException, IOException {
 
-        // ✅ FIX 1: Read from REQUEST header, not response header
         final String authHeader = request.getHeader("Authorization");
 
-        // ✅ FIX 2: Inverted condition — skip if header is missing OR does NOT start with "Bearer "
         if (authHeader == null || !authHeader.startsWith("Bearer ")) {
             filterChain.doFilter(request, response);
             return;
@@ -39,7 +37,6 @@ public class JwtAuthFilter extends OncePerRequestFilter {
 
         final String jwtToken = authHeader.substring(7);
 
-        // ✅ FIX 3: extractUsername now handles exceptions gracefully (see JwtUtill)
         final String username = jwtUtill.extractUsername(jwtToken);
 
         if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {

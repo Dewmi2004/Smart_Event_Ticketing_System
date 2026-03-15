@@ -22,30 +22,22 @@ public class AuthService {
     private final JwtUtill jwtUtil;
 
     public AuthResponseDTO authenticate(AuthDTO authDTO) {
-        // Find user in DB
         User user = userRepository.findByUsername(authDTO.getUsername())
                 .orElseThrow(() -> new UsernameNotFoundException(authDTO.getUsername()));
 
-        // Match raw password against stored BCrypt hash
         if (!passwordEncoder.matches(authDTO.getPassword(), user.getPassword())) {
             throw new BadCredentialsException(authDTO.getUsername());
         }
 
-        // Generate JWT
         String token = jwtUtil.generateToken(authDTO.getUsername());
-        return new AuthResponseDTO(token);
+        return new AuthResponseDTO(token, user.getRole().name());
     }
 
     public String register(RegisterDTO registerDTO) {
-        // Prevent duplicate usernames
         if (userRepository.findByUsername(registerDTO.getUsername()).isPresent()) {
             throw new RuntimeException("Username is already in use");
         }
 
-        // ✅ FIX: Validate role string before calling Role.valueOf() to avoid
-        //         an unhelpful IllegalArgumentException.
-        //         The frontend always sends "USER", but this guards against
-        //         tampered requests trying to self-assign "ADMIN".
         Role role;
         try {
             role = Role.valueOf(registerDTO.getRole().toUpperCase());
@@ -54,9 +46,6 @@ public class AuthService {
                     + ". Accepted values: USER, ADMIN");
         }
 
-        // ✅ Extra guard: public registration is only allowed for USER role.
-        //    ADMIN accounts must be created by an existing admin via a
-        //    separate admin endpoint (not implemented here yet).
         if (role == Role.ADMIN) {
             throw new RuntimeException(
                     "ADMIN accounts cannot be self-registered. Contact a system administrator.");

@@ -1,5 +1,6 @@
 package lk.ijse.event_ticketingback_end.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -19,9 +20,11 @@ public class Event {
     private int event_id;
     private String event_name;
     private String location;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private Date date;
-    private Time time;
-    private double ticket_price;
-    private int total_seats;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "HH:mm:ss")
+    private String time;
+    private Double ticket_price;
+    private Integer total_seats;
     private String status;
 }
