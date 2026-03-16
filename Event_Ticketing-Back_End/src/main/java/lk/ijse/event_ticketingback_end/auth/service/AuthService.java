@@ -46,10 +46,10 @@ public class AuthService {
                     + ". Accepted values: USER, ADMIN");
         }
 
-        if (role == Role.ADMIN) {
-            throw new RuntimeException(
-                    "ADMIN accounts cannot be self-registered. Contact a system administrator.");
-        }
+//        if (role == Role.ADMIN) {
+//            throw new RuntimeException(
+//                    "ADMIN accounts cannot be self-registered. Contact a system administrator.");
+//        }
 
         User user = User.builder()
                 .username(registerDTO.getUsername())
