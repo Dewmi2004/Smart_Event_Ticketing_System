@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/Event_Ticketing-Back_End/Event_Ticketing-Back_End.iml" filepath="$PROJECT_DIR$/Event_Ticketing-Back_End/Event_Ticketing-Back_End.iml" />
       <module fileurl="file://$PROJECT_DIR$/Smart_Event_Ticketing_System.iml" filepath="$PROJECT_DIR$/Smart_Event_Ticketing_System.iml" />
     </modules>
   </component>

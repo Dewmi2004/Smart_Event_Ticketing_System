@@ -103,7 +103,7 @@ var SWAL = {
 function getFormValues() {
     return {
         coupon_id:       parseInt($('#f_couponId').val()) || 0,
-        coupon_code:     $('#f_code').val().trim().toUpperCase(),
+        couponCode:     $('#f_code').val().trim().toUpperCase(),
         discount_type:   $('#f_discountType').val(),
         discount_value:  parseInt($('#f_discountValue').val()) || 0,
         expiration_date: $('#f_expiryDate').val(),
@@ -140,7 +140,7 @@ function handleAuthError(status) {
 function saveCoupon() {
     var data = getFormValues();
 
-    if (!data.coupon_code || !data.expiration_date) {
+    if (!data.couponCode || !data.expiration_date) {
         SWAL.warning('Missing Fields', 'Coupon Code and Expiry Date are required before saving.');
         return;
     }
@@ -153,7 +153,7 @@ function saveCoupon() {
         headers: authHeaders(),
         data:    JSON.stringify(data),
         success: function (res) {
-            SWAL.success('Coupon Saved! 🎉', '"' + data.coupon_code + '" has been saved successfully.');
+            SWAL.success('Coupon Saved! 🎉', '"' + data.couponCode + '" has been saved successfully.');
             clearCouponForm();
             getAllCoupons();
         },
@@ -182,7 +182,7 @@ function updateCoupon() {
         headers: authHeaders(),
         data:    JSON.stringify(data),
         success: function (res) {
-            SWAL.success('Coupon Updated! ✏️', '"' + data.coupon_code + '" has been updated successfully.');
+            SWAL.success('Coupon Updated! ✏️', '"' + data.couponCode + '" has been updated successfully.');
             clearCouponForm();
             getAllCoupons();
         },
@@ -218,7 +218,7 @@ function deleteCoupon() {
             headers: authHeaders(),
             data:    JSON.stringify({ coupon_id: data.coupon_id }),
             success: function (res) {
-                SWAL.success('Deleted!', '"' + data.coupon_code + '" has been removed successfully.');
+                SWAL.success('Deleted!', '"' + data.couponCode + '" has been removed successfully.');
                 clearCouponForm();
                 getAllCoupons();
             },
@@ -261,7 +261,7 @@ function getAllCoupons() {
                 var row =
                     '<tr' +
                     ' data-id="'       + c.coupon_id      + '"' +
-                    ' data-code="'     + c.coupon_code     + '"' +
+                    ' data-code="'     + c.couponCode     + '"' +
                     ' data-type="'     + c.discount_type   + '"' +
                     ' data-value="'    + c.discount_value  + '"' +
                     ' data-expiry="'   + c.expiration_date + '"' +
@@ -269,7 +269,7 @@ function getAllCoupons() {
                     ' data-used="'     + c.used_count      + '"' +
                     ' style="cursor:pointer;">' +
                     '<td class="muted">'  + c.coupon_id + '</td>' +
-                    '<td><strong>'        + c.coupon_code + '</strong></td>' +
+                    '<td><strong>'        + c.couponCode + '</strong></td>' +
                     '<td><span class="type-chip ' + typeCls + '">' + c.discount_type + '</span></td>' +
                     '<td><strong>'        + c.discount_value + ' ' + typeLbl + '</strong></td>' +
                     '<td class="muted">'  + formatDate(c.expiration_date) + '</td>' +

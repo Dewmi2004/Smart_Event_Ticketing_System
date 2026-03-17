@@ -35,7 +35,7 @@ public class CouponServiceImpl implements CouponService {
                 .orElseThrow(() -> new EventNotFoundException(
                         "Coupon not found with ID: " + couponDto.getCoupon_id()));
 
-        existingCoupon.setCoupon_code(couponDto.getCoupon_code());
+        existingCoupon.setCouponCode(couponDto.getCouponCode());
         existingCoupon.setDiscount_type(couponDto.getDiscount_type());
         existingCoupon.setDiscount_value(couponDto.getDiscount_value());
         existingCoupon.setExpiration_date(couponDto.getExpiration_date());

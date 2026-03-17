@@ -10,7 +10,7 @@ import java.sql.Time;
 @NoArgsConstructor
 @Data
 public class EventDto {
-    private int event_id;
+    private int eventId;
     private String event_name;
     private String location;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")

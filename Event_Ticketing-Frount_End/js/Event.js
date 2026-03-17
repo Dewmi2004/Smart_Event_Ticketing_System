@@ -102,7 +102,7 @@ var SWAL = {
 
 function getFormValues() {
     return {
-        event_id:     parseInt($('#f_eventId').val()) || 0,
+        eventId:      parseInt($('#f_eventId').val()) || 0,
         event_name:   $('#f_title').val().trim(),
         location:     $('#f_location').val().trim(),
         date:         $('#f_date').val(),
@@ -171,7 +171,8 @@ function saveEvent() {
 function updateEvent() {
     var data = getFormValues();
 
-    if (!data.event_id) {
+    // ✅ Fixed: was checking data.event_id (always undefined), now checks data.eventId
+    if (!data.eventId) {
         SWAL.warning('No Event Selected', 'Please click ✏️ Edit on a row in the table below to select an event to update.');
         return;
     }
@@ -200,7 +201,8 @@ function updateEvent() {
 function deleteEvent() {
     var data = getFormValues();
 
-    if (!data.event_id) {
+    // ✅ Fixed: was checking data.event_id (always undefined), now checks data.eventId
+    if (!data.eventId) {
         SWAL.warning('No Event Selected', 'Please click ✏️ Edit on a row in the table below to select an event to delete.');
         return;
     }
@@ -214,11 +216,11 @@ function deleteEvent() {
 
         SWAL.loading('Deleting…', 'Removing the event from the system.');
 
+        // ✅ Fixed: ID now in URL path, no request body needed
         $.ajax({
-            url:     API_URL,
+            url:     API_URL + '/' + data.eventId,
             method:  'DELETE',
             headers: authHeaders(),
-            data:    JSON.stringify({ event_id: data.event_id }),
             success: function (res) {
                 SWAL.success('Deleted!', '"' + data.event_name + '" has been removed successfully.');
                 clearEventForm();
@@ -257,7 +259,7 @@ function getAllEvents() {
                 var e   = events[i];
                 var row =
                     '<tr' +
-                    ' data-id="'       + e.event_id     + '"' +
+                    ' data-id="'       + e.eventId      + '"' +
                     ' data-name="'     + e.event_name   + '"' +
                     ' data-location="' + e.location     + '"' +
                     ' data-date="'     + e.date         + '"' +
@@ -266,7 +268,7 @@ function getAllEvents() {
                     ' data-seats="'    + e.total_seats  + '"' +
                     ' data-status="'   + e.status       + '"' +
                     ' style="cursor:pointer;">' +
-                    '<td class="muted">' + e.event_id   + '</td>' +
+                    '<td class="muted">' + e.eventId    + '</td>' +
                     '<td><strong>'       + e.event_name + '</strong></td>' +
                     '<td class="muted">' + e.location   + '</td>' +
                     '<td class="muted">' + formatDate(e.date) + '</td>' +
@@ -321,11 +323,11 @@ function deleteRowBtn(btn) {
 
         SWAL.loading('Deleting…', 'Removing the event from the system.');
 
+        // ✅ Fixed: ID in URL path, removed broken JSON body with wrong key
         $.ajax({
-            url:     API_URL,
+            url:     API_URL + '/' + id,
             method:  'DELETE',
             headers: authHeaders(),
-            data:    JSON.stringify({ event_id: id }),
             success: function (res) {
                 SWAL.success('Deleted!', '"' + name + '" has been removed successfully.');
                 clearEventForm();

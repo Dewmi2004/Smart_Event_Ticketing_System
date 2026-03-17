@@ -23,7 +23,7 @@ public class EventServiceImpl implements EventService {
 
     @Override
     public void saveEvent(EventDto eventDto) {
-        eventDto.setEvent_id(0);
+        eventDto.setEventId(0);
         Event event = modelMapper.map(eventDto, Event.class);
         eventRepository.save(event);
     }
@@ -31,9 +31,9 @@ public class EventServiceImpl implements EventService {
     @Override
     public void updateEvent(EventDto eventDto) {
         Event existingEvent = eventRepository
-                .findById(eventDto.getEvent_id())
+                .findById(eventDto.getEventId())
                 .orElseThrow(() -> new EventNotFoundException(
-                        "Event not found with ID: " + eventDto.getEvent_id()));
+                        "Event not found with ID: " + eventDto.getEventId()));
 
         existingEvent.setEvent_name(eventDto.getEvent_name());
         existingEvent.setLocation(eventDto.getLocation());
@@ -47,12 +47,11 @@ public class EventServiceImpl implements EventService {
     }
 
     @Override
-    public void deleteEvent(EventDto eventDto) {
+    public void deleteEvent(int eventId) {
         Event existingEvent = eventRepository
-                .findById(eventDto.getEvent_id())
+                .findById(eventId)
                 .orElseThrow(() -> new EventNotFoundException(
-                        "Event not found with ID: " + eventDto.getEvent_id()));
-
+                        "Event not found with ID: " + eventId));
         eventRepository.delete(existingEvent);
         eventRepository.flush();
     }

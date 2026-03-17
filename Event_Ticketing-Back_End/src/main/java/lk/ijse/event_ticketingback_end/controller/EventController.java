@@ -29,9 +29,9 @@ public class EventController {
         return new ResponseEntity<>(new APIResponse<>(200, "Event Updated", null), HttpStatus.OK);
     }
 
-    @DeleteMapping
-    public ResponseEntity<APIResponse<String>> deleteEvent(@RequestBody EventDto eventDto) {
-        eventService.deleteEvent(eventDto);
+    @DeleteMapping("/{eventId}")
+    public ResponseEntity<APIResponse<String>> deleteEvent(@PathVariable int eventId) {
+        eventService.deleteEvent(eventId);
         return new ResponseEntity<>(new APIResponse<>(200, "Event Deleted", null), HttpStatus.OK);
     }
 

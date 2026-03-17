@@ -1,9 +1,6 @@
 package lk.ijse.event_ticketingback_end.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -18,7 +15,8 @@ public class Coupon {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int coupon_id;
-    private String coupon_code;
+    @Column(name = "coupon_code")
+    private String couponCode;
     private String discount_type;
     private int discount_value;
     private Date expiration_date;

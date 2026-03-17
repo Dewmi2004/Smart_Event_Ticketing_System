@@ -11,7 +11,7 @@ import java.sql.Date;
 @NoArgsConstructor
 public class CouponDto {
     private int coupon_id;
-    private String coupon_code;
+    private String couponCode;
     private String discount_type;
     private int discount_value;
     private Date expiration_date;
