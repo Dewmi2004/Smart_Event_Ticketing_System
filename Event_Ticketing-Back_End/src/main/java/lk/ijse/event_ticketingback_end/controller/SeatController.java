@@ -24,6 +24,14 @@ public class SeatController {
         return new ResponseEntity<>(new APIResponse<>(200, "Seat Saved", null), HttpStatus.CREATED);
     }
 
+    @PostMapping("/generate/{eventId}")
+    public ResponseEntity<APIResponse<String>> generateSeats(@PathVariable int eventId) {
+        int count = seatService.generateSeatsForEvent(eventId);
+        return new ResponseEntity<>(
+                new APIResponse<>(200, count + " seats generated for event " + eventId, null),
+                HttpStatus.CREATED);
+    }
+
     @PutMapping
     public ResponseEntity<APIResponse<String>> updateSeat(@RequestBody SeatDto seatDto) {
         seatService.updateSeat(seatDto);
