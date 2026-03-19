@@ -56,6 +56,7 @@ public class BookingServiceImpl implements BookingService {
 
         Booking booking = new Booking();
         booking.setUserId(dto.getUserId());
+        booking.setUserEmail(dto.getUserEmail());   // ← ADDED: persist email for PayHere webhook
         booking.setEvent(event);
         booking.setBookingDate(Date.valueOf(LocalDate.now()));
         booking.setTotalAmount(dto.getTotalAmount());
@@ -64,35 +65,8 @@ public class BookingServiceImpl implements BookingService {
         booking.setSeats(seats);
         Booking saved = bookingRepository.save(booking);
 
-        String seatNumbers = seats.stream()
-                .map(Seat::getSeatNumber)
-                .collect(Collectors.joining(", "));
-
-        String qrData = String.format(
-                "{\"bookingId\":%d,\"userId\":%d,\"event\":\"%s\",\"seats\":\"%s\",\"amount\":%.2f,\"status\":\"Pending\"}",
-                saved.getBookingId(), dto.getUserId(),
-                event.getEvent_name(), seatNumbers, dto.getTotalAmount()
-        );
-        String qrUrl = "https://api.qrserver.com/v1/create-qr-code/?size=300x300&ecc=M&data="
-                + java.net.URLEncoder.encode(qrData, java.nio.charset.StandardCharsets.UTF_8);
-
-        if (dto.getUserEmail() != null && !dto.getUserEmail().isBlank()) {
-            try {
-                emailService.sendBookingConfirmation(
-                        dto.getUserEmail(),
-                        "Attendee",
-                        saved.getBookingId(),
-                        event.getEvent_name(),
-                        event.getDate() != null ? event.getDate().toString() : "TBA",
-                        event.getLocation(),
-                        seatNumbers,
-                        dto.getTotalAmount(),
-                        qrUrl
-                );
-            } catch (Exception e) {
-                System.err.println("[EmailService] Failed to send booking email: " + e.getMessage());
-            }
-        }
+        // No email sent here — email is sent AFTER payment via PayHere webhook
+        // (PaymentServiceImpl.handleNotify calls emailService once status = PAID)
 
         return toDto(saved);
     }
@@ -128,6 +102,7 @@ public class BookingServiceImpl implements BookingService {
         BookingDto dto = new BookingDto();
         dto.setBookingId(b.getBookingId());
         dto.setUserId(b.getUserId());
+        dto.setUserEmail(b.getUserEmail());
         dto.setEventId(b.getEvent().getEventId());
         dto.setEventName(b.getEvent().getEvent_name());
         dto.setEventLocation(b.getEvent().getLocation());

@@ -18,6 +18,10 @@ public class Booking {
 
     private int userId;
 
+    // Store email so the PayHere webhook can send the ticket email
+    @Column(name = "user_email")
+    private String userEmail;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "event_id", nullable = false)
     private Event event;
@@ -27,7 +31,6 @@ public class Booking {
     private String couponCode;
     private String status;
 
-    /* Many Bookings ↔ Many Seats */
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
             name = "booking_seats",

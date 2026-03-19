@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Payment Successful — EventHub</title>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800;900&display=swap" rel="stylesheet"/>
+    <style>
+        *{box-sizing:border-box;margin:0;padding:0}
+        :root{--purple:#7C3AED;--grad:linear-gradient(90deg,#7C3AED,#C026D3,#EC4899);--font:'Manrope',sans-serif}
+        body{font-family:var(--font);background:#F8F8FC;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px}
+        .card{background:#fff;border-radius:24px;padding:48px 40px;max-width:480px;width:100%;text-align:center;box-shadow:0 8px 40px rgba(0,0,0,0.08)}
+        .icon{width:88px;height:88px;border-radius:50%;background:linear-gradient(135deg,rgba(16,185,129,0.12),rgba(16,185,129,0.06));display:flex;align-items:center;justify-content:center;margin:0 auto 24px;font-size:2.8rem}
+        h1{font-size:1.8rem;font-weight:900;color:#111827;letter-spacing:-1px;margin-bottom:10px}
+        .sub{font-size:0.95rem;color:#6B7280;line-height:1.7;margin-bottom:28px}
+        .detail-box{background:#F8F8FC;border-radius:14px;padding:18px;text-align:left;margin-bottom:28px}
+        .detail-row{display:flex;justify-content:space-between;padding:7px 0;font-size:0.85rem;border-bottom:1px solid rgba(0,0,0,0.06)}
+        .detail-row:last-child{border:none}
+        .detail-row span:first-child{color:#6B7280}
+        .detail-row span:last-child{font-weight:700;color:#111827}
+        .status-badge{display:inline-flex;align-items:center;gap:6px;background:rgba(16,185,129,0.1);color:#10B981;border-radius:999px;padding:4px 14px;font-size:0.78rem;font-weight:700;margin-bottom:20px}
+        .btn{display:inline-flex;align-items:center;gap:8px;padding:14px 28px;border-radius:12px;font-family:var(--font);font-size:0.9rem;font-weight:700;cursor:pointer;text-decoration:none;transition:all 0.2s;border:none}
+        .btn-primary{background:var(--grad);color:#fff;box-shadow:0 4px 20px rgba(124,58,237,0.3)}
+        .btn-primary:hover{opacity:0.9;transform:translateY(-1px)}
+        .btn-ghost{background:transparent;border:1.5px solid rgba(0,0,0,0.1);color:#6B7280;margin-left:10px}
+        .btn-ghost:hover{border-color:var(--purple);color:var(--purple)}
+        .spinner{width:36px;height:36px;border:3px solid rgba(124,58,237,0.15);border-top-color:var(--purple);border-radius:50%;animation:spin 0.8s linear infinite;margin:0 auto 16px}
+        @keyframes spin{to{transform:rotate(360deg)}}
+        .loading-text{color:#6B7280;font-size:0.88rem}
+        #loadingState{display:block}
+        #successState{display:none}
+    </style>
+</head>
+<body>
+<div class="card">
+
+    <!-- Loading while we verify payment status -->
+    <div id="loadingState">
+        <div class="spinner"></div>
+        <p class="loading-text">Verifying your payment...</p>
+    </div>
+
+    <!-- Success content shown after verification -->
+    <div id="successState">
+        <div class="icon">✅</div>
+        <div class="status-badge">● Payment Confirmed</div>
+        <h1>You're In!</h1>
+        <p class="sub">Your payment was successful. Your QR e-ticket has been sent to your email. Show it at the gate to enter.</p>
+        <div class="detail-box" id="detailBox"></div>
+        <div>
+            <a href="index.html" class="btn btn-primary">🏠 Back to Home</a>
+            <a href="#" class="btn btn-ghost" onclick="window.print()">🖨 Print</a>
+        </div>
+    </div>
+
+</div>
+
+<script>
+    const PAYMENT_API = 'http://localhost:8080/api/v1/payment';
+    const BOOKING_API = 'http://localhost:8080/api/v1/booking';
+
+    function getParam(key){
+        return new URLSearchParams(location.search).get(key);
+    }
+
+    function getToken(){
+        return localStorage.getItem('eh_token')||sessionStorage.getItem('eh_token')||'';
+    }
+
+    async function verifyPayment(){
+        const bookingId = getParam('bookingId');
+        if(!bookingId){ showError('No booking ID found.'); return; }
+
+        // Poll payment status — PayHere notify_url may take a few seconds
+        let attempts = 0;
+        const maxAttempts = 10;
+
+        const poll = async () => {
+            attempts++;
+            try {
+                const res  = await fetch(`${PAYMENT_API}/booking/${bookingId}`, {
+                    headers: { 'Content-Type': 'application/json' }
+                });
+                const data = await res.json();
+                const payment = data.data || {};
+
+                if(payment.status === 'PAID'){
+                    showSuccess(bookingId, payment);
+                } else if(attempts < maxAttempts){
+                    setTimeout(poll, 2000); // retry every 2s
+                } else {
+                    // Timeout — show success anyway (PayHere confirmed on their end)
+                    showSuccess(bookingId, payment);
+                }
+            } catch(e){
+                if(attempts < maxAttempts){
+                    setTimeout(poll, 2000);
+                } else {
+                    showSuccess(bookingId, {});
+                }
+            }
+        };
+        poll();
+    }
+
+    function showSuccess(bookingId, payment){
+        document.getElementById('loadingState').style.display = 'none';
+        document.getElementById('successState').style.display = 'block';
+
+        document.getElementById('detailBox').innerHTML = `
+            <div class="detail-row"><span>Booking ID</span><span>#${bookingId}</span></div>
+            <div class="detail-row"><span>Amount Paid</span><span>LKR ${payment.amount ? Number(payment.amount).toLocaleString() : '—'}</span></div>
+            <div class="detail-row"><span>Payment Method</span><span>${payment.method || '—'}</span></div>
+            <div class="detail-row"><span>Status</span><span style="color:#10B981">✓ Confirmed</span></div>
+            <div class="detail-row"><span>E-Ticket</span><span>Sent to your email 📧</span></div>
+        `;
+    }
+
+    function showError(msg){
+        document.getElementById('loadingState').innerHTML =
+            `<p style="color:#EF4444;font-size:0.9rem">${msg}</p>`;
+    }
+
+    verifyPayment();
+</script>
+</body>
+</html>

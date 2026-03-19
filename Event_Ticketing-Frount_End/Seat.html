@@ -258,6 +258,14 @@
                     <input class="form-inp" id="fEmail" type="email" placeholder="you@example.com"/>
                 </div>
                 <div>
+                    <label class="form-lbl">Full Name <span style="color:var(--danger)">*</span></label>
+                    <input class="form-inp" id="fName" type="text" placeholder="e.g. Imasha Dewmi"/>
+                </div>
+                <div>
+                    <label class="form-lbl">Phone Number <span style="color:var(--danger)">*</span></label>
+                    <input class="form-inp" id="fPhone" type="tel" placeholder="e.g. 0771234567"/>
+                </div>
+                <div>
                     <label class="form-lbl">Selected Seats</label>
                     <input class="form-inp" id="fSeatNums" readonly placeholder="—"/>
                 </div>
@@ -313,6 +321,7 @@
     const EVENT_API   = 'http://localhost:8080/api/v1/event';
     const SEAT_API    = 'http://localhost:8080/api/v1/seat';
     const BOOKING_API = 'http://localhost:8080/api/v1/booking';
+    const PAYMENT_API = 'http://localhost:8080/api/v1/payment';
 
     const ROWS     = ['A','B','C','D','E','F','G','H','I','J'];
     const COLS     = 12;
@@ -658,23 +667,30 @@
 
     // ── CONFIRM MODAL ──────────────────────────────────
     function showConfirm(){
-        const userId=document.getElementById('fUserId').value.trim();
-        const email=document.getElementById('fEmail').value.trim();
-        if(!userId){toast('Please enter your User ID.','warning');return;}
-        if(!email||!email.includes('@')){toast('Please enter a valid email address.','warning');return;}
-        if(selectedSeats.length===0){toast('Please select at least one seat.','warning');return;}
+        const userId = document.getElementById('fUserId').value.trim();
+        const email  = document.getElementById('fEmail').value.trim();
+        const name   = document.getElementById('fName').value.trim();
+        const phone  = document.getElementById('fPhone').value.trim();
 
-        const {sub,disc,total}=calcTotal();
-        const coupon=document.getElementById('couponInput').value.trim()||'—';
+        if(!userId)                  { toast('Please enter your User ID.','warning');       return; }
+        if(!name)                    { toast('Please enter your full name.','warning');      return; }
+        if(!email||!email.includes('@')){ toast('Please enter a valid email.','warning');   return; }
+        if(!phone||phone.length < 9) { toast('Please enter a valid phone number.','warning'); return; }
+        if(selectedSeats.length===0) { toast('Please select at least one seat.','warning'); return; }
 
-        document.getElementById('confirmDetail').innerHTML=`
-            <div class="modal-detail-row"><span>Event</span><span>${currentEvent?.event_name||'—'}</span></div>
-            <div class="modal-detail-row"><span>Seats</span><span>${selectedSeats.join(', ')}</span></div>
-            <div class="modal-detail-row"><span>Email</span><span>${email}</span></div>
-            <div class="modal-detail-row"><span>Coupon</span><span>${coupon}</span></div>
-            ${disc>0?`<div class="modal-detail-row"><span>Discount</span><span style="color:var(--success)">−LKR ${disc.toLocaleString()}</span></div>`:''}
-            <div class="modal-detail-row"><span>Total</span><span style="color:var(--purple);font-size:1rem">LKR ${total.toLocaleString()}</span></div>
-        `;
+        const { sub, disc, total } = calcTotal();
+        const coupon = document.getElementById('couponInput').value.trim() || '—';
+
+        document.getElementById('confirmDetail').innerHTML =
+            '<div class="modal-detail-row"><span>Event</span><span>' + (currentEvent?.event_name||'—') + '</span></div>' +
+            '<div class="modal-detail-row"><span>Seats</span><span>' + selectedSeats.join(', ') + '</span></div>' +
+            '<div class="modal-detail-row"><span>Name</span><span>' + name + '</span></div>' +
+            '<div class="modal-detail-row"><span>Email</span><span>' + email + '</span></div>' +
+            '<div class="modal-detail-row"><span>Phone</span><span>' + phone + '</span></div>' +
+            '<div class="modal-detail-row"><span>Coupon</span><span>' + coupon + '</span></div>' +
+            (disc > 0 ? '<div class="modal-detail-row"><span>Discount</span><span style="color:var(--success)">−LKR ' + disc.toLocaleString() + '</span></div>' : '') +
+            '<div class="modal-detail-row"><span>Total</span><span style="color:var(--purple);font-size:1rem">LKR ' + total.toLocaleString() + '</span></div>';
+
         document.getElementById('confirmModal').classList.add('open');
     }
     function closeModal(){ document.getElementById('confirmModal').classList.remove('open'); }
@@ -682,38 +698,38 @@
     // ── SUBMIT BOOKING ─────────────────────────────────
     function submitBooking(){
         closeModal();
-        const userId = parseInt(document.getElementById('fUserId').value) || 0;
-        const email  = document.getElementById('fEmail').value.trim();
-        const { total } = calcTotal();
-        const coupon = document.getElementById('couponInput').value.trim() || null;
 
-        // Collect real DB seat IDs (SeatDto uses seat_id snake_case)
+        const userId     = parseInt(document.getElementById('fUserId').value) || 0;
+        const email      = document.getElementById('fEmail').value.trim();
+        const fullName   = document.getElementById('fName') ? document.getElementById('fName').value.trim() : 'Attendee';
+        const phone      = document.getElementById('fPhone') ? document.getElementById('fPhone').value.trim() : '0771234567';
+        const { total }  = calcTotal();
+        const coupon     = document.getElementById('couponInput').value.trim() || null;
+
+        // Collect real DB seat IDs
         const seatIds = selectedSeats
-            .map(id => {
-                const s = seatState[id];
-                if(!s) return null;
-                return s.seatId != null ? s.seatId : null;
-            })
+            .map(id => { const s = seatState[id]; return s ? s.seatId : null; })
             .filter(id => id !== null && id !== undefined);
-
-        console.log('[BookingDebug] selectedSeats :', selectedSeats);
-        console.log('[BookingDebug] resolved seatIds:', seatIds);
-        if(selectedSeats.length > 0) console.log('[BookingDebug] first seatState entry:', seatState[selectedSeats[0]]);
 
         if(seatIds.length === 0){
             Swal.fire({
-                icon: 'error',
-                title: 'Seat ID Error',
-                html: 'Could not find the database IDs for your selected seats.<br><br>' +
-                    '<small style="color:#6B7280">Open browser Console (F12) and look for ' +
-                    '<strong>[Seat.html] dbMap keys</strong> to see what seat numbers the API returned. ' +
-                    'They must match the format the seat map uses (e.g. A1, B3).</small>',
+                icon: 'error', title: 'Seat ID Error',
+                html: 'Could not find database IDs for your selected seats. Please reload and try again.',
                 confirmButtonColor: '#7C3AED', background: '#fff', color: '#111827'
             });
             return;
         }
 
-        const payload = {
+        // Step 1: Show loading
+        Swal.fire({
+            title: 'Creating Booking…',
+            text: 'Locking your seats…',
+            allowOutsideClick: false, allowEscapeKey: false, showConfirmButton: false,
+            background: '#ffffff', color: '#111827',
+            didOpen: () => Swal.showLoading()
+        });
+
+        const bookingPayload = {
             userId,
             userEmail:   email,
             eventId:     currentEvent.eventId,
@@ -723,43 +739,77 @@
             status:      'Pending'
         };
 
-        console.log('[BookingPayload]', JSON.stringify(payload, null, 2));
-
-        Swal.fire({
-            title: 'Creating Booking…',
-            text:  'Locking your seats and sending confirmation email…',
-            allowOutsideClick: false, allowEscapeKey: false, showConfirmButton: false,
-            background: '#ffffff', color: '#111827',
-            didOpen: () => Swal.showLoading()
-        });
-
+        // Step 2: Save booking (Pending)
         $.ajax({
-            url:    BOOKING_API,
-            method: 'POST',
+            url: BOOKING_API, method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            data:   JSON.stringify(payload),
+            data: JSON.stringify(bookingPayload),
             success: function(res){
-                Swal.close();
                 const booking = res.data || {};
-                console.log('[BookingResponse]', booking);
-                document.getElementById('successMsg').innerHTML =
-                    'Booking <strong>#' + (booking.bookingId || '—') + '</strong> confirmed for <strong>' + currentEvent.event_name + '</strong>.<br>' +
-                    'Status: <strong>Pending</strong> — complete payment to confirm entry.<br>' +
-                    '<span style="font-size:0.82rem;color:var(--text-sub)">QR e-ticket sent to <strong>' + email + '</strong></span>';
-                document.getElementById('successModal').classList.add('open');
-                clearAll();
+                const bookingId = booking.bookingId;
+                console.log('[Booking saved] id:', bookingId);
+
+                // Step 3: Initiate PayHere payment
+                Swal.update({ title: 'Redirecting to Payment…', text: 'Please wait…' });
+
+                $.ajax({
+                    url: PAYMENT_API + '/initiate', method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    data: JSON.stringify({
+                        bookingId:     String(bookingId),
+                        customerName:  fullName || 'Attendee',
+                        customerEmail: email,
+                        customerPhone: phone
+                    }),
+                    success: function(payRes){
+                        Swal.close();
+                        const params = payRes.data || {};
+                        console.log('[PayHere params]', params);
+
+                        // Step 4: Build hidden form and submit to PayHere
+                        const isSandbox = params.sandbox === 'true' || params.sandbox === true;
+                        const action = isSandbox
+                            ? 'https://sandbox.payhere.lk/pay/checkout'
+                            : 'https://www.payhere.lk/pay/checkout';
+
+                        const form = document.createElement('form');
+                        form.method = 'POST';
+                        form.action = action;
+
+                        // Add all params except 'sandbox' (not a PayHere field)
+                        Object.entries(params).forEach(([k, v]) => {
+                            if(k === 'sandbox') return;
+                            const input = document.createElement('input');
+                            input.type  = 'hidden';
+                            input.name  = k;
+                            input.value = v;
+                            form.appendChild(input);
+                        });
+
+                        document.body.appendChild(form);
+                        clearAll();
+                        form.submit(); // redirect to PayHere
+                    },
+                    error: function(err){
+                        Swal.close();
+                        console.error('[PayHere initiate error]', err.status, err.responseText);
+                        // Booking was saved — tell user to go pay manually
+                        Swal.fire({
+                            icon: 'warning',
+                            title: 'Booking Saved!',
+                            html: 'Your booking <strong>#' + bookingId + '</strong> is saved.<br>' +
+                                'Payment redirect failed — please contact support to complete payment.',
+                            confirmButtonColor: '#7C3AED', background: '#fff', color: '#111827'
+                        });
+                    }
+                });
             },
             error: function(err){
                 Swal.close();
                 console.error('[BookingError]', err.status, err.responseText);
                 let msg = 'Server error. Please try again.';
-                if(err.status === 401 || err.status === 403){
-                    msg = 'You must be signed in to complete a booking.';
-                } else if(err.responseJSON){
-                    msg = err.responseJSON.data || err.responseJSON.message || msg;
-                } else if(err.responseText){
-                    msg = err.responseText.substring(0, 300);
-                }
+                if(err.status === 401 || err.status === 403) msg = 'You must be signed in to complete a booking.';
+                else if(err.responseJSON) msg = err.responseJSON.data || err.responseJSON.message || msg;
                 Swal.fire({ icon:'error', title:'Booking Failed', text:msg, confirmButtonColor:'#7C3AED', background:'#fff', color:'#111827' });
             }
         });
