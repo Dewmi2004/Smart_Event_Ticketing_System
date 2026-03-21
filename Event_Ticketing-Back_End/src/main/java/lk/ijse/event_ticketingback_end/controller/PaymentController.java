@@ -22,12 +22,11 @@ public class PaymentController {
 
     /**
      * POST /api/v1/payment/initiate
-     * Frontend calls this when user clicks "Pay Now".
-     * Returns all the params needed to build the PayHere form.
+     * Frontend calls this when user clicks Pay Now.
      *
-     * Request body example:
+     * Request body:
      * {
-     *   "bookingId": 5,
+     *   "bookingId": "5",
      *   "customerName": "Imasha Dewmi",
      *   "customerEmail": "imasha@gmail.com",
      *   "customerPhone": "0771234567"
@@ -52,9 +51,8 @@ public class PaymentController {
 
     /**
      * POST /api/v1/payment/notify
-     * PayHere calls this URL directly (server-to-server) after payment.
-     * This is the webhook — DO NOT add auth filter to this endpoint.
-     * Must return HTTP 200 OK with no body.
+     * PayHere webhook — server to server, no auth needed.
+     * Must return HTTP 200 OK.
      */
     @PostMapping("/notify")
     public ResponseEntity<String> handleNotify(
@@ -65,7 +63,6 @@ public class PaymentController {
             paymentService.handleNotify(params);
         } catch (Exception e) {
             log.error("[PayHere Notify] Error: {}", e.getMessage());
-            // Still return 200 so PayHere doesn't keep retrying with bad data
             return ResponseEntity.ok("error");
         }
         return ResponseEntity.ok("OK");
@@ -73,7 +70,7 @@ public class PaymentController {
 
     /**
      * GET /api/v1/payment/booking/{bookingId}
-     * Frontend can poll this to check payment status.
+     * Frontend polls this to check payment status.
      */
     @GetMapping("/booking/{bookingId}")
     public ResponseEntity<APIResponse<PaymentDto>> getPaymentByBooking(

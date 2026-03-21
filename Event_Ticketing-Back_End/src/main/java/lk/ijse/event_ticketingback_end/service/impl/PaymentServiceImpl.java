@@ -37,6 +37,9 @@ public class PaymentServiceImpl implements PaymentService {
     private final BookingRepository bookingRepository;
     private final EmailService      emailService;
 
+    // No QRCodeGenerator here — email QR uses api.qrserver.com
+    // ZXing is only used in EventController for the Event admin page QR
+
     @Value("${payhere.merchant.id}")
     private String merchantId;
 
@@ -46,11 +49,9 @@ public class PaymentServiceImpl implements PaymentService {
     @Value("${payhere.sandbox:true}")
     private boolean sandbox;
 
-    // Frontend URL  e.g. http://localhost:5500
     @Value("${app.base.url}")
     private String appBaseUrl;
 
-    // Backend URL   e.g. https://valrie-nonabdicative-lakita.ngrok-free.dev
     @Value("${app.backend.url}")
     private String appBackendUrl;
 
@@ -64,19 +65,15 @@ public class PaymentServiceImpl implements PaymentService {
         Booking booking = bookingRepository.findById(bookingId)
                 .orElseThrow(() -> new EventNotFoundException("Booking not found: " + bookingId));
 
-        // Unique order ID
         String orderId = "EH-" + bookingId + "-" +
                 UUID.randomUUID().toString().substring(0, 8).toUpperCase();
 
-        // Amount must be exactly 2 decimal places
         String amount = BigDecimal.valueOf(booking.getTotalAmount())
                 .setScale(2, RoundingMode.HALF_UP)
                 .toPlainString();
 
-        // Generate hash
         String hash = generateHash(merchantId, orderId, amount, "LKR");
 
-        // Debug logs — check these in Spring Boot console
         log.info("[PayHere] merchantId  = {}", merchantId);
         log.info("[PayHere] orderId     = {}", orderId);
         log.info("[PayHere] amount      = {}", amount);
@@ -84,7 +81,6 @@ public class PaymentServiceImpl implements PaymentService {
         log.info("[PayHere] hash        = {}", hash);
         log.info("[PayHere] notify_url  = {}", appBackendUrl + "/api/v1/payment/notify");
 
-        // Save PENDING payment record
         Payment payment = new Payment();
         payment.setBooking(booking);
         payment.setOrderId(orderId);
@@ -93,7 +89,6 @@ public class PaymentServiceImpl implements PaymentService {
         payment.setStatus("PENDING");
         paymentRepository.save(payment);
 
-        // Split name into first / last
         String firstName = customerName.trim();
         String lastName  = "";
         if (customerName.contains(" ")) {
@@ -102,13 +97,12 @@ public class PaymentServiceImpl implements PaymentService {
             lastName  = parts[1];
         }
 
-        // Build params for PayHere checkout form
         Map<String, String> params = new LinkedHashMap<>();
         params.put("sandbox",     String.valueOf(sandbox));
         params.put("merchant_id", merchantId);
         params.put("return_url",  appBaseUrl + "/payment-success.html?bookingId=" + bookingId);
         params.put("cancel_url",  appBaseUrl + "/payment-cancel.html?bookingId=" + bookingId);
-        params.put("notify_url",  appBackendUrl + "/api/v1/payment/notify"); // ngrok URL
+        params.put("notify_url",  appBackendUrl + "/api/v1/payment/notify");
         params.put("order_id",    orderId);
         params.put("items",       booking.getEvent().getEvent_name() + " Tickets");
         params.put("currency",    "LKR");
@@ -131,27 +125,23 @@ public class PaymentServiceImpl implements PaymentService {
         String orderId      = params.get("order_id");
         String payherePayId = params.get("payment_id");
         String statusCode   = params.get("status_code");
-        String currency     = params.get("payhere_currency");   // use payhere_currency
-        String amount       = params.get("payhere_amount");     // use payhere_amount
+        String currency     = params.get("payhere_currency");
+        String amount       = params.get("payhere_amount");
         String method       = params.get("method");
         String receivedHash = params.get("md5sig");
 
         log.info("[PayHere Notify] orderId={} statusCode={}", orderId, statusCode);
 
-        // Notify hash formula (different from initiate):
-        // MD5( merchantId + orderId + payhereAmount + payhereCurrency + statusCode + MD5(secret).toUpperCase() ).toUpperCase()
         String expectedHash = generateNotifyHash(merchantId, orderId, amount, currency, statusCode);
         if (!expectedHash.equalsIgnoreCase(receivedHash)) {
             log.error("[PayHere Notify] Hash FAILED — expected={} received={}", expectedHash, receivedHash);
             throw new RuntimeException("PayHere hash verification failed");
         }
 
-        // Find payment record
         Payment payment = paymentRepository.findByOrderId(orderId)
                 .orElseThrow(() -> new EventNotFoundException(
                         "Payment not found for orderId: " + orderId));
 
-        // status_code: 2=Success, 0=Pending, -1=Cancelled, -2=Failed, -3=Chargedback
         if ("2".equals(statusCode)) {
 
             payment.setStatus("PAID");
@@ -160,17 +150,18 @@ public class PaymentServiceImpl implements PaymentService {
             payment.setPaidAt(LocalDateTime.now());
             paymentRepository.saveAndFlush(payment);
 
-            // Update booking to Confirmed
             Booking booking = payment.getBooking();
             booking.setStatus("Confirmed");
             bookingRepository.saveAndFlush(booking);
 
-            // Build seat numbers
             String seatNumbers = booking.getSeats().stream()
                     .map(Seat::getSeatNumber)
                     .collect(Collectors.joining(", "));
 
-            // Generate QR
+            // ── Email QR: api.qrserver.com ────────────────────────────────────
+            // This is a public hosted URL — renders correctly in all email clients.
+            // Gmail and Outlook block base64 data URIs and localhost/ngrok images.
+            // ZXing is used only for the Event admin page (EventController).
             String qrData = String.format(
                     "{\"bookingId\":%d,\"event\":\"%s\",\"seats\":\"%s\",\"amount\":%.2f,\"status\":\"Confirmed\"}",
                     booking.getBookingId(),
@@ -181,7 +172,6 @@ public class PaymentServiceImpl implements PaymentService {
             String qrUrl = "https://api.qrserver.com/v1/create-qr-code/?size=300x300&ecc=M&data="
                     + java.net.URLEncoder.encode(qrData, StandardCharsets.UTF_8);
 
-            // Send ticket email
             if (booking.getUserEmail() != null && !booking.getUserEmail().isBlank()) {
                 try {
                     emailService.sendBookingConfirmation(
@@ -224,49 +214,33 @@ public class PaymentServiceImpl implements PaymentService {
         return toDto(p);
     }
 
-    // ── MD5 HASH ──────────────────────────────────────────────────────────────
-    // Formula: MD5( merchantId + orderId + amount + currency + MD5(secret).toUpperCase() ).toUpperCase()
+    // ── INITIATE HASH ─────────────────────────────────────────────────────────
     private String generateHash(String merchantId, String orderId,
                                 String amount, String currency) {
         try {
-            MessageDigest md = MessageDigest.getInstance("MD5");
-
-            // Step 1: MD5 of merchant secret → uppercase
-            byte[] secretBytes  = md.digest(merchantSecret.getBytes(StandardCharsets.UTF_8));
-            String hashedSecret = bytesToHex(secretBytes).toUpperCase();
-
-            // Step 2: MD5 of full string → uppercase
+            MessageDigest md        = MessageDigest.getInstance("MD5");
+            byte[] secretBytes      = md.digest(merchantSecret.getBytes(StandardCharsets.UTF_8));
+            String hashedSecret     = bytesToHex(secretBytes).toUpperCase();
             md.reset();
-            String raw       = merchantId + orderId + amount + currency + hashedSecret;
-            byte[] hashBytes = md.digest(raw.getBytes(StandardCharsets.UTF_8));
-
-            log.debug("[PayHere Hash] raw = {}", raw);
+            String raw              = merchantId + orderId + amount + currency + hashedSecret;
+            byte[] hashBytes        = md.digest(raw.getBytes(StandardCharsets.UTF_8));
             return bytesToHex(hashBytes).toUpperCase();
-
         } catch (NoSuchAlgorithmException e) {
             throw new RuntimeException("MD5 not available", e);
         }
     }
 
-    // ── NOTIFY HASH (different formula from initiate hash) ───────────────────
-    // Formula: MD5( merchantId + orderId + payhereAmount + payhereCurrency + statusCode + MD5(secret).toUpperCase() ).toUpperCase()
+    // ── NOTIFY HASH ───────────────────────────────────────────────────────────
     private String generateNotifyHash(String merchantId, String orderId,
                                       String amount, String currency, String statusCode) {
         try {
-            MessageDigest md = MessageDigest.getInstance("MD5");
-
-            // Step 1: MD5 of merchant secret → uppercase
-            byte[] secretBytes  = md.digest(merchantSecret.getBytes(StandardCharsets.UTF_8));
-            String hashedSecret = bytesToHex(secretBytes).toUpperCase();
-
-            // Step 2: MD5 of full notify string → uppercase
+            MessageDigest md        = MessageDigest.getInstance("MD5");
+            byte[] secretBytes      = md.digest(merchantSecret.getBytes(StandardCharsets.UTF_8));
+            String hashedSecret     = bytesToHex(secretBytes).toUpperCase();
             md.reset();
-            String raw       = merchantId + orderId + amount + currency + statusCode + hashedSecret;
-            byte[] hashBytes = md.digest(raw.getBytes(StandardCharsets.UTF_8));
-
-            log.debug("[PayHere Notify Hash] raw = {}", raw);
+            String raw              = merchantId + orderId + amount + currency + statusCode + hashedSecret;
+            byte[] hashBytes        = md.digest(raw.getBytes(StandardCharsets.UTF_8));
             return bytesToHex(hashBytes).toUpperCase();
-
         } catch (NoSuchAlgorithmException e) {
             throw new RuntimeException("MD5 not available", e);
         }

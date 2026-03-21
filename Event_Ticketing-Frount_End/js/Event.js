@@ -293,8 +293,9 @@ function getAllEvents() {
 }
 
 function editRow(btn) {
-    var tr = $(btn).closest('tr');
-    $('#f_eventId').val(tr.data('id'));
+    var tr      = $(btn).closest('tr');
+    var eventId = tr.data('id');
+    $('#f_eventId').val(eventId);
     $('#f_title').val(tr.data('name'));
     $('#f_location').val(tr.data('location'));
     $('#f_date').val(tr.data('date'));
@@ -304,6 +305,25 @@ function editRow(btn) {
     $('#f_status').val(tr.data('status'));
     $('#btnUpdate').prop('disabled', false);
     $('#btnDelete').prop('disabled', false);
+
+    // Render ZXing QR from backend using eventId
+    var qrImg     = document.getElementById('qrImage');
+    var qrPreview = document.getElementById('qrPreview');
+    var payload   = JSON.stringify({
+        eventId:  eventId,
+        name:     tr.data('name'),
+        location: tr.data('location'),
+        date:     tr.data('date')
+    });
+    renderQR(qrImg, qrPreview, payload, eventId);
+
+    // Update download button to use ZXing endpoint
+    var dlBtn = document.getElementById('btnDownload');
+    if (dlBtn) {
+        dlBtn.onclick = function () {
+            downloadQR(payload, 'event-' + eventId + '-qr.png', eventId);
+        };
+    }
 
     SWAL.toast('Editing: ' + tr.data('name'), 'info');
     $('html, body').animate({ scrollTop: 0 }, 400);
