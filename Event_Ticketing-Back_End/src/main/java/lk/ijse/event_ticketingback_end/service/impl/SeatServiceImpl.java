@@ -8,6 +8,7 @@ import lk.ijse.event_ticketingback_end.repository.EventRepository;
 import lk.ijse.event_ticketingback_end.repository.SeatRepository;
 import lk.ijse.event_ticketingback_end.service.SeatService;
 import lombok.RequiredArgsConstructor;
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -21,7 +22,7 @@ public class SeatServiceImpl implements SeatService {
 
     private final SeatRepository  seatRepository;
     private final EventRepository eventRepository;
-
+    private final ModelMapper     modelMapper;
 
     private static final char[] ROW_LETTERS = {'A','B','C','D','E','F','G','H','I','J'};
 
@@ -41,7 +42,6 @@ public class SeatServiceImpl implements SeatService {
         Seat seat = new Seat();
         seat.setSeatId(0);
         seat.setEvent(event);
-
 
         String seatNum = dto.getSeat_number();
         if (seatNum != null && seatNum.matches("\\d+")) {
@@ -90,7 +90,6 @@ public class SeatServiceImpl implements SeatService {
                 .map(this::toDto).collect(Collectors.toList());
     }
 
-
     public int generateSeatsForEvent(int eventId) {
         Event event = eventRepository.findById(eventId)
                 .orElseThrow(() -> new EventNotFoundException("Event not found: " + eventId));
@@ -102,7 +101,6 @@ public class SeatServiceImpl implements SeatService {
 
         int total = event.getTotal_seats() != null ? event.getTotal_seats() : 120;
         int cols  = 12;
-
         String[] types = {"VIP","VIP","VIP","Premium","Premium","Premium","Standard","Standard","Standard","Standard"};
 
         for (int i = 1; i <= total; i++) {
@@ -125,7 +123,7 @@ public class SeatServiceImpl implements SeatService {
     }
 
     private SeatDto toDto(Seat s) {
-        SeatDto dto = new SeatDto();
+        SeatDto dto = modelMapper.map(s, SeatDto.class);
         dto.setSeat_id(s.getSeatId());
         dto.setEventId(s.getEvent().getEventId());
         dto.setSeat_number(s.getSeatNumber());

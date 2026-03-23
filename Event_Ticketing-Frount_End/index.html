@@ -173,7 +173,7 @@
             <a href="#how" class="nav-pill">How It Works</a>
         </div>
         <div class="nav-right">
-            <a href="login/Signin.html" class="btn-signin"><i class="far fa-user"></i> Sign In</a>
+            <a href="login/Signin.html" class="btn-signin" id="navAuthBtn"><i class="far fa-user"></i> Sign In</a>
             <button class="nav-toggle" id="navToggle"><i class="fas fa-bars"></i></button>
         </div>
     </div>
@@ -182,7 +182,7 @@
     <a href="index.html" class="nav-pill active">Home</a>
     <a href="#events" class="nav-pill">Events</a>
     <a href="#how" class="nav-pill">How It Works</a>
-    <a href="login/Signin.html" class="nav-pill" style="color:var(--purple);margin-top:6px">Sign In</a>
+    <a href="login/Signin.html" class="nav-pill" id="mobileAuthBtn" style="color:var(--purple);margin-top:6px">Sign In</a>
 </div>
 
 <section class="hero">
@@ -317,7 +317,7 @@
             </div>
             <div class="col-6 col-lg-2"><p class="footer-col-title">Explore</p><ul class="footer-links"><li><a href="index.html">Home</a></li><li><a href="#events">Events</a></li><li><a href="#how">How It Works</a></li></ul></div>
             <div class="col-6 col-lg-2"><p class="footer-col-title">Account</p><ul class="footer-links"><li><a href="login/Signin.html">Sign In</a></li></ul></div>
-            <div class="col-lg-4"><p class="footer-col-title">Contact</p><ul class="footer-links"><li><i class="fas fa-map-marker-alt" style="color:var(--purple);margin-right:8px"></i>45 Galle Road, Colombo 03</li><li style="margin-top:8px"><i class="fas fa-phone" style="color:var(--purple);margin-right:8px"></i>+94 11 234 5678</li><li style="margin-top:8px"><i class="fas fa-envelope" style="color:var(--purple);margin-right:8px"></i>hello@eventhub.lk</li></ul></div>
+            <div class="col-lg-4"><p class="footer-col-title">Contact</p><ul class="footer-links"><li><i class="fas fa-map-marker-alt" style="color:var(--purple);margin-right:8px"></i>45 Galle Road, Colombo 03</li><li style="margin-top:8px"><i class="fas fa-phone" style="color:var(--purple);margin-right:8px"></i>+94 11 234 5678</li><li style="margin-top:8px"><i class="fas fa-envelope" style="color:var(--purple);margin-right:8px"></i><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="8ce4e9e0e0e3cce9fae9e2f8e4f9eea2e0e7">[email&#160;protected]</a></li></ul></div>
         </div>
         <div class="footer-bottom">
             <p>© 2026 EventHub. All rights reserved.</p>
@@ -329,9 +329,53 @@
     </div>
 </footer>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 <script>
     const EVENT_API = 'http://localhost:8080/api/v1/event';
+
+    function getToken() {
+        return localStorage.getItem('eh_token') || sessionStorage.getItem('eh_token') || '';
+    }
+
+    function authHeaders() {
+        const t = getToken();
+        return t ? { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + t }
+            : { 'Content-Type': 'application/json' };
+    }
+
+    function checkAuthNav() {
+        const token = getToken();
+        const navBtn    = document.getElementById('navAuthBtn');
+        const mobileBtn = document.getElementById('mobileAuthBtn');
+        if (!token || !navBtn) return;
+        try {
+            const payload = JSON.parse(atob(token.split('.')[1]));
+            if (payload.exp && payload.exp * 1000 < Date.now()) {
+                localStorage.removeItem('eh_token');
+                sessionStorage.removeItem('eh_token');
+                return;
+            }
+            const username = payload.sub || 'Account';
+            navBtn.innerHTML         = '<i class="fas fa-user-check"></i> ' + username;
+            navBtn.href              = '#';
+            navBtn.title             = 'Signed in as ' + username;
+            navBtn.style.color       = 'var(--purple)';
+            navBtn.style.borderColor = 'var(--purple)';
+            navBtn.onclick = function(e) {
+                e.preventDefault();
+                if (confirm('Sign out?')) {
+                    localStorage.removeItem('eh_token');
+                    sessionStorage.removeItem('eh_token');
+                    location.reload();
+                }
+            };
+            if (mobileBtn) {
+                mobileBtn.textContent = '👤 ' + username + ' (Sign Out)';
+                mobileBtn.href = '#';
+                mobileBtn.onclick = navBtn.onclick;
+            }
+        } catch(e) {}
+    }
     const IMGS = [
         'https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3?w=600&q=80',
         'https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=600&q=80',
@@ -419,8 +463,7 @@
 
     async function loadEvents() {
         try {
-            const token = localStorage.getItem('eh_token') || sessionStorage.getItem('eh_token') || '';
-            const r = await fetch(EVENT_API, token ? {headers:{'Authorization':'Bearer '+token}} : {});
+            const r = await fetch(EVENT_API, { headers: authHeaders() });
             const j = await r.json();
             allEvents = Array.isArray(j) ? j : (j.data || []);
             document.getElementById('liveEventCount').textContent = allEvents.length;
@@ -469,10 +512,15 @@
 
     // Smooth scroll
     document.querySelectorAll('a[href^="#"]').forEach(a => {
-        a.addEventListener('click', e => { const t = document.querySelector(a.getAttribute('href')); if(t){e.preventDefault();t.scrollIntoView({behavior:'smooth'});} });
+        a.addEventListener('click', e => {
+            const t = document.querySelector(a.getAttribute('href'));
+            if (t) { e.preventDefault(); t.scrollIntoView({ behavior: 'smooth' }); }
+        });
     });
 
+    checkAuthNav();
     loadEvents();
+
 </script>
 </body>
 </html>

@@ -28,8 +28,8 @@ import java.util.List;
 public class SecurityConfig {
 
     private final UserDetailsService userDetailsService;
-    private final JwtAuthFilter jwtAuthFilter;
-    private final PasswordEncoder passwordEncoder;
+    private final JwtAuthFilter      jwtAuthFilter;
+    private final PasswordEncoder    passwordEncoder;
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
@@ -37,8 +37,23 @@ public class SecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable)
                 .cors(cors -> cors.configurationSource(corsConfigurationSource()))
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/api/v1/**").permitAll()
-                        .anyRequest().authenticated())
+
+                        .requestMatchers(
+                                "/api/v1/auth/signIn",
+                                "/api/v1/auth/signUp"
+                        ).permitAll()
+
+                        .requestMatchers(
+                                org.springframework.http.HttpMethod.GET,
+                                "/api/v1/event",
+                                "/api/v1/event/**",
+                                "/api/v1/seat/event/**"
+                        ).permitAll()
+
+                        .requestMatchers("/api/v1/payment/notify").permitAll()
+
+                        .anyRequest().authenticated()
+                )
                 .sessionManagement(session -> session
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authenticationProvider(authenticateProvider())
@@ -57,8 +72,8 @@ public class SecurityConfig {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration config = new CorsConfiguration();
-        config.setAllowedOriginPatterns(List.of("*"));   // tighten to your domain in production
-        config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
+        config.setAllowedOriginPatterns(List.of("*"));
+        config.setAllowedMethods(List.of("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"));
         config.setAllowedHeaders(List.of("*"));
         config.setAllowCredentials(true);
 

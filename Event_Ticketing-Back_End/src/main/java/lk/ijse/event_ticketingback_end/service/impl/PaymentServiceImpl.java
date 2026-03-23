@@ -12,6 +12,7 @@ import lk.ijse.event_ticketingback_end.service.EmailService;
 import lk.ijse.event_ticketingback_end.service.PaymentService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -36,6 +37,7 @@ public class PaymentServiceImpl implements PaymentService {
     private final PaymentRepository paymentRepository;
     private final BookingRepository bookingRepository;
     private final EmailService      emailService;
+    private final ModelMapper       modelMapper;
 
     @Value("${payhere.merchant.id}")
     private String merchantId;
@@ -153,7 +155,6 @@ public class PaymentServiceImpl implements PaymentService {
                     .map(Seat::getSeatNumber)
                     .collect(Collectors.joining(", "));
 
-
             String qrData = String.format(
                     "{\"bookingId\":%d,\"event\":\"%s\",\"seats\":\"%s\",\"amount\":%.2f,\"status\":\"Confirmed\"}",
                     booking.getBookingId(),
@@ -242,7 +243,7 @@ public class PaymentServiceImpl implements PaymentService {
     }
 
     private PaymentDto toDto(Payment p) {
-        PaymentDto dto = new PaymentDto();
+        PaymentDto dto = modelMapper.map(p, PaymentDto.class);
         dto.setPaymentId(p.getPaymentId());
         dto.setBookingId(p.getBooking().getBookingId());
         dto.setOrderId(p.getOrderId());

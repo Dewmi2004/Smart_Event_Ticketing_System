@@ -356,6 +356,65 @@
     // Public headers — no auth required for browsing events/seats
     function publicHeaders(){ return {'Content-Type':'application/json'}; }
 
+    function getToken() {
+        return localStorage.getItem('eh_token') || sessionStorage.getItem('eh_token') || '';
+    }
+
+    function authHeaders() {
+        const t = getToken();
+        return { 'Content-Type': 'application/json', 'Authorization': t ? 'Bearer ' + t : '' };
+    }
+
+    function checkAuthOrRedirect() {
+        const token = getToken();
+        if (!token) {
+            Swal.fire({
+                icon: 'warning',
+                title: 'Sign In Required',
+                text: 'You need to sign in before booking a seat.',
+                confirmButtonText: 'Go to Sign In',
+                confirmButtonColor: '#7C3AED',
+                allowOutsideClick: false,
+                background: '#fff',
+                color: '#111827'
+            }).then(() => {
+                window.location.href = 'login/Signin.html';
+            });
+            return false;
+        }
+        try {
+            const payload = JSON.parse(atob(token.split('.')[1]));
+            if (payload.exp && payload.exp * 1000 < Date.now()) {
+                localStorage.removeItem('eh_token');
+                sessionStorage.removeItem('eh_token');
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'Session Expired',
+                    text: 'Your session has expired. Please sign in again.',
+                    confirmButtonText: 'Sign In',
+                    confirmButtonColor: '#7C3AED',
+                    allowOutsideClick: false
+                }).then(() => {
+                    window.location.href = '../login/Signin.html';
+                });
+                return false;
+            }
+        } catch(e) {}
+        return true;
+    }
+
+    function prefillFromToken() {
+        const token = getToken();
+        if (!token) return;
+        try {
+            const payload = JSON.parse(atob(token.split('.')[1]));
+            const username = payload.sub || '';
+            if (username && username.includes('@')) {
+                document.getElementById('fEmail').value = username;
+            }
+        } catch(e) {}
+    }
+
     function loadEvent(){
         const eid=getEventIdFromUrl();
         if(!eid){
@@ -667,6 +726,7 @@
 
     // ── CONFIRM MODAL ──────────────────────────────────
     function showConfirm(){
+        if (!checkAuthOrRedirect()) return;
         const userId = document.getElementById('fUserId').value.trim();
         const email  = document.getElementById('fEmail').value.trim();
         const name   = document.getElementById('fName').value.trim();
@@ -742,7 +802,7 @@
         // Step 2: Save booking (Pending)
         $.ajax({
             url: BOOKING_API, method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
+            headers: authHeaders(),
             data: JSON.stringify(bookingPayload),
             success: function(res){
                 const booking = res.data || {};
@@ -754,7 +814,7 @@
 
                 $.ajax({
                     url: PAYMENT_API + '/initiate', method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
+                    headers: authHeaders(),
                     data: JSON.stringify({
                         bookingId:     String(bookingId),
                         customerName:  fullName || 'Attendee',
@@ -824,11 +884,11 @@
 
     // ── INIT ────────────────────────────────────────────
     document.addEventListener('DOMContentLoaded',()=>{
+        checkAuthOrRedirect();
         loadEvent();
+        prefillFromToken();
         document.getElementById('couponInput').addEventListener('keydown',e=>{if(e.key==='Enter')applyCoupon();});
-        // Pre-fill email from session if user is logged in
-        const user=localStorage.getItem('eh_user')||sessionStorage.getItem('eh_user')||'';
-        if(user) document.getElementById('fEmail').value=user;
+        // Email is pre-filled from JWT token via prefillFromToken() above
     });
 </script>
 </body>

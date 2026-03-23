@@ -12,6 +12,7 @@ import lk.ijse.event_ticketingback_end.repository.SeatRepository;
 import lk.ijse.event_ticketingback_end.service.BookingService;
 import lk.ijse.event_ticketingback_end.service.EmailService;
 import lombok.RequiredArgsConstructor;
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -30,6 +31,7 @@ public class BookingServiceImpl implements BookingService {
     private final EventRepository   eventRepository;
     private final CouponRepository  couponRepository;
     private final EmailService      emailService;
+    private final ModelMapper       modelMapper;
 
     @Override
     public BookingDto saveBooking(BookingDto dto) {
@@ -96,7 +98,7 @@ public class BookingServiceImpl implements BookingService {
     }
 
     private BookingDto toDto(Booking b) {
-        BookingDto dto = new BookingDto();
+        BookingDto dto = modelMapper.map(b, BookingDto.class);
         dto.setBookingId(b.getBookingId());
         dto.setUserId(b.getUserId());
         dto.setUserEmail(b.getUserEmail());
