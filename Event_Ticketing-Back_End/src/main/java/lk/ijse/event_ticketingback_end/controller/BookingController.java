@@ -43,4 +43,12 @@ public class BookingController {
     public ResponseEntity<APIResponse<List<BookingDto>>> getAllBookings() {
         return new ResponseEntity<>(new APIResponse<>(200, "Success", bookingService.getAllBookings()), HttpStatus.OK);
     }
+
+    @GetMapping("/my")
+    public ResponseEntity<APIResponse<List<BookingDto>>> getMyBookings(
+            @RequestParam String email) {
+        return new ResponseEntity<>(
+                new APIResponse<>(200, "Success", bookingService.getBookingsByEmail(email)),
+                HttpStatus.OK);
+    }
 }

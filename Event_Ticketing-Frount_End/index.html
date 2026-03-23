@@ -356,23 +356,17 @@
                 return;
             }
             const username = payload.sub || 'Account';
-            navBtn.innerHTML         = '<i class="fas fa-user-check"></i> ' + username;
-            navBtn.href              = '#';
-            navBtn.title             = 'Signed in as ' + username;
+            // When logged in — clicking nav button goes to MyAccount page
+            navBtn.innerHTML         = '<i class="fas fa-user-check"></i> ' + username.split('@')[0];
+            navBtn.href              = 'login/MyAccount.html';
+            navBtn.title             = 'My Account — ' + username;
             navBtn.style.color       = 'var(--purple)';
             navBtn.style.borderColor = 'var(--purple)';
-            navBtn.onclick = function(e) {
-                e.preventDefault();
-                if (confirm('Sign out?')) {
-                    localStorage.removeItem('eh_token');
-                    sessionStorage.removeItem('eh_token');
-                    location.reload();
-                }
-            };
+            navBtn.onclick           = null;
             if (mobileBtn) {
-                mobileBtn.textContent = '👤 ' + username + ' (Sign Out)';
-                mobileBtn.href = '#';
-                mobileBtn.onclick = navBtn.onclick;
+                mobileBtn.innerHTML = '👤 My Account';
+                mobileBtn.href      = 'login/MyAccount.html';
+                mobileBtn.onclick   = null;
             }
         } catch(e) {}
     }

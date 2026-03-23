@@ -97,6 +97,13 @@ public class BookingServiceImpl implements BookingService {
                 .map(this::toDto).collect(Collectors.toList());
     }
 
+    @Override
+    @Transactional(readOnly = true)
+    public List<BookingDto> getBookingsByEmail(String email) {
+        return bookingRepository.findByUserEmail(email).stream()
+                .map(this::toDto).collect(Collectors.toList());
+    }
+
     private BookingDto toDto(Booking b) {
         BookingDto dto = modelMapper.map(b, BookingDto.class);
         dto.setBookingId(b.getBookingId());

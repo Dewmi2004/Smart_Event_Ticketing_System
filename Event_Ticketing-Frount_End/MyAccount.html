@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>My Account — EventHub</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+    <style>
+        *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+        :root{
+            --purple:#7C3AED;--pink:#EC4899;
+            --grad:linear-gradient(90deg,#7C3AED 0%,#C026D3 60%,#EC4899 100%);
+            --off-white:#F8F8FC;--white:#fff;
+            --text:#111827;--text-sub:#6B7280;--text-muted:#9CA3AF;
+            --border:rgba(0,0,0,0.08);
+            --success:#10B981;--danger:#EF4444;--warning:#F59E0B;
+            --radius:14px;--radius-lg:20px;
+            --nav-h:64px;--font:'Manrope',sans-serif;
+        }
+        html{scroll-behavior:smooth}
+        body{font-family:var(--font);background:var(--off-white);color:var(--text);min-height:100vh}
+        ::-webkit-scrollbar{width:5px}
+        ::-webkit-scrollbar-thumb{background:rgba(124,58,237,0.2);border-radius:10px}
+
+        /* NAV */
+        .site-nav{position:sticky;top:0;z-index:100;height:var(--nav-h);background:rgba(255,255,255,0.96);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);display:flex;align-items:center;padding:0 28px;gap:16px}
+        .nav-brand{display:flex;align-items:center;gap:10px;text-decoration:none}
+        .nav-logo{width:34px;height:34px;border-radius:9px;background:var(--grad);display:flex;align-items:center;justify-content:center;color:#fff;font-size:16px}
+        .nav-brand-name{font-size:1.1rem;font-weight:800;color:var(--text)}
+        .nav-right{margin-left:auto;display:flex;align-items:center;gap:10px}
+        .nav-back{display:flex;align-items:center;gap:8px;padding:8px 18px;border-radius:999px;border:1.5px solid var(--border);background:transparent;color:var(--text-sub);font-family:var(--font);font-size:0.85rem;font-weight:600;cursor:pointer;text-decoration:none;transition:all 0.2s}
+        .nav-back:hover{border-color:var(--purple);color:var(--purple)}
+        .btn-signout{display:flex;align-items:center;gap:8px;padding:8px 18px;border-radius:999px;border:1.5px solid rgba(239,68,68,0.3);background:rgba(239,68,68,0.05);color:var(--danger);font-family:var(--font);font-size:0.85rem;font-weight:600;cursor:pointer;transition:all 0.2s}
+        .btn-signout:hover{background:rgba(239,68,68,0.12);border-color:var(--danger)}
+
+        /* HERO */
+        .account-hero{background:var(--grad);padding:40px 28px;color:#fff;position:relative;overflow:hidden}
+        .account-hero::before{content:'';position:absolute;top:-80px;right:-80px;width:280px;height:280px;border-radius:50%;background:rgba(255,255,255,0.06)}
+        .account-hero::after{content:'';position:absolute;bottom:-60px;left:-40px;width:200px;height:200px;border-radius:50%;background:rgba(255,255,255,0.04)}
+        .hero-inner{max-width:1100px;margin:0 auto;position:relative;z-index:1;display:flex;align-items:center;gap:24px;flex-wrap:wrap}
+        .hero-avatar{width:80px;height:80px;border-radius:50%;background:rgba(255,255,255,0.15);border:3px solid rgba(255,255,255,0.3);display:flex;align-items:center;justify-content:center;font-size:2rem;flex-shrink:0}
+        .hero-info h1{font-size:clamp(1.4rem,3vw,2rem);font-weight:900;letter-spacing:-0.5px;margin-bottom:4px}
+        .hero-info p{font-size:0.9rem;color:rgba(255,255,255,0.8);margin-bottom:0}
+        .hero-stats{display:flex;gap:28px;margin-top:24px;flex-wrap:wrap}
+        .hero-stat{text-align:center}
+        .hero-stat-num{font-size:1.6rem;font-weight:900;line-height:1}
+        .hero-stat-lbl{font-size:0.72rem;color:rgba(255,255,255,0.7);margin-top:3px;letter-spacing:0.5px}
+
+        /* TABS */
+        .tabs-bar{background:#fff;border-bottom:1px solid var(--border);padding:0 28px;position:sticky;top:var(--nav-h);z-index:90}
+        .tabs-inner{max-width:1100px;margin:0 auto;display:flex;gap:4px}
+        .tab-btn{padding:16px 20px;background:none;border:none;border-bottom:2px solid transparent;font-family:var(--font);font-size:0.88rem;font-weight:600;color:var(--text-sub);cursor:pointer;transition:all 0.2s;display:flex;align-items:center;gap:7px;margin-bottom:-1px}
+        .tab-btn:hover{color:var(--purple)}
+        .tab-btn.active{color:var(--purple);border-bottom-color:var(--purple)}
+        .tab-count{background:rgba(124,58,237,0.1);color:var(--purple);font-size:0.7rem;font-weight:700;padding:2px 7px;border-radius:999px}
+
+        /* PAGE BODY */
+        .page-body{max-width:1100px;margin:0 auto;padding:32px 20px 80px}
+
+        /* TAB PANELS */
+        .tab-panel{display:none}
+        .tab-panel.active{display:block}
+
+        /* TICKET CARD */
+        .ticket-card{background:#fff;border:1.5px solid var(--border);border-radius:var(--radius-lg);overflow:hidden;margin-bottom:16px;transition:all 0.2s}
+        .ticket-card:hover{box-shadow:0 8px 28px rgba(0,0,0,0.08);transform:translateY(-2px)}
+        .ticket-head{display:flex;align-items:center;justify-content:space-between;padding:18px 22px;border-bottom:1px solid var(--border);flex-wrap:wrap;gap:10px}
+        .ticket-event{font-size:1.05rem;font-weight:800;color:var(--text)}
+        .ticket-id{font-size:0.75rem;color:var(--text-muted);margin-top:2px}
+        .status-badge{display:inline-flex;align-items:center;gap:5px;padding:5px 12px;border-radius:999px;font-size:0.72rem;font-weight:700}
+        .status-badge::before{content:'';width:6px;height:6px;border-radius:50%;background:currentColor}
+        .badge-confirmed{background:rgba(16,185,129,0.1);color:#10B981}
+        .badge-pending{background:rgba(245,158,11,0.1);color:#F59E0B}
+        .badge-refunded{background:rgba(124,58,237,0.1);color:#7C3AED}
+        .badge-failed{background:rgba(239,68,68,0.1);color:#EF4444}
+        .ticket-body{padding:18px 22px;display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:14px;align-items:start}
+        .ticket-field{}
+        .ticket-field-lbl{font-size:0.7rem;font-weight:700;letter-spacing:0.8px;text-transform:uppercase;color:var(--text-muted);margin-bottom:3px}
+        .ticket-field-val{font-size:0.88rem;font-weight:600;color:var(--text)}
+        .ticket-amount{font-size:1rem;font-weight:800;background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+        .ticket-foot{display:flex;align-items:center;justify-content:space-between;padding:14px 22px;background:#F8F8FC;border-top:1px solid var(--border);gap:10px;flex-wrap:wrap}
+        .ticket-seats{display:flex;flex-wrap:wrap;gap:6px}
+        .seat-chip{display:inline-block;padding:3px 9px;background:rgba(124,58,237,0.08);color:var(--purple);border-radius:6px;font-size:0.72rem;font-weight:700}
+        .btn-qr{display:inline-flex;align-items:center;gap:6px;padding:8px 16px;background:var(--grad);border:none;border-radius:10px;color:#fff;font-family:var(--font);font-size:0.78rem;font-weight:700;cursor:pointer;transition:all 0.2s}
+        .btn-qr:hover{opacity:0.88;transform:scale(0.97)}
+        .btn-qr:disabled{opacity:0.4;cursor:not-allowed;transform:none}
+
+        /* QR MODAL */
+        .modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.55);z-index:500;align-items:center;justify-content:center;padding:20px}
+        .modal-overlay.open{display:flex}
+        .modal-box{background:#fff;border-radius:24px;padding:36px;max-width:420px;width:100%;text-align:center;animation:popIn 0.3s ease}
+        @keyframes popIn{from{transform:scale(0.92);opacity:0}to{transform:scale(1);opacity:1}}
+        .modal-title{font-size:1.3rem;font-weight:900;color:var(--text);margin-bottom:6px}
+        .modal-sub{font-size:0.85rem;color:var(--text-sub);margin-bottom:20px}
+        .qr-wrap{background:#F8F8FC;border-radius:16px;padding:20px;margin-bottom:20px;display:flex;align-items:center;justify-content:center;min-height:180px}
+        .qr-wrap img{max-width:220px;border-radius:8px}
+        .modal-close{padding:11px 28px;background:transparent;border:1.5px solid var(--border);border-radius:12px;color:var(--text-sub);font-family:var(--font);font-size:0.88rem;font-weight:600;cursor:pointer}
+
+        /* EMPTY STATE */
+        .empty-state{text-align:center;padding:64px 20px}
+        .empty-icon{font-size:3.5rem;margin-bottom:16px}
+        .empty-title{font-size:1.2rem;font-weight:800;color:var(--text);margin-bottom:8px}
+        .empty-text{font-size:0.9rem;color:var(--text-sub);margin-bottom:24px}
+        .btn-browse{display:inline-flex;align-items:center;gap:8px;padding:12px 28px;background:var(--grad);border:none;border-radius:12px;color:#fff;font-family:var(--font);font-size:0.9rem;font-weight:700;cursor:pointer;text-decoration:none;transition:all 0.2s}
+        .btn-browse:hover{opacity:0.88;color:#fff}
+
+        /* PROFILE CARD */
+        .profile-card{background:#fff;border:1.5px solid var(--border);border-radius:var(--radius-lg);padding:28px;margin-bottom:20px}
+        .profile-row{display:flex;align-items:center;justify-content:space-between;padding:14px 0;border-bottom:1px solid var(--border)}
+        .profile-row:last-child{border:none}
+        .profile-key{font-size:0.8rem;font-weight:700;color:var(--text-sub);text-transform:uppercase;letter-spacing:0.5px}
+        .profile-val{font-size:0.92rem;font-weight:600;color:var(--text)}
+
+        /* LOADING */
+        .spinner{width:36px;height:36px;border:3px solid rgba(124,58,237,0.15);border-top-color:var(--purple);border-radius:50%;animation:spin 0.8s linear infinite;margin:0 auto 12px}
+        @keyframes spin{to{transform:rotate(360deg)}}
+        .loading-state{text-align:center;padding:48px 0}
+
+        /* TOAST */
+        .toast-wrap{position:fixed;bottom:24px;right:24px;z-index:999;display:flex;flex-direction:column;gap:8px}
+        .toast-item{display:flex;align-items:center;gap:10px;padding:12px 18px;background:#fff;border-radius:12px;box-shadow:0 4px 20px rgba(0,0,0,0.12);border-left:3px solid var(--purple);font-size:0.85rem;font-weight:500;animation:toastIn 0.3s ease}
+        @keyframes toastIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+
+        @media(max-width:600px){
+            .ticket-body{grid-template-columns:1fr 1fr}
+            .hero-inner{flex-direction:column;text-align:center}
+            .hero-stats{justify-content:center}
+        }
+    </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="site-nav">
+    <a class="nav-brand" href="index.html">
+        <div class="nav-logo"><i class="fas fa-bolt"></i></div>
+        <span class="nav-brand-name">EventHub</span>
+    </a>
+    <div class="nav-right">
+        <a href="index.html" class="nav-back"><i class="fas fa-arrow-left"></i> Back to Events</a>
+        <button class="btn-signout" onclick="signOut()"><i class="fas fa-sign-out-alt"></i> Sign Out</button>
+    </div>
+</nav>
+
+<!-- HERO -->
+<div class="account-hero">
+    <div class="hero-inner">
+        <div class="hero-avatar">👤</div>
+        <div class="hero-info">
+            <div style="display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,0.15);border:1px solid rgba(255,255,255,0.25);border-radius:999px;padding:4px 14px;font-size:0.72rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-bottom:10px">
+                <i class="fas fa-user-check"></i> My Account
+            </div>
+            <h1 id="heroUsername">Loading...</h1>
+            <p id="heroEmail" style="opacity:0.8"></p>
+        </div>
+    </div>
+    <div class="hero-stats" style="max-width:1100px;margin:20px auto 0">
+        <div class="hero-stat"><div class="hero-stat-num" id="statTotal">—</div><div class="hero-stat-lbl">Total Bookings</div></div>
+        <div class="hero-stat"><div class="hero-stat-num" id="statConfirmed">—</div><div class="hero-stat-lbl">Confirmed</div></div>
+        <div class="hero-stat"><div class="hero-stat-num" id="statPending">—</div><div class="hero-stat-lbl">Pending</div></div>
+        <div class="hero-stat"><div class="hero-stat-num" id="statSpent">—</div><div class="hero-stat-lbl">Total Spent (LKR)</div></div>
+    </div>
+</div>
+
+<!-- TABS -->
+<div class="tabs-bar">
+    <div class="tabs-inner">
+        <button class="tab-btn active" onclick="switchTab('tickets', this)">
+            <i class="fas fa-ticket-alt"></i> My Tickets
+            <span class="tab-count" id="tabCountTickets">0</span>
+        </button>
+        <button class="tab-btn" onclick="switchTab('profile', this)">
+            <i class="fas fa-user"></i> Profile
+        </button>
+    </div>
+</div>
+
+<!-- BODY -->
+<div class="page-body">
+
+    <!-- TICKETS PANEL -->
+    <div class="tab-panel active" id="panel-tickets">
+        <div id="ticketsLoading" class="loading-state">
+            <div class="spinner"></div>
+            <p style="color:var(--text-sub)">Loading your tickets...</p>
+        </div>
+        <div id="ticketsList" style="display:none"></div>
+        <div id="ticketsEmpty" class="empty-state" style="display:none">
+            <div class="empty-icon">🎫</div>
+            <div class="empty-title">No tickets yet</div>
+            <p class="empty-text">You haven't booked any events yet. Explore events and grab your first ticket!</p>
+            <a href="index.html" class="btn-browse"><i class="fas fa-search"></i> Browse Events</a>
+        </div>
+    </div>
+
+    <!-- PROFILE PANEL -->
+    <div class="tab-panel" id="panel-profile">
+        <div class="profile-card">
+            <h3 style="font-size:1rem;font-weight:800;margin-bottom:16px;color:var(--text)">Account Information</h3>
+            <div class="profile-row">
+                <span class="profile-key">Email</span>
+                <span class="profile-val" id="profileEmail">—</span>
+            </div>
+            <div class="profile-row">
+                <span class="profile-key">Role</span>
+                <span class="profile-val" id="profileRole">—</span>
+            </div>
+            <div class="profile-row">
+                <span class="profile-key">Member Since</span>
+                <span class="profile-val" id="profileSince">—</span>
+            </div>
+            <div class="profile-row">
+                <span class="profile-key">Total Bookings</span>
+                <span class="profile-val" id="profileBookings">—</span>
+            </div>
+        </div>
+        <div class="profile-card" style="border-color:rgba(239,68,68,0.2)">
+            <h3 style="font-size:1rem;font-weight:800;margin-bottom:16px;color:var(--danger)">Danger Zone</h3>
+            <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px">
+                <div>
+                    <div style="font-size:0.88rem;font-weight:600;color:var(--text)">Sign Out</div>
+                    <div style="font-size:0.78rem;color:var(--text-sub)">You will be redirected to the sign in page</div>
+                </div>
+                <button class="btn-signout" onclick="signOut()"><i class="fas fa-sign-out-alt"></i> Sign Out</button>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<!-- QR MODAL -->
+<div class="modal-overlay" id="qrModal">
+    <div class="modal-box">
+        <div class="modal-title">🎫 Your E-Ticket</div>
+        <div class="modal-sub" id="qrModalSub">Scan this QR at the venue gate</div>
+        <div class="qr-wrap">
+            <img id="qrModalImg" src="" alt="QR Code"/>
+        </div>
+        <button class="modal-close" onclick="closeQR()">Close</button>
+    </div>
+</div>
+
+<div class="toast-wrap" id="toastWrap"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+    const API_BASE    = 'http://localhost:8080/api/v1';
+    const BOOKING_API = API_BASE + '/booking';
+
+    // ── AUTH ───────────────────────────────────────────
+    function getToken() {
+        return localStorage.getItem('eh_token') || sessionStorage.getItem('eh_token') || '';
+    }
+
+    function authHeaders() {
+        return {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + getToken()
+        };
+    }
+
+    function getPayload() {
+        const token = getToken();
+        if (!token) return null;
+        try { return JSON.parse(atob(token.split('.')[1])); } catch(e) { return null; }
+    }
+
+    function checkAuth() {
+        const payload = getPayload();
+        if (!payload) {
+            window.location.href = '../login/Signin.html';
+            return false;
+        }
+        if (payload.exp && payload.exp * 1000 < Date.now()) {
+            localStorage.removeItem('eh_token');
+            sessionStorage.removeItem('eh_token');
+            window.location.href = '../login/Signin.html';
+            return false;
+        }
+        return true;
+    }
+
+    function signOut() {
+        Swal.fire({
+            icon: 'question',
+            title: 'Sign Out?',
+            text: 'You will be redirected to the sign in page.',
+            showCancelButton: true,
+            confirmButtonText: 'Yes, Sign Out',
+            confirmButtonColor: '#EF4444',
+            cancelButtonColor: '#7C3AED',
+            background: '#fff', color: '#111827'
+        }).then(r => {
+            if (r.isConfirmed) {
+                localStorage.removeItem('eh_token');
+                sessionStorage.removeItem('eh_token');
+                window.location.href = '../login/Signin.html';
+            }
+        });
+    }
+
+    // ── INIT HERO ──────────────────────────────────────
+    function initHero() {
+        const payload = getPayload();
+        if (!payload) return;
+        const email = payload.sub || '';
+        document.getElementById('heroUsername').textContent = email.split('@')[0] || 'User';
+        document.getElementById('heroEmail').textContent    = email;
+        document.getElementById('profileEmail').textContent = email;
+        document.getElementById('profileRole').textContent  = 'USER';
+
+        // Member since — from token iat
+        if (payload.iat) {
+            const date = new Date(payload.iat * 1000).toLocaleDateString('en-GB', { day:'numeric', month:'long', year:'numeric' });
+            document.getElementById('profileSince').textContent = date;
+        }
+    }
+
+    // ── LOAD TICKETS ───────────────────────────────────
+    function loadTickets() {
+        const payload = getPayload();
+        if (!payload) return;
+        const email = payload.sub || '';
+
+        fetch(BOOKING_API + '/my?email=' + encodeURIComponent(email), {
+            headers: authHeaders()
+        })
+            .then(r => r.json())
+            .then(res => {
+                const bookings = Array.isArray(res) ? res : (res.data || []);
+                renderTickets(bookings);
+            })
+            .catch(() => {
+                document.getElementById('ticketsLoading').style.display = 'none';
+                document.getElementById('ticketsEmpty').style.display = 'block';
+                toast('Could not load tickets. Make sure backend is running.', 'error');
+            });
+    }
+
+    // ── RENDER TICKETS ─────────────────────────────────
+    function renderTickets(bookings) {
+        document.getElementById('ticketsLoading').style.display = 'none';
+
+        if (!bookings || bookings.length === 0) {
+            document.getElementById('ticketsEmpty').style.display = 'block';
+            updateStats([]);
+            return;
+        }
+
+        // Sort newest first
+        bookings.sort((a, b) => b.bookingId - a.bookingId);
+
+        document.getElementById('tabCountTickets').textContent = bookings.length;
+        document.getElementById('profileBookings').textContent = bookings.length + ' bookings';
+
+        const html = bookings.map(b => buildTicketCard(b)).join('');
+        document.getElementById('ticketsList').innerHTML = html;
+        document.getElementById('ticketsList').style.display = 'block';
+
+        updateStats(bookings);
+    }
+
+    function buildTicketCard(b) {
+        const statusMap = {
+            'confirmed': 'badge-confirmed',
+            'pending':   'badge-pending',
+            'refunded':  'badge-refunded',
+            'failed':    'badge-failed'
+        };
+        const statusCls = statusMap[(b.status || '').toLowerCase()] || 'badge-pending';
+        const isConfirmed = (b.status || '').toLowerCase() === 'confirmed';
+
+        const seatsHtml = (b.seatIds && b.seatIds.length)
+            ? b.seatIds.slice(0, 8).map(id => `<span class="seat-chip">#${id}</span>`).join('')
+            + (b.seatIds.length > 8 ? `<span class="seat-chip">+${b.seatIds.length - 8}</span>` : '')
+            : '<span style="color:var(--text-muted);font-size:0.8rem">—</span>';
+
+        const qrData = JSON.stringify({
+            bookingId: b.bookingId,
+            event: b.eventName,
+            seats: b.seatIds ? b.seatIds.join(', ') : '',
+            amount: b.totalAmount,
+            status: b.status
+        });
+        const qrUrl = 'https://api.qrserver.com/v1/create-qr-code/?size=250x250&ecc=M&data='
+            + encodeURIComponent(qrData);
+
+        return `
+        <div class="ticket-card">
+            <div class="ticket-head">
+                <div>
+                    <div class="ticket-event">${b.eventName || 'Event'}</div>
+                    <div class="ticket-id">Booking #${b.bookingId} &nbsp;·&nbsp; ${formatDate(b.bookingDate)}</div>
+                </div>
+                <span class="status-badge ${statusCls}">${b.status || 'Pending'}</span>
+            </div>
+            <div class="ticket-body">
+                <div class="ticket-field">
+                    <div class="ticket-field-lbl">Location</div>
+                    <div class="ticket-field-val"><i class="fas fa-map-marker-alt" style="color:var(--purple);margin-right:4px;font-size:0.78rem"></i>${b.eventLocation || '—'}</div>
+                </div>
+                <div class="ticket-field">
+                    <div class="ticket-field-lbl">Total Paid</div>
+                    <div class="ticket-field-val ticket-amount">LKR ${Number(b.totalAmount || 0).toLocaleString()}</div>
+                </div>
+                <div class="ticket-field">
+                    <div class="ticket-field-lbl">Coupon</div>
+                    <div class="ticket-field-val">${b.couponCode || '—'}</div>
+                </div>
+            </div>
+            <div class="ticket-foot">
+                <div>
+                    <div style="font-size:0.7rem;font-weight:700;letter-spacing:0.8px;text-transform:uppercase;color:var(--text-muted);margin-bottom:6px">Seat IDs</div>
+                    <div class="ticket-seats">${seatsHtml}</div>
+                </div>
+                <button class="btn-qr" onclick="showQR('${b.eventName || 'Event'}', '${qrUrl}')"
+                    ${!isConfirmed ? 'disabled title="QR available after payment confirmed"' : ''}>
+                    <i class="fas fa-qrcode"></i>
+                    ${isConfirmed ? 'View QR Ticket' : 'QR Pending'}
+                </button>
+            </div>
+        </div>`;
+    }
+
+    // ── STATS ──────────────────────────────────────────
+    function updateStats(bookings) {
+        const confirmed = bookings.filter(b => (b.status||'').toLowerCase() === 'confirmed').length;
+        const pending   = bookings.filter(b => (b.status||'').toLowerCase() === 'pending').length;
+        const spent     = bookings
+            .filter(b => (b.status||'').toLowerCase() === 'confirmed')
+            .reduce((s, b) => s + (b.totalAmount || 0), 0);
+
+        document.getElementById('statTotal').textContent     = bookings.length;
+        document.getElementById('statConfirmed').textContent = confirmed;
+        document.getElementById('statPending').textContent   = pending;
+        document.getElementById('statSpent').textContent     = spent >= 1000
+            ? (spent / 1000).toFixed(1) + 'k'
+            : spent.toLocaleString();
+    }
+
+    // ── QR MODAL ───────────────────────────────────────
+    function showQR(eventName, qrUrl) {
+        document.getElementById('qrModalSub').textContent = eventName + ' — Scan at venue gate';
+        document.getElementById('qrModalImg').src = qrUrl;
+        document.getElementById('qrModal').classList.add('open');
+    }
+
+    function closeQR() {
+        document.getElementById('qrModal').classList.remove('open');
+        document.getElementById('qrModalImg').src = '';
+    }
+
+    // ── TABS ───────────────────────────────────────────
+    function switchTab(name, btn) {
+        document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+        document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+        btn.classList.add('active');
+        document.getElementById('panel-' + name).classList.add('active');
+    }
+
+    // ── UTILS ──────────────────────────────────────────
+    function formatDate(d) {
+        if (!d) return '—';
+        try { return new Date(d).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' }); }
+        catch(e) { return d; }
+    }
+
+    function toast(msg, type) {
+        const wrap = document.getElementById('toastWrap');
+        const el   = document.createElement('div');
+        el.className = 'toast-item';
+        el.style.borderLeftColor = type === 'error' ? 'var(--danger)' : type === 'success' ? 'var(--success)' : 'var(--purple)';
+        el.textContent = msg;
+        wrap.appendChild(el);
+        setTimeout(() => { if (el.parentNode) el.parentNode.removeChild(el); }, 3500);
+    }
+
+    // ── CLOSE MODAL ON OUTSIDE CLICK ──────────────────
+    document.getElementById('qrModal').addEventListener('click', function(e) {
+        if (e.target === this) closeQR();
+    });
+
+    // ── INIT ───────────────────────────────────────────
+    if (checkAuth()) {
+        initHero();
+        loadTickets();
+    }
+</script>
+</body>
+</html>
