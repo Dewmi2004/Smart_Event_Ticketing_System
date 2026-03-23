@@ -8,5 +8,5 @@ public interface EventService {
     void updateEvent(EventDto eventDto);
     void deleteEvent(int eventId);
     List<EventDto> getAllEvents();
-    EventDto getEventById(int eventId);  // ← new — needed for QR generation
+    EventDto getEventById(int eventId);
 }

@@ -95,31 +95,6 @@ public class GlobalExceptionHandler {
                     "Error Occurred", ex.getMessage());
         }
 
-//    @ExceptionHandler(ItemNotFoundException.class)
-//    public ResponseEntity<APIResponse<String>> handleItemNotFoundException(ItemNotFoundException e) {
-//        return new ResponseEntity<>(
-//                new APIResponse<>(HttpStatus.NOT_FOUND.value(), "Item Not Found", e.getMessage()),
-//                HttpStatus.NOT_FOUND
-//        );
-//    }
-//
-//    @ExceptionHandler(OrderNotFoundException.class)
-//    public ResponseEntity<APIResponse<String>> handleOrderNotFoundException(OrderNotFoundException e) {
-//        return new ResponseEntity<>(
-//                new APIResponse<>(HttpStatus.NOT_FOUND.value(), "Order Not Found", e.getMessage()),
-//                HttpStatus.NOT_FOUND
-//        );
-//    }
-//
-//    // Handles not enough stock when placing an order
-//    @ExceptionHandler(InsufficientStockException.class)
-//    public ResponseEntity<APIResponse<String>> handleInsufficientStockException(InsufficientStockException e) {
-//        return new ResponseEntity<>(
-//                new APIResponse<>(HttpStatus.CONFLICT.value(), "Insufficient Stock", e.getMessage()),
-//                HttpStatus.CONFLICT
-//        );
-//    }
-
     // Catch-all for any unexpected exception not handled above
     @ExceptionHandler(Exception.class)
     public ResponseEntity<APIResponse<String>> handleGenericException(Exception e) {

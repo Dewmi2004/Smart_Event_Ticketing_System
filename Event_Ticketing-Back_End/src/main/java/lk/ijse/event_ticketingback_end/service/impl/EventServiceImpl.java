@@ -102,7 +102,6 @@ public class EventServiceImpl implements EventService {
                 new TypeToken<List<EventDto>>() {}.getType());
     }
 
-    // ── NEW: needed by EventController for QR generation ─────────────────────
     @Override
     @Transactional(readOnly = true)
     public EventDto getEventById(int eventId) {

@@ -1,9 +1,3 @@
-/* ================================================================
-   EVENTHUB — Style.css  (drop-in replacement for the dark EventTix sheet)
-   Theme  : Light white + purple/pink gradient  — matches index.html
-   Fonts  : Manrope (all weights)
-   Usage  : link BEFORE Seat.css on the seat page
-================================================================ */
 
 @import url('https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800;900&display=swap');
 

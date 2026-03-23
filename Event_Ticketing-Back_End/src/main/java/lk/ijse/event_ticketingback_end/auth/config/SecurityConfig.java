@@ -54,7 +54,6 @@ public class SecurityConfig {
         return provider;
     }
 
-    // ✅ Added — allows the EventHub frontend (localhost file or dev server) to call the API
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration config = new CorsConfiguration();

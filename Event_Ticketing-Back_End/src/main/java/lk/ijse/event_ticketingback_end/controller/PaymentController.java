@@ -20,18 +20,6 @@ public class PaymentController {
 
     private final PaymentService paymentService;
 
-    /**
-     * POST /api/v1/payment/initiate
-     * Frontend calls this when user clicks Pay Now.
-     *
-     * Request body:
-     * {
-     *   "bookingId": "5",
-     *   "customerName": "Imasha Dewmi",
-     *   "customerEmail": "imasha@gmail.com",
-     *   "customerPhone": "0771234567"
-     * }
-     */
     @PostMapping("/initiate")
     public ResponseEntity<APIResponse<Map<String, String>>> initiatePayment(
             @RequestBody Map<String, String> body) {
@@ -49,11 +37,6 @@ public class PaymentController {
                 HttpStatus.OK);
     }
 
-    /**
-     * POST /api/v1/payment/notify
-     * PayHere webhook — server to server, no auth needed.
-     * Must return HTTP 200 OK.
-     */
     @PostMapping("/notify")
     public ResponseEntity<String> handleNotify(
             @RequestParam Map<String, String> params) {
@@ -68,10 +51,6 @@ public class PaymentController {
         return ResponseEntity.ok("OK");
     }
 
-    /**
-     * GET /api/v1/payment/booking/{bookingId}
-     * Frontend polls this to check payment status.
-     */
     @GetMapping("/booking/{bookingId}")
     public ResponseEntity<APIResponse<PaymentDto>> getPaymentByBooking(
             @PathVariable int bookingId) {

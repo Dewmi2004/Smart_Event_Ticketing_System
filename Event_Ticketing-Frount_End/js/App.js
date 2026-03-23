@@ -1,18 +1,10 @@
-/* ================================================================
-   SMART EVENT TICKETING — Shared JavaScript (app.js)
-   Handles: QR generation (ZXing backend), form interactions, toasts, copy, nav
-================================================================ */
 
 (function () {
     'use strict';
 
-    /* ── Backend URL — ZXing QR is generated here ── */
     var BACKEND_URL = 'http://localhost:8080';
     window.BACKEND_URL = BACKEND_URL;
 
-    /* ─────────────────────────────────────────
-       TOAST SYSTEM
-    ───────────────────────────────────────── */
     function showToast(message, type, duration) {
         type     = type     || 'info';
         duration = duration || 3200;
@@ -34,12 +26,7 @@
     }
     window.showToast = showToast;
 
-    /* ─────────────────────────────────────────
-       QR HELPERS
-       renderQR — fetches ZXing-generated QR PNG from backend.
-       Pass eventId to load the event QR from /api/v1/event/{id}/qr
-       If no eventId, hides the image (QR only available after save).
-    ───────────────────────────────────────── */
+
     function buildQRPayload(fields) {
         var obj = {};
         fields.forEach(function (f) { if (f.value) obj[f.key] = f.value; });
@@ -77,9 +64,7 @@
     window.renderQR       = renderQR;
     window.buildQRPayload = buildQRPayload;
 
-    /* ─────────────────────────────────────────
-       COPY TO CLIPBOARD
-    ───────────────────────────────────────── */
+
     window.copyText = function (text) {
         if (navigator.clipboard) {
             navigator.clipboard.writeText(text)
@@ -90,11 +75,7 @@
         }
     };
 
-    /* ─────────────────────────────────────────
-       DOWNLOAD QR
-       Downloads ZXing-generated QR PNG from backend.
-       eventId is required — QR is only available after event is saved.
-    ───────────────────────────────────────── */
+
     window.downloadQR = function (payload, filename, eventId) {
         if (!payload || payload === '{}') {
             showToast('Fill in required fields first', 'error');
@@ -115,9 +96,7 @@
         showToast('QR download started!', 'success');
     };
 
-    /* ─────────────────────────────────────────
-       FORM RESET
-    ───────────────────────────────────────── */
+
     window.resetForm = function (formId) {
         var form = document.getElementById(formId);
         if (form) {
@@ -130,9 +109,6 @@
         }
     };
 
-    /* ─────────────────────────────────────────
-       SET ACTIVE NAV LINK
-    ───────────────────────────────────────── */
     function setActiveNav() {
         var page = location.pathname.split('/').pop() || '';
         document.querySelectorAll('.nav-link').forEach(function (link) {
@@ -141,14 +117,7 @@
         });
     }
 
-    /* ─────────────────────────────────────────
-       INIT ENTITY FORM
-       Called by each HTML page:
-         initEntityForm({ formId, qrFields, filenamePrefix })
 
-       For Event page — pass eventIdField so QR loads from backend:
-         initEntityForm({ formId, qrFields, filenamePrefix, eventIdField: 'f_eventId' })
-    ───────────────────────────────────────── */
     window.initEntityForm = function (config) {
         var form      = document.getElementById(config.formId || 'entityForm');
         var qrImg     = document.getElementById('qrImage');
@@ -198,9 +167,6 @@
         }
     };
 
-    /* ─────────────────────────────────────────
-       DOM READY
-    ───────────────────────────────────────── */
     document.addEventListener('DOMContentLoaded', setActiveNav);
 
 })();

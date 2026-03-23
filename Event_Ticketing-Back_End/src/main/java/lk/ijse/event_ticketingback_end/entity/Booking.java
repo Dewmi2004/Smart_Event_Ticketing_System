@@ -18,7 +18,6 @@ public class Booking {
 
     private int userId;
 
-    // Store email so the PayHere webhook can send the ticket email
     @Column(name = "user_email")
     private String userEmail;
 

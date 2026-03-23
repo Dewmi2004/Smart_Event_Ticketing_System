@@ -48,19 +48,12 @@ public class EventController {
         return new ResponseEntity<>(new APIResponse<>(200, "Success", events), HttpStatus.OK);
     }
 
-    /**
-     * GET /api/v1/event/{eventId}/qr
-     * Returns a PNG QR code image generated with ZXing.
-     * Frontend calls this and sets <img src="..."> to display it.
-     *
-     * QR encodes: eventId, event_name, location, date
-     */
+
     @GetMapping("/{eventId}/qr")
     public ResponseEntity<byte[]> getEventQR(@PathVariable int eventId) {
         try {
             EventDto event = eventService.getEventById(eventId);
 
-            // Build QR data string
             String qrData = String.format(
                     "{\"eventId\":%d,\"name\":\"%s\",\"location\":\"%s\",\"date\":\"%s\"}",
                     event.getEventId(),
@@ -69,7 +62,6 @@ public class EventController {
                     event.getDate() != null ? event.getDate().toString() : "TBA"
             );
 
-            // Generate QR as PNG bytes using ZXing
             byte[] qrBytes = qrCodeGenerator.generateQRBytes(qrData, 300);
 
             HttpHeaders headers = new HttpHeaders();

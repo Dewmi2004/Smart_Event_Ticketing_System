@@ -18,17 +18,10 @@ import java.util.Map;
 @Component
 public class QRCodeGenerator {
 
-    /**
-     * Returns raw PNG bytes — used by EventController to return image response.
-     */
     public byte[] generateQRBytes(String data, int size) throws WriterException, IOException {
         return generate(data, size);
     }
 
-    /**
-     * Returns Base64 string — used by PaymentServiceImpl to embed in email HTML.
-     * <img src="data:image/png;base64,XXXX..." />
-     */
     public String generateQRBase64(String data, int size) throws WriterException, IOException {
         return Base64.getEncoder().encodeToString(generate(data, size));
     }

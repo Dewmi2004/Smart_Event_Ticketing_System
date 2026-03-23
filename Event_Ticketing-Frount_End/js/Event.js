@@ -171,7 +171,6 @@ function saveEvent() {
 function updateEvent() {
     var data = getFormValues();
 
-    // ✅ Fixed: was checking data.event_id (always undefined), now checks data.eventId
     if (!data.eventId) {
         SWAL.warning('No Event Selected', 'Please click ✏️ Edit on a row in the table below to select an event to update.');
         return;
@@ -201,7 +200,6 @@ function updateEvent() {
 function deleteEvent() {
     var data = getFormValues();
 
-    // ✅ Fixed: was checking data.event_id (always undefined), now checks data.eventId
     if (!data.eventId) {
         SWAL.warning('No Event Selected', 'Please click ✏️ Edit on a row in the table below to select an event to delete.');
         return;
@@ -216,7 +214,6 @@ function deleteEvent() {
 
         SWAL.loading('Deleting…', 'Removing the event from the system.');
 
-        // ✅ Fixed: ID now in URL path, no request body needed
         $.ajax({
             url:     API_URL + '/' + data.eventId,
             method:  'DELETE',
@@ -306,7 +303,6 @@ function editRow(btn) {
     $('#btnUpdate').prop('disabled', false);
     $('#btnDelete').prop('disabled', false);
 
-    // Render ZXing QR from backend using eventId
     var qrImg     = document.getElementById('qrImage');
     var qrPreview = document.getElementById('qrPreview');
     var payload   = JSON.stringify({
@@ -317,7 +313,6 @@ function editRow(btn) {
     });
     renderQR(qrImg, qrPreview, payload, eventId);
 
-    // Update download button to use ZXing endpoint
     var dlBtn = document.getElementById('btnDownload');
     if (dlBtn) {
         dlBtn.onclick = function () {
@@ -343,7 +338,6 @@ function deleteRowBtn(btn) {
 
         SWAL.loading('Deleting…', 'Removing the event from the system.');
 
-        // ✅ Fixed: ID in URL path, removed broken JSON body with wrong key
         $.ajax({
             url:     API_URL + '/' + id,
             method:  'DELETE',

@@ -56,7 +56,7 @@ public class BookingServiceImpl implements BookingService {
 
         Booking booking = new Booking();
         booking.setUserId(dto.getUserId());
-        booking.setUserEmail(dto.getUserEmail());   // ← ADDED: persist email for PayHere webhook
+        booking.setUserEmail(dto.getUserEmail());
         booking.setEvent(event);
         booking.setBookingDate(Date.valueOf(LocalDate.now()));
         booking.setTotalAmount(dto.getTotalAmount());
@@ -64,9 +64,6 @@ public class BookingServiceImpl implements BookingService {
         booking.setStatus("Pending");
         booking.setSeats(seats);
         Booking saved = bookingRepository.save(booking);
-
-        // No email sent here — email is sent AFTER payment via PayHere webhook
-        // (PaymentServiceImpl.handleNotify calls emailService once status = PAID)
 
         return toDto(saved);
     }

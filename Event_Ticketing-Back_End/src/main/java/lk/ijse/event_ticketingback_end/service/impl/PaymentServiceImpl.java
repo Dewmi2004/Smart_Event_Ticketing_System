@@ -37,9 +37,6 @@ public class PaymentServiceImpl implements PaymentService {
     private final BookingRepository bookingRepository;
     private final EmailService      emailService;
 
-    // No QRCodeGenerator here — email QR uses api.qrserver.com
-    // ZXing is only used in EventController for the Event admin page QR
-
     @Value("${payhere.merchant.id}")
     private String merchantId;
 
@@ -55,7 +52,6 @@ public class PaymentServiceImpl implements PaymentService {
     @Value("${app.backend.url}")
     private String appBackendUrl;
 
-    // ── INITIATE PAYMENT ──────────────────────────────────────────────────────
     @Override
     public Map<String, String> initiatePayment(int bookingId,
                                                String customerName,
@@ -119,7 +115,6 @@ public class PaymentServiceImpl implements PaymentService {
         return params;
     }
 
-    // ── HANDLE NOTIFY (PayHere webhook) ───────────────────────────────────────
     @Override
     public void handleNotify(Map<String, String> params) {
         String orderId      = params.get("order_id");
@@ -158,10 +153,7 @@ public class PaymentServiceImpl implements PaymentService {
                     .map(Seat::getSeatNumber)
                     .collect(Collectors.joining(", "));
 
-            // ── Email QR: api.qrserver.com ────────────────────────────────────
-            // This is a public hosted URL — renders correctly in all email clients.
-            // Gmail and Outlook block base64 data URIs and localhost/ngrok images.
-            // ZXing is used only for the Event admin page (EventController).
+
             String qrData = String.format(
                     "{\"bookingId\":%d,\"event\":\"%s\",\"seats\":\"%s\",\"amount\":%.2f,\"status\":\"Confirmed\"}",
                     booking.getBookingId(),
@@ -204,7 +196,6 @@ public class PaymentServiceImpl implements PaymentService {
         }
     }
 
-    // ── GET PAYMENT BY BOOKING ────────────────────────────────────────────────
     @Override
     @Transactional(readOnly = true)
     public PaymentDto getPaymentByBooking(int bookingId) {
@@ -214,7 +205,6 @@ public class PaymentServiceImpl implements PaymentService {
         return toDto(p);
     }
 
-    // ── INITIATE HASH ─────────────────────────────────────────────────────────
     private String generateHash(String merchantId, String orderId,
                                 String amount, String currency) {
         try {
@@ -230,7 +220,6 @@ public class PaymentServiceImpl implements PaymentService {
         }
     }
 
-    // ── NOTIFY HASH ───────────────────────────────────────────────────────────
     private String generateNotifyHash(String merchantId, String orderId,
                                       String amount, String currency, String statusCode) {
         try {
@@ -252,7 +241,6 @@ public class PaymentServiceImpl implements PaymentService {
         return sb.toString();
     }
 
-    // ── DTO MAPPER ────────────────────────────────────────────────────────────
     private PaymentDto toDto(Payment p) {
         PaymentDto dto = new PaymentDto();
         dto.setPaymentId(p.getPaymentId());

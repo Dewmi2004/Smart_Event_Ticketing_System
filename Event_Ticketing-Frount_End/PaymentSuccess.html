@@ -71,7 +71,6 @@
         const bookingId = getParam('bookingId');
         if(!bookingId){ showError('No booking ID found.'); return; }
 
-        // Poll payment status — PayHere notify_url may take a few seconds
         let attempts = 0;
         const maxAttempts = 10;
 
@@ -89,7 +88,6 @@
                 } else if(attempts < maxAttempts){
                     setTimeout(poll, 2000); // retry every 2s
                 } else {
-                    // Timeout — show success anyway (PayHere confirmed on their end)
                     showSuccess(bookingId, payment);
                 }
             } catch(e){
