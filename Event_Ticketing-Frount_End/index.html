@@ -356,16 +356,15 @@
                 return;
             }
             const username = payload.sub || 'Account';
-            // When logged in — clicking nav button goes to MyAccount page
             navBtn.innerHTML         = '<i class="fas fa-user-check"></i> ' + username.split('@')[0];
-            navBtn.href              = 'login/MyAccount.html';
+            navBtn.href              = 'MyAccount.html';
             navBtn.title             = 'My Account — ' + username;
             navBtn.style.color       = 'var(--purple)';
             navBtn.style.borderColor = 'var(--purple)';
             navBtn.onclick           = null;
             if (mobileBtn) {
                 mobileBtn.innerHTML = '👤 My Account';
-                mobileBtn.href      = 'login/MyAccount.html';
+                mobileBtn.href      = 'MyAccount.html';
                 mobileBtn.onclick   = null;
             }
         } catch(e) {}

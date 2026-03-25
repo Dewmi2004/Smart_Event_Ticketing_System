@@ -270,13 +270,13 @@
     function checkAuth() {
         const payload = getPayload();
         if (!payload) {
-            window.location.href = '../login/Signin.html';
+            window.location.href = 'login/Signin.html';
             return false;
         }
         if (payload.exp && payload.exp * 1000 < Date.now()) {
             localStorage.removeItem('eh_token');
             sessionStorage.removeItem('eh_token');
-            window.location.href = '../login/Signin.html';
+            window.location.href = 'login/Signin.html';
             return false;
         }
         return true;
@@ -296,7 +296,7 @@
             if (r.isConfirmed) {
                 localStorage.removeItem('eh_token');
                 sessionStorage.removeItem('eh_token');
-                window.location.href = '../login/Signin.html';
+                window.location.href = 'login/Signin.html';
             }
         });
     }
