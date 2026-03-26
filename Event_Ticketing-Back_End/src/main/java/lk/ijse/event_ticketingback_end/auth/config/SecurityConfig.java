@@ -51,6 +51,7 @@ public class SecurityConfig {
                         ).permitAll()
 
                         .requestMatchers("/api/v1/payment/notify").permitAll()
+                        .requestMatchers("/api/v1/refund/**").permitAll()
 
                         .anyRequest().authenticated()
                 )

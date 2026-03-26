@@ -1,100 +1,390 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Refund — Smart Event Ticketing</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Refund Management — EventHub</title>
   <link rel="stylesheet" href="../css/Style.css" />
+  <style>
+    .payhere-badge {
+      display: inline-flex; align-items: center; gap: 7px;
+      background: rgba(239,68,68,0.07);
+      border: 1px solid rgba(239,68,68,0.22);
+      border-radius: 999px; padding: 4px 13px;
+      font-size: 0.68rem; font-weight: 700;
+      color: var(--danger); letter-spacing: 0.08em;
+      text-transform: uppercase; margin-left: 10px;
+      vertical-align: middle;
+    }
+
+    .workflow-bar {
+      display: flex; align-items: center; gap: 0;
+      background: var(--bg-card);
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 20px 28px; margin-bottom: 24px;
+      overflow-x: auto;
+      animation: fadeSlideUp 0.5s 0.1s ease both;
+    }
+    .wf-step {
+      display: flex; flex-direction: column; align-items: center;
+      gap: 6px; min-width: 110px; flex: 1;
+    }
+    .wf-dot {
+      width: 36px; height: 36px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 15px; font-weight: 700;
+      border: 2px solid var(--border); background: var(--bg-input);
+      color: var(--text-sub);
+    }
+    .wf-dot.done  { background: rgba(16,185,129,0.12); border-color: rgba(16,185,129,0.35); color: var(--success); }
+    .wf-dot.active{ background: rgba(239,68,68,0.1);   border-color: rgba(239,68,68,0.35);  color: var(--danger); }
+    .wf-dot.end   { background: rgba(107,114,128,0.1); border-color: rgba(107,114,128,0.3); color: var(--text-sub); }
+    .wf-label { font-size: 0.65rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-sub); text-align: center; }
+    .wf-arrow { font-size: 18px; color: var(--border); padding: 0 4px; margin-bottom: 20px; }
+
+    .section-tabs {
+      display: flex; gap: 8px; margin-bottom: 22px;
+      animation: fadeSlideUp 0.5s 0.15s ease both;
+    }
+    .s-tab {
+      padding: 9px 20px; border-radius: 999px;
+      font-size: 0.8rem; font-weight: 700;
+      cursor: pointer; border: 1.5px solid var(--border);
+      background: var(--bg-card); color: var(--text-sub);
+      transition: all 0.2s;
+    }
+    .s-tab.active {
+      background: var(--grad); color: #fff; border-color: transparent;
+      box-shadow: 0 4px 14px rgba(239,68,68,0.28);
+    }
+    .s-tab:not(.active):hover { border-color: rgba(239,68,68,0.3); color: var(--danger); }
+
+    .tab-panel { display: none; }
+    .tab-panel.active { display: block; }
+
+    .form-note {
+      font-size: 0.78rem; color: var(--text-sub);
+      background: rgba(245,158,11,0.06);
+      border: 1px solid rgba(245,158,11,0.22);
+      border-radius: 10px; padding: 10px 14px;
+      margin-top: 6px; line-height: 1.6;
+    }
+
+    .process-card {
+      background: var(--bg-card);
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 24px; margin-bottom: 14px;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    .process-card:hover { border-color: rgba(239,68,68,0.25); box-shadow: 0 4px 20px rgba(239,68,68,0.08); }
+
+    .pc-top {
+      display: flex; align-items: flex-start;
+      justify-content: space-between; gap: 12px;
+      flex-wrap: wrap; margin-bottom: 14px;
+    }
+    .pc-id    { font-size: 0.75rem; font-weight: 700; color: var(--text-muted); margin-bottom: 3px; }
+    .pc-event { font-size: 1rem; font-weight: 800; color: var(--text); }
+    .pc-meta  { display: flex; gap: 18px; flex-wrap: wrap; margin-bottom: 14px; }
+    .pc-field { display: flex; flex-direction: column; gap: 2px; }
+    .pc-field-label { font-size: 0.62rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-muted); }
+    .pc-field-val   { font-size: 0.88rem; font-weight: 600; color: var(--text); }
+    .pc-amount { font-size: 1.1rem; font-weight: 900;
+      background: var(--grad); -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent; background-clip: text; }
+
+    .badge-pending  { background: rgba(245,158,11,0.1); color: var(--warning); border: 1px solid rgba(245,158,11,0.28); }
+    .badge-approved { background: rgba(16,185,129,0.1);  color: var(--success); border: 1px solid rgba(16,185,129,0.28); }
+    .badge-rejected { background: rgba(239,68,68,0.1);   color: var(--danger);  border: 1px solid rgba(239,68,68,0.28); }
+
+    .pc-actions { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 14px; padding-top: 14px; border-top: 1px solid var(--border); }
+
+    .lookup-row {
+      display: flex; gap: 10px; align-items: flex-end; flex-wrap: wrap;
+      margin-bottom: 22px;
+    }
+    .lookup-row .form-group { flex: 1; min-width: 180px; margin: 0; }
+
+    .empty-state {
+      text-align: center; padding: 52px 20px;
+      color: var(--text-sub); font-size: 0.9rem;
+    }
+    .empty-icon { font-size: 3rem; margin-bottom: 12px; }
+
+    .spinner-inline {
+      display: inline-block; width: 14px; height: 14px;
+      border: 2px solid rgba(255,255,255,0.3); border-top-color: #fff;
+      border-radius: 50%; animation: spin 0.65s linear infinite;
+      margin-right: 6px;
+    }
+    .spinner-inline.dark {
+      border-color: rgba(239,68,68,0.2); border-top-color: var(--danger);
+    }
+
+    .payhere-tag {
+      display: inline-flex; align-items: center; gap: 5px;
+      background: rgba(239,68,68,0.07); border: 1px solid rgba(239,68,68,0.2);
+      border-radius: 7px; padding: 2px 8px;
+      font-size: 0.65rem; font-weight: 700;
+      color: var(--danger); text-transform: uppercase; letter-spacing: 0.06em;
+    }
+
+    .detail-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 14px; margin-top: 14px;
+    }
+    .detail-item {
+      background: var(--bg-input); border: 1.5px solid var(--border);
+      border-radius: 10px; padding: 14px 16px;
+    }
+    .detail-item-label { font-size: 0.62rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-muted); margin-bottom: 5px; }
+    .detail-item-val   { font-size: 0.9rem; font-weight: 600; color: var(--text); word-break: break-all; }
+  </style>
 </head>
 <body class="page-refund">
-<div class="bg-blob"></div><div class="bg-blob-2"></div>
+<div class="bg-blob"></div>
+<div class="bg-blob-2"></div>
+
+<!-- NAV -->
 <nav class="topbar">
-  <a href="User.html" class="topbar-brand"><div class="brand-icon">🎫</div><span class="brand-name">EventHub</span></a>
+  <a href="User.html" class="topbar-brand">
+    <div class="brand-icon">🎫</div>
+    <span class="brand-name">EventHub</span>
+  </a>
   <div class="topbar-nav">
-    <a href="User.html" class="nav-link">👤 User</a>
-    <a href="Event.html" class="nav-link">🎪 Event</a>
-<!--    <a href="Seat.html" class="nav-link">💺 Seat</a>-->
-<!--    <a href="Booking.html" class="nav-link">🎫 Booking</a>-->
-<!--    <a href="Payment.html" class="nav-link">💳 Payment</a>-->
-    <a href="Refund.html" class="nav-link">↩ Refund</a>
-    <a href="Coupon.html" class="nav-link">🎟 Coupon</a>
+    <a href="User.html"         class="nav-link">👤 User</a>
+    <a href="Event.html"        class="nav-link">🎪 Event</a>
+    <a href="Refund.html"       class="nav-link active">↩ Refund</a>
+    <a href="Coupon.html"       class="nav-link">🎟 Coupon</a>
     <a href="Notification.html" class="nav-link">🔔 Notification</a>
   </div>
 </nav>
+
 <div class="page-wrapper">
+
+  <!-- HEADER -->
   <header class="page-header">
-    <div class="entity-badge">✦ QR Unabled</div>
+    <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:14px;">
+      <div class="entity-badge">↩ Refund Management</div>
+      <span class="payhere-badge">⚡ PayHere Connected</span>
+    </div>
     <h1 class="page-title">REFUND<br><span>MANAGEMENT</span></h1>
-    <p class="page-desc">Handle and track refund requests linked to payments. Manages full and partial refund workflows with status tracking for admin oversight.</p>
+    <p class="page-desc">
+      Process and track customer refund requests linked to PayHere payments.
+      Requests are verified against confirmed bookings and routed through the
+      PayHere Merchant API for automated approval or rejection.
+    </p>
   </header>
-  <div class="stats-row">
-    <div class="stat-card"><div class="stat-label">Total Fields</div><div class="stat-value">6</div><div class="stat-unit">attributes</div></div>
-    <div class="stat-card"><div class="stat-label">QR Fields</div><div class="stat-value">0</div><div class="stat-unit">no QR</div></div>
-    <div class="stat-card"><div class="stat-label">Primary Key</div><div class="stat-value">ID</div><div class="stat-unit">refundId</div></div>
-    <div class="stat-card"><div class="stat-label">Link</div><div class="stat-value">PAY</div><div class="stat-unit">paymentId (FK)</div></div>
-  </div>
-  <div class="no-qr-notice" style="margin-bottom:24px;">ℹ️&nbsp; QR generation is not available for Refund. See <a href="payment.html" style="color:var(--info);font-weight:600;text-decoration:none;">Payment</a> for the linked transaction record.</div>
-  <div style="animation: fadeSlideUp 0.55s 0.15s ease both;">
-    <div class="card">
-      <div class="card-header"><span class="card-title">Refund Record</span><div class="card-icon">↩</div></div>
-      <form id="entityForm">
-        <div class="form-grid">
-          <div class="form-group">
-            <label for="f_refundId">Refund ID</label>
-            <input type="text" id="f_refundId" placeholder="RFD-001" value="RFD-001" />
-          </div>
-          <div class="form-group">
-            <label for="f_paymentId">Payment ID</label>
-            <input type="text" id="f_paymentId" placeholder="PAY-001" value="PAY-001" />
-          </div>
-          <div class="form-group">
-            <label for="f_amount">Refund Amount (LKR)</label>
-            <input type="number" id="f_amount" placeholder="5000" value="5000" min="0" />
-          </div>
-          <div class="form-group">
-            <label for="f_reason">Reason</label>
-            <select id="f_reason">
-              <option value="Event Cancelled" selected>Event Cancelled</option>
-              <option value="Double Booking">Double Booking</option>
-              <option value="User Request">User Request</option>
-              <option value="Technical Error">Technical Error</option>
-            </select>
-          </div>
-          <div class="form-group">
-            <label for="f_status">Refund Status</label>
-            <select id="f_status">
-              <option value="Pending" selected>Pending</option>
-              <option value="Processed">Processed</option>
-              <option value="Rejected">Rejected</option>
-            </select>
-          </div>
-          <div class="form-group">
-            <label for="f_refundedAt">Refunded At</label>
-            <input type="date" id="f_refundedAt" value="2025-05-15" />
-          </div>
-        </div>
-        <div class="divider"></div>
-<!--        <div class="section-heading">Field Reference</div>-->
-<!--        <div class="record-list">-->
-<!--          <div class="record-row"><span class="record-key">refundId</span><span class="record-val">Unique refund identifier (PK)</span></div>-->
-<!--          <div class="record-row"><span class="record-key">paymentId</span><span class="record-val">Original payment (FK → Payment)</span></div>-->
-<!--          <div class="record-row"><span class="record-key">amount</span><span class="record-val">Amount to be refunded (LKR)</span></div>-->
-<!--          <div class="record-row"><span class="record-key">reason</span><span class="record-val">Reason for refund request</span></div>-->
-<!--          <div class="record-row"><span class="record-key">status</span><span class="record-val">Pending / Processed / Rejected</span></div>-->
-<!--          <div class="record-row"><span class="record-key">refundedAt</span><span class="record-val">Date refund was processed</span></div>-->
-<!--        </div>-->
-        <div class="btn-group">
-          <button type="submit" class="btn btn-primary">💾 Save Record</button>
-          <button type="button" class="btn btn-ghost" onclick="resetForm('entityForm')">↺ Reset</button>
-        </div>
-      </form>
+
+  <!-- STATS -->
+  <div class="stats-row" id="statsRow">
+    <div class="stat-card">
+      <div class="stat-label">Total Refunds</div>
+      <div class="stat-value" id="statTotal">—</div>
+      <div class="stat-unit">all requests</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">Pending</div>
+      <div class="stat-value" id="statPending">—</div>
+      <div class="stat-unit">awaiting process</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">Approved</div>
+      <div class="stat-value" id="statApproved">—</div>
+      <div class="stat-unit">refunded via PayHere</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">Rejected</div>
+      <div class="stat-value" id="statRejected">—</div>
+      <div class="stat-unit">declined</div>
     </div>
   </div>
-</div>
-<script src="../js/App.js"></script>
-<script>
-  document.getElementById('entityForm').addEventListener('submit', function(e){
-    e.preventDefault(); showToast('Refund record saved!', 'success');
-  });
-</script>
+
+  <!-- WORKFLOW BAR -->
+  <div class="workflow-bar">
+    <div class="wf-step">
+      <div class="wf-dot done">✓</div>
+      <div class="wf-label">Booking<br>Confirmed</div>
+    </div>
+    <div class="wf-arrow">→</div>
+    <div class="wf-step">
+      <div class="wf-dot done">✓</div>
+      <div class="wf-label">Payment<br>PAID</div>
+    </div>
+    <div class="wf-arrow">→</div>
+    <div class="wf-step">
+      <div class="wf-dot active">↩</div>
+      <div class="wf-label">Refund<br>Requested</div>
+    </div>
+    <div class="wf-arrow">→</div>
+    <div class="wf-step">
+      <div class="wf-dot active">⚡</div>
+      <div class="wf-label">PayHere<br>API Called</div>
+    </div>
+    <div class="wf-arrow">→</div>
+    <div class="wf-step">
+      <div class="wf-dot end">✦</div>
+      <div class="wf-label">APPROVED /<br>REJECTED</div>
+    </div>
+  </div>
+
+  <!-- TABS -->
+  <div class="section-tabs">
+    <div class="s-tab active" data-tab="request"  onclick="switchTab('request',this)">↩ Request Refund</div>
+    <div class="s-tab"        data-tab="process"  onclick="switchTab('process',this)">⚡ Process (Admin)</div>
+    <div class="s-tab"        data-tab="lookup"   onclick="switchTab('lookup',this)">🔍 Lookup by Booking</div>
+    <div class="s-tab"        data-tab="allRefunds" onclick="switchTab('allRefunds',this)">📋 All Refunds</div>
+  </div>
+
+  <!-- ── TAB 1: REQUEST REFUND ── -->
+  <div class="tab-panel active" id="tab-request">
+    <div class="card" style="animation:fadeSlideUp 0.45s ease both;">
+      <div class="card-header">
+        <span class="card-title">New Refund Request</span>
+        <div class="card-icon">↩</div>
+      </div>
+
+      <div class="no-qr-notice" style="margin-bottom:20px;">
+        ℹ️&nbsp; The booking must be <strong>Confirmed</strong> and its payment must be in
+        <strong>PAID</strong> status. Only one refund request is allowed per booking.
+      </div>
+
+      <form id="formRequest">
+        <div class="form-grid">
+          <div class="form-group">
+            <label for="req_bookingId">Booking ID <span style="color:var(--danger)">*</span></label>
+            <input type="number" id="req_bookingId" placeholder="e.g. 42" min="1" required />
+          </div>
+          <div class="form-group">
+            <label for="req_reason">Reason</label>
+            <select id="req_reason">
+              <option value="Customer requested refund">Customer Requested Refund</option>
+              <option value="Event Cancelled">Event Cancelled</option>
+              <option value="Double Booking">Double Booking</option>
+              <option value="Technical Error">Technical Error</option>
+              <option value="Other">Other</option>
+            </select>
+          </div>
+          <div class="form-group full-width" id="req_custom_wrap" style="display:none;">
+            <label for="req_custom">Custom Reason</label>
+            <input type="text" id="req_custom" placeholder="Describe the reason..." />
+          </div>
+        </div>
+        <div class="form-note" style="margin-top:14px;">
+          ⚠️ Submitting will create a <strong>PENDING</strong> refund record. An admin must then
+          press <em>Process Refund</em> to call the PayHere API and complete the refund.
+        </div>
+        <div class="btn-group">
+          <button type="submit" class="btn btn-primary" id="btnRequest">↩ Submit Refund Request</button>
+          <button type="button" class="btn btn-ghost" onclick="document.getElementById('formRequest').reset()">↺ Clear</button>
+        </div>
+      </form>
+
+      <!-- Result card after request -->
+      <div id="requestResult" style="display:none;margin-top:24px;">
+        <div class="divider"></div>
+        <div class="section-heading">Request Created</div>
+        <div class="detail-grid" id="requestResultGrid"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── TAB 2: PROCESS (ADMIN) ── -->
+  <div class="tab-panel" id="tab-process">
+    <div class="card" style="animation:fadeSlideUp 0.45s ease both;margin-bottom:22px;">
+      <div class="card-header">
+        <span class="card-title">Process a Pending Refund</span>
+        <div class="card-icon">⚡</div>
+      </div>
+      <p style="font-size:0.85rem;color:var(--text-sub);margin-bottom:18px;">
+        Calling <strong>POST /api/v1/refund/process/{refundId}</strong> will hit the PayHere
+        Merchant API. The booking seats are freed and statuses are updated automatically on approval.
+      </p>
+      <div class="form-grid">
+        <div class="form-group">
+          <label for="proc_refundId">Refund ID to Process <span style="color:var(--danger)">*</span></label>
+          <input type="number" id="proc_refundId" placeholder="e.g. 7" min="1" />
+        </div>
+      </div>
+      <div class="btn-group">
+        <button type="button" class="btn btn-primary" id="btnProcess" onclick="handleProcess()">
+          ⚡ Process via PayHere
+        </button>
+      </div>
+
+      <div id="processResult" style="display:none;margin-top:24px;">
+        <div class="divider"></div>
+        <div class="section-heading">Process Result</div>
+        <div class="detail-grid" id="processResultGrid"></div>
+      </div>
+    </div>
+
+    <!-- Pending refunds quick list -->
+    <div class="card" style="animation:fadeSlideUp 0.5s 0.1s ease both;">
+      <div class="card-header">
+        <span class="card-title">Pending Refunds</span>
+        <button class="btn btn-ghost btn-sm" onclick="loadAllRefunds(true)">↻ Refresh</button>
+      </div>
+      <div id="pendingList">
+        <div class="empty-state">
+          <div class="empty-icon">⏳</div>
+          <div>Load All Refunds tab first or click Refresh</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── TAB 3: LOOKUP BY BOOKING ── -->
+  <div class="tab-panel" id="tab-lookup">
+    <div class="card" style="animation:fadeSlideUp 0.45s ease both;">
+      <div class="card-header">
+        <span class="card-title">Lookup Refund by Booking</span>
+        <div class="card-icon">🔍</div>
+      </div>
+      <div class="lookup-row">
+        <div class="form-group">
+          <label for="lk_bookingId">Booking ID</label>
+          <input type="number" id="lk_bookingId" placeholder="e.g. 42" min="1" />
+        </div>
+        <button class="btn btn-primary btn-sm" onclick="handleLookup()" style="margin-bottom:0;height:46px;">
+          🔍 Search
+        </button>
+      </div>
+      <div id="lookupResult" style="display:none;">
+        <div class="divider"></div>
+        <div class="section-heading">Refund Details</div>
+        <div class="detail-grid" id="lookupGrid"></div>
+      </div>
+      <div id="lookupEmpty" style="display:none;" class="empty-state">
+        <div class="empty-icon">🔍</div>
+        <div id="lookupEmptyMsg">No refund found for this booking.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── TAB 4: ALL REFUNDS ── -->
+  <div class="tab-panel" id="tab-allRefunds">
+    <div style="animation:fadeSlideUp 0.45s ease both;">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;flex-wrap:wrap;gap:10px;">
+        <div class="section-heading" style="margin:0;">All Refund Records</div>
+        <button class="btn btn-ghost btn-sm" onclick="loadAllRefunds(false)">↻ Refresh</button>
+      </div>
+      <div id="allRefundsList">
+        <div class="empty-state">
+          <div class="empty-icon">📋</div>
+          <div>Click Refresh to load all refund records.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /page-wrapper -->
+
+<!-- TOAST CONTAINER -->
+<div class="toast-wrap" id="toastWrap"></div>
+
+<script src="../js/Refund.js"></script>
 </body>
 </html>
