@@ -28,6 +28,9 @@ import java.security.MessageDigest;
 import java.time.LocalDateTime;
 import java.util.Base64;
 import java.util.List;
+import java.util.UUID;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 @Slf4j
@@ -51,40 +54,38 @@ public class RefundServiceImpl implements RefundService {
     @Value("${payhere.sandbox:true}")
     private boolean sandbox;
 
-    // ── Configure ModelMapper once at startup ──────────────────────────────────
-    // Root cause of ConfigurationException:
-    //   Payment has paymentId, payherePaymentId and orderId — all ending in "Id".
-    //   ModelMapper's default STANDARD strategy tokenises "paymentId" and tries to
-    //   match the DTO field setPaymentId() against ALL of them, finding three
-    //   candidates → ambiguity error at startup.
+    // ── FIX: Add a flag to bypass the PayHere API call entirely in sandbox/dev.
+    // PayHere's sandbox environment does NOT support the refund endpoint —
+    // it always returns a non-200 response, causing every refund to be REJECTED.
     //
-    // Fix:
-    //   1. Switch to STRICT matching so ModelMapper only maps properties whose
-    //      full token sequence matches exactly (refundId→refundId, amount→amount,
-    //      etc.) and skips anything it cannot resolve without ambiguity.
-    //   2. Use skip() + explicit map() for every nested / ambiguous field so
-    //      there is exactly one source for each destination property.
+    // Set  payhere.sandbox.mock-refund=true  in application.properties (or
+    // application-dev.properties) to auto-approve refunds without calling PayHere.
+    // Leave it false (default) in production so the real API is always called.
+    @Value("${payhere.sandbox.mock-refund:false}")
+    private boolean mockRefundInSandbox;
+
+    // ── Pattern to safely extract refund_id from PayHere JSON response ─────────
+    // The old code used fragile string-index arithmetic (substring + indexOf) which
+    // breaks if the JSON field order changes or whitespace varies.
+    // A compiled regex is safe, concise, and handles all formatting variants.
+    private static final Pattern REFUND_ID_PATTERN =
+            Pattern.compile("\"refund_id\"\\s*:\\s*\"([^\"]+)\"");
+
+    // ── Configure ModelMapper once at startup ──────────────────────────────────
     @PostConstruct
     private void configureModelMapper() {
-        // Guard: only register once (safe for test contexts that reuse the bean)
         if (modelMapper.getTypeMap(Refund.class, RefundDto.class) != null) return;
 
-        // STRICT eliminates implicit ambiguous matches
         modelMapper.getConfiguration()
                 .setMatchingStrategy(MatchingStrategies.STRICT);
 
         modelMapper.createTypeMap(Refund.class, RefundDto.class)
                 .addMappings(mapper -> {
-
-                    // ── Skip all fields that ModelMapper must NOT touch implicitly ──
-                    // Without these skips, STRICT mode leaves them null but may still
-                    // attempt a match during TypeMap validation.
                     mapper.skip(RefundDto::setPaymentId);
                     mapper.skip(RefundDto::setBookingId);
                     mapper.skip(RefundDto::setRequestedAt);
                     mapper.skip(RefundDto::setProcessedAt);
 
-                    // ── Explicit mappings for the skipped fields ───────────────────
                     mapper.map(
                             r -> r.getPayment().getPaymentId(),
                             RefundDto::setPaymentId
@@ -104,7 +105,6 @@ public class RefundServiceImpl implements RefundService {
                 });
     }
 
-    // ── toDto: single ModelMapper call, zero manual setters ───────────────────
     private RefundDto toDto(Refund r) {
         return modelMapper.map(r, RefundDto.class);
     }
@@ -165,11 +165,24 @@ public class RefundServiceImpl implements RefundService {
             throw new RuntimeException("No PayHere payment ID found — cannot process refund.");
         }
 
+        // ── FIX: Sandbox mock bypass ───────────────────────────────────────────
+        // PayHere sandbox does not support the refund API. When mock mode is
+        // enabled we skip the HTTP call entirely and mark the refund APPROVED
+        // immediately, so developers can test the full booking → refund → seat
+        // release flow without a live merchant account.
+        if (sandbox && mockRefundInSandbox) {
+            log.warn("[Refund] SANDBOX MOCK — auto-approving refundId={} (no real API call)", refundId);
+            approveRefund(refund, payment, "SANDBOX-MOCK-" + UUID.randomUUID().toString().substring(0, 8).toUpperCase());
+            return toDto(refund);
+        }
+
+        // ── Live PayHere API call ──────────────────────────────────────────────
         try {
             String payhereRefundUrl = sandbox
                     ? "https://sandbox.payhere.lk/merchant/v1/refund"
                     : "https://www.payhere.lk/merchant/v1/refund";
 
+            // PayHere Basic Auth: merchantId:MD5(merchantSecret).toUpperCase()
             String hashedSecret = md5(merchantSecret).toUpperCase();
             String credentials  = merchantId + ":" + hashedSecret;
             String basicAuth    = Base64.getEncoder()
@@ -179,8 +192,8 @@ public class RefundServiceImpl implements RefundService {
                     + "&description=" + java.net.URLEncoder.encode(
                     refund.getReason(), StandardCharsets.UTF_8);
 
-            log.info("[Refund] Calling PayHere API — paymentId={} url={}",
-                    payment.getPayherePaymentId(), payhereRefundUrl);
+            log.info("[Refund] Calling PayHere API — paymentId={} sandbox={} url={}",
+                    payment.getPayherePaymentId(), sandbox, payhereRefundUrl);
 
             HttpClient  client  = HttpClient.newHttpClient();
             HttpRequest request = HttpRequest.newBuilder()
@@ -197,40 +210,21 @@ public class RefundServiceImpl implements RefundService {
                     response.statusCode(), response.body());
 
             if (response.statusCode() == 200) {
-                refund.setStatus("APPROVED");
-                refund.setProcessedAt(LocalDateTime.now());
-
-                String responseBody = response.body();
-                if (responseBody.contains("refund_id")) {
-                    int idx = responseBody.indexOf("refund_id");
-                    if (idx > -1) {
-                        String sub             = responseBody.substring(idx + 12);
-                        String refundPayhereId = sub.substring(0, sub.indexOf("\""));
-                        refund.setPayhereRefundId(refundPayhereId);
-                    }
+                // ── FIX: Use regex instead of fragile substring arithmetic ─────
+                // Old code used indexOf + manual offsets which breaks on any
+                // whitespace or field-order variation in the JSON.
+                String payhereRefundId = null;
+                Matcher matcher = REFUND_ID_PATTERN.matcher(response.body());
+                if (matcher.find()) {
+                    payhereRefundId = matcher.group(1);
                 }
-                refundRepository.saveAndFlush(refund);
-
-                payment.setStatus("REFUNDED");
-                paymentRepository.saveAndFlush(payment);
-
-                Booking booking = payment.getBooking();
-                booking.setStatus("Refunded");
-                bookingRepository.saveAndFlush(booking);
-
-                booking.getSeats().forEach(seat -> {
-                    seat.setStatus("Available");
-                    seatRepository.saveAndFlush(seat);
-                });
-
-                log.info("[Refund] APPROVED — refundId={} bookingId={}",
-                        refundId, booking.getBookingId());
+                approveRefund(refund, payment, payhereRefundId);
 
             } else {
                 refund.setStatus("REJECTED");
                 refund.setProcessedAt(LocalDateTime.now());
                 refundRepository.saveAndFlush(refund);
-                log.warn("[Refund] REJECTED by PayHere — status={} body={}",
+                log.warn("[Refund] REJECTED by PayHere — httpStatus={} body={}",
                         response.statusCode(), response.body());
             }
 
@@ -240,6 +234,31 @@ public class RefundServiceImpl implements RefundService {
         }
 
         return toDto(refund);
+    }
+
+    // ── approveRefund: shared logic for mock and live approvals ───────────────
+    // Extracted into its own method so both the mock path and the live 200-OK
+    // path share the same state-transition code — no risk of them drifting apart.
+    private void approveRefund(Refund refund, Payment payment, String payhereRefundId) {
+        refund.setStatus("APPROVED");
+        refund.setProcessedAt(LocalDateTime.now());
+        if (payhereRefundId != null) refund.setPayhereRefundId(payhereRefundId);
+        refundRepository.saveAndFlush(refund);
+
+        payment.setStatus("REFUNDED");
+        paymentRepository.saveAndFlush(payment);
+
+        Booking booking = payment.getBooking();
+        booking.setStatus("Refunded");
+        bookingRepository.saveAndFlush(booking);
+
+        booking.getSeats().forEach(seat -> {
+            seat.setStatus("Available");
+            seatRepository.saveAndFlush(seat);
+        });
+
+        log.info("[Refund] APPROVED — refundId={} bookingId={} payhereRefundId={}",
+                refund.getRefundId(), booking.getBookingId(), payhereRefundId);
     }
 
     // ── getAllRefunds ──────────────────────────────────────────────────────────
