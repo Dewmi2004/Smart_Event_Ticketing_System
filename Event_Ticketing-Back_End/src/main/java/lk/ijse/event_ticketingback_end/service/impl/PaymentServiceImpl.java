@@ -10,6 +10,7 @@ import lk.ijse.event_ticketingback_end.repository.BookingRepository;
 import lk.ijse.event_ticketingback_end.repository.PaymentRepository;
 import lk.ijse.event_ticketingback_end.service.EmailService;
 import lk.ijse.event_ticketingback_end.service.PaymentService;
+import lk.ijse.event_ticketingback_end.service.SmsService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
@@ -37,6 +38,7 @@ public class PaymentServiceImpl implements PaymentService {
     private final PaymentRepository paymentRepository;
     private final BookingRepository bookingRepository;
     private final EmailService      emailService;
+    private final SmsService        smsService;
     private final ModelMapper       modelMapper;
 
     @Value("${payhere.merchant.id}")
@@ -86,6 +88,12 @@ public class PaymentServiceImpl implements PaymentService {
         payment.setCurrency("LKR");
         payment.setStatus("PENDING");
         paymentRepository.save(payment);
+
+        // Save phone onto booking so handleNotify can use it for SMS
+        if (customerPhone != null && !customerPhone.isBlank()) {
+            booking.setPhone(customerPhone);
+            bookingRepository.saveAndFlush(booking);
+        }
 
         String firstName = customerName.trim();
         String lastName  = "";
@@ -183,6 +191,19 @@ public class PaymentServiceImpl implements PaymentService {
                 } catch (MessagingException e) {
                     log.error("[PayHere] Email failed: {}", e.getMessage());
                 }
+            }
+
+            // SMS confirmation — uses phone stored on booking entity
+            if (booking.getPhone() != null && !booking.getPhone().isBlank()) {
+                smsService.sendBookingConfirmation(
+                        booking.getPhone(),
+                        booking.getBookingId(),
+                        booking.getEvent().getEvent_name(),
+                        booking.getEvent().getDate() != null
+                                ? booking.getEvent().getDate().toString() : "TBA",
+                        seatNumbers,
+                        booking.getTotalAmount()
+                );
             }
 
         } else if ("0".equals(statusCode)) {

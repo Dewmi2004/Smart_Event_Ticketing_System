@@ -14,6 +14,7 @@ public class BookingDto {
     private int    userId;
     private int    eventId;
     private String userEmail;
+    private String phone;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private Date   bookingDate;

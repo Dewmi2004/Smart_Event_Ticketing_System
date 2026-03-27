@@ -59,6 +59,7 @@ public class BookingServiceImpl implements BookingService {
         Booking booking = new Booking();
         booking.setUserId(dto.getUserId());
         booking.setUserEmail(dto.getUserEmail());
+        booking.setPhone(dto.getPhone());
         booking.setEvent(event);
         booking.setBookingDate(Date.valueOf(LocalDate.now()));
         booking.setTotalAmount(dto.getTotalAmount());
@@ -109,6 +110,7 @@ public class BookingServiceImpl implements BookingService {
         dto.setBookingId(b.getBookingId());
         dto.setUserId(b.getUserId());
         dto.setUserEmail(b.getUserEmail());
+        dto.setPhone(b.getPhone());
         dto.setEventId(b.getEvent().getEventId());
         dto.setEventName(b.getEvent().getEvent_name());
         dto.setEventLocation(b.getEvent().getLocation());

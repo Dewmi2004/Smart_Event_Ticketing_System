@@ -21,6 +21,9 @@ public class Booking {
     @Column(name = "user_email")
     private String userEmail;
 
+    @Column(name = "phone")
+    private String phone;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "event_id", nullable = false)
     private Event event;

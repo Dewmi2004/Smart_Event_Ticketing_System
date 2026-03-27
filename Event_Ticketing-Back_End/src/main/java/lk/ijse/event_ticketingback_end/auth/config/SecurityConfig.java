@@ -42,7 +42,12 @@ public class SecurityConfig {
                                 "/api/v1/auth/signIn",
                                 "/api/v1/auth/signUp"
                         ).permitAll()
-
+                        // ── Swagger ─────────────────────────────────────────────
+                                .requestMatchers(
+                                        "/swagger-ui/**",
+                                        "/v3/api-docs/**",
+                                        "/swagger-ui.html"
+                                ).permitAll()
                         .requestMatchers(
                                 org.springframework.http.HttpMethod.GET,
                                 "/api/v1/event",
