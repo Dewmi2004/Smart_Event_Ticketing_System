@@ -54,24 +54,13 @@ public class RefundServiceImpl implements RefundService {
     @Value("${payhere.sandbox:true}")
     private boolean sandbox;
 
-    // ── FIX: Add a flag to bypass the PayHere API call entirely in sandbox/dev.
-    // PayHere's sandbox environment does NOT support the refund endpoint —
-    // it always returns a non-200 response, causing every refund to be REJECTED.
-    //
-    // Set  payhere.sandbox.mock-refund=true  in application.properties (or
-    // application-dev.properties) to auto-approve refunds without calling PayHere.
-    // Leave it false (default) in production so the real API is always called.
+
     @Value("${payhere.sandbox.mock-refund:false}")
     private boolean mockRefundInSandbox;
 
-    // ── Pattern to safely extract refund_id from PayHere JSON response ─────────
-    // The old code used fragile string-index arithmetic (substring + indexOf) which
-    // breaks if the JSON field order changes or whitespace varies.
-    // A compiled regex is safe, concise, and handles all formatting variants.
     private static final Pattern REFUND_ID_PATTERN =
             Pattern.compile("\"refund_id\"\\s*:\\s*\"([^\"]+)\"");
 
-    // ── Configure ModelMapper once at startup ──────────────────────────────────
     @PostConstruct
     private void configureModelMapper() {
         if (modelMapper.getTypeMap(Refund.class, RefundDto.class) != null) return;
@@ -109,7 +98,6 @@ public class RefundServiceImpl implements RefundService {
         return modelMapper.map(r, RefundDto.class);
     }
 
-    // ── requestRefund ──────────────────────────────────────────────────────────
     @Override
     public RefundDto requestRefund(int bookingId, String reason) {
 
@@ -148,7 +136,6 @@ public class RefundServiceImpl implements RefundService {
         return toDto(saved);
     }
 
-    // ── processRefund ──────────────────────────────────────────────────────────
     @Override
     public RefundDto processRefund(int refundId) {
 
@@ -165,24 +152,17 @@ public class RefundServiceImpl implements RefundService {
             throw new RuntimeException("No PayHere payment ID found — cannot process refund.");
         }
 
-        // ── FIX: Sandbox mock bypass ───────────────────────────────────────────
-        // PayHere sandbox does not support the refund API. When mock mode is
-        // enabled we skip the HTTP call entirely and mark the refund APPROVED
-        // immediately, so developers can test the full booking → refund → seat
-        // release flow without a live merchant account.
         if (sandbox && mockRefundInSandbox) {
             log.warn("[Refund] SANDBOX MOCK — auto-approving refundId={} (no real API call)", refundId);
             approveRefund(refund, payment, "SANDBOX-MOCK-" + UUID.randomUUID().toString().substring(0, 8).toUpperCase());
             return toDto(refund);
         }
 
-        // ── Live PayHere API call ──────────────────────────────────────────────
         try {
             String payhereRefundUrl = sandbox
                     ? "https://sandbox.payhere.lk/merchant/v1/refund"
                     : "https://www.payhere.lk/merchant/v1/refund";
 
-            // PayHere Basic Auth: merchantId:MD5(merchantSecret).toUpperCase()
             String hashedSecret = md5(merchantSecret).toUpperCase();
             String credentials  = merchantId + ":" + hashedSecret;
             String basicAuth    = Base64.getEncoder()
@@ -210,9 +190,7 @@ public class RefundServiceImpl implements RefundService {
                     response.statusCode(), response.body());
 
             if (response.statusCode() == 200) {
-                // ── FIX: Use regex instead of fragile substring arithmetic ─────
-                // Old code used indexOf + manual offsets which breaks on any
-                // whitespace or field-order variation in the JSON.
+
                 String payhereRefundId = null;
                 Matcher matcher = REFUND_ID_PATTERN.matcher(response.body());
                 if (matcher.find()) {
@@ -236,9 +214,7 @@ public class RefundServiceImpl implements RefundService {
         return toDto(refund);
     }
 
-    // ── approveRefund: shared logic for mock and live approvals ───────────────
-    // Extracted into its own method so both the mock path and the live 200-OK
-    // path share the same state-transition code — no risk of them drifting apart.
+
     private void approveRefund(Refund refund, Payment payment, String payhereRefundId) {
         refund.setStatus("APPROVED");
         refund.setProcessedAt(LocalDateTime.now());
@@ -261,7 +237,6 @@ public class RefundServiceImpl implements RefundService {
                 refund.getRefundId(), booking.getBookingId(), payhereRefundId);
     }
 
-    // ── getAllRefunds ──────────────────────────────────────────────────────────
     @Override
     @Transactional(readOnly = true)
     public List<RefundDto> getAllRefunds() {
@@ -271,7 +246,6 @@ public class RefundServiceImpl implements RefundService {
                 .collect(Collectors.toList());
     }
 
-    // ── getRefundByBooking ─────────────────────────────────────────────────────
     @Override
     @Transactional(readOnly = true)
     public RefundDto getRefundByBooking(int bookingId) {
@@ -284,7 +258,6 @@ public class RefundServiceImpl implements RefundService {
         return toDto(refund);
     }
 
-    // ── MD5 helper ─────────────────────────────────────────────────────────────
     private String md5(String input) {
         try {
             MessageDigest md = MessageDigest.getInstance("MD5");

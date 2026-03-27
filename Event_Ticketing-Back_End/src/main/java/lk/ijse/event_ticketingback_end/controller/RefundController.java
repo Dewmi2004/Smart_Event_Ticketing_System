@@ -21,14 +21,8 @@ public class RefundController {
 
     private final RefundService refundService;
 
-    // ─── FIX 1: Typed request DTO instead of Map<String, String> ──────────────
-    // Map<String,String> crashes when Jackson receives a JSON number for bookingId
-    // (e.g. {"bookingId": 42}) because it can't coerce an integer node into a
-    // String map value → HttpMessageNotReadableException → 500.
-    // A proper record lets Jackson map each field to its correct type.
     record RefundRequest(Integer bookingId, String reason) {}
 
-    // ── POST /api/v1/refund/request ────────────────────────────────────────────
     @PostMapping("/request")
     public ResponseEntity<APIResponse<RefundDto>> requestRefund(
             @RequestBody RefundRequest body) {
@@ -48,7 +42,6 @@ public class RefundController {
                 HttpStatus.CREATED);
     }
 
-    // ── POST /api/v1/refund/process/{refundId} ─────────────────────────────────
     @PostMapping("/process/{refundId}")
     public ResponseEntity<APIResponse<RefundDto>> processRefund(
             @PathVariable int refundId) {
@@ -59,7 +52,6 @@ public class RefundController {
                 HttpStatus.OK);
     }
 
-    // ── GET /api/v1/refund ─────────────────────────────────────────────────────
     @GetMapping
     public ResponseEntity<APIResponse<List<RefundDto>>> getAllRefunds() {
         return new ResponseEntity<>(
@@ -67,7 +59,6 @@ public class RefundController {
                 HttpStatus.OK);
     }
 
-    // ── GET /api/v1/refund/booking/{bookingId} ─────────────────────────────────
     @GetMapping("/booking/{bookingId}")
     public ResponseEntity<APIResponse<RefundDto>> getRefundByBooking(
             @PathVariable int bookingId) {
@@ -78,10 +69,6 @@ public class RefundController {
                 HttpStatus.OK);
     }
 
-    // ─── FIX 2: Exception handlers ────────────────────────────────────────────
-    // Without these, every RuntimeException thrown by the service (booking not
-    // found, wrong status, duplicate refund, etc.) bubbles up as a raw 500 with
-    // Spring's default HTML error page instead of a readable JSON body.
 
     @ExceptionHandler(EventNotFoundException.class)
     public ResponseEntity<APIResponse<Void>> handleNotFound(EventNotFoundException ex) {

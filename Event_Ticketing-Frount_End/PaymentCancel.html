@@ -9,30 +9,86 @@
         *{box-sizing:border-box;margin:0;padding:0}
         :root{--purple:#7C3AED;--grad:linear-gradient(90deg,#7C3AED,#C026D3,#EC4899);--font:'Manrope',sans-serif}
         body{font-family:var(--font);background:#F8F8FC;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px}
-        .card{background:#fff;border-radius:24px;padding:48px 40px;max-width:460px;width:100%;text-align:center;box-shadow:0 8px 40px rgba(0,0,0,0.08)}
+        .card{background:#fff;border-radius:24px;padding:48px 40px;max-width:480px;width:100%;text-align:center;box-shadow:0 8px 40px rgba(0,0,0,0.08)}
         .icon{width:88px;height:88px;border-radius:50%;background:rgba(239,68,68,0.08);display:flex;align-items:center;justify-content:center;margin:0 auto 24px;font-size:2.8rem}
         h1{font-size:1.8rem;font-weight:900;color:#111827;letter-spacing:-1px;margin-bottom:10px}
-        .sub{font-size:0.95rem;color:#6B7280;line-height:1.7;margin-bottom:32px}
-        .notice{background:#FEF2F2;border:1px solid rgba(239,68,68,0.2);border-radius:12px;padding:14px 18px;font-size:0.83rem;color:#EF4444;margin-bottom:28px;text-align:left}
+        .sub{font-size:0.95rem;color:#6B7280;line-height:1.7;margin-bottom:28px}
+        .notice{background:#FEF2F2;border:1px solid rgba(239,68,68,0.2);border-radius:12px;padding:14px 18px;font-size:0.83rem;color:#B91C1C;margin-bottom:28px;text-align:left;line-height:1.65}
+        .info-box{background:#F0F9FF;border:1px solid rgba(59,130,246,0.2);border-radius:12px;padding:14px 18px;font-size:0.83rem;color:#1D4ED8;margin-bottom:28px;text-align:left;line-height:1.65}
         .btn{display:inline-flex;align-items:center;gap:8px;padding:14px 28px;border-radius:12px;font-family:var(--font);font-size:0.9rem;font-weight:700;cursor:pointer;text-decoration:none;transition:all 0.2s;border:none}
         .btn-primary{background:var(--grad);color:#fff;box-shadow:0 4px 20px rgba(124,58,237,0.3)}
-        .btn-primary:hover{opacity:0.9}
-        .btn-ghost{background:transparent;border:1.5px solid rgba(0,0,0,0.1);color:#6B7280;margin-left:10px}
+        .btn-primary:hover{opacity:0.9;transform:translateY(-1px);color:#fff}
+        .btn-ghost{background:transparent;border:1.5px solid rgba(0,0,0,0.1);color:#6B7280}
         .btn-ghost:hover{border-color:var(--purple);color:var(--purple)}
+        .btn-row{display:flex;flex-wrap:wrap;justify-content:center;gap:10px}
+        .booking-chip{display:inline-flex;align-items:center;gap:6px;background:#F3F4F6;border-radius:8px;padding:6px 14px;font-size:0.82rem;font-weight:700;color:#374151;margin-bottom:22px}
+        @media(max-width:480px){.card{padding:32px 20px}}
     </style>
 </head>
 <body>
 <div class="card">
     <div class="icon">❌</div>
     <h1>Payment Cancelled</h1>
-    <p class="sub">Your payment was not completed. Don't worry — your seat selection is still saved and no charge was made.</p>
-    <div class="notice">
-        ⚠️ Your seats are currently held as <strong>Pending</strong>. Complete payment to confirm your booking before someone else books them.
+    <p class="sub">
+        Your payment was not completed. No money has been charged to your account.
+    </p>
+
+    <!-- Show booking ID if it was passed in the cancel_url -->
+    <div id="bookingChip" style="display:none" class="booking-chip">
+        🎫 Booking <span id="bookingIdSpan"></span> — seats still held
     </div>
-    <div>
-        <a href="javascript:history.back()" class="btn btn-primary">↩ Try Again</a>
-        <a href="index.html" class="btn btn-ghost">🏠 Home</a>
+
+    <div class="notice">
+        ⚠️ <strong>Your seats are temporarily held as Pending.</strong>
+        If you don't complete payment soon, they may be released and
+        become available to other customers.
+    </div>
+
+    <div class="info-box">
+        ℹ️ No payment was taken. You can safely try again — your seat
+        selection from the previous step has been preserved.
+    </div>
+
+    <div class="btn-row">
+        <!-- BUG FIX: original used history.back() which goes to PayHere's
+             payment page — not useful. We go back to the seat selection
+             page using the bookingId from the URL if available. -->
+        <a id="tryAgainBtn" href="../index.html" class="btn btn-primary">
+            ↩ Try Payment Again
+        </a>
+        <a href="../index.html" class="btn btn-ghost">🏠 Home</a>
     </div>
 </div>
+
+<script>
+    function getParam(key) {
+        return new URLSearchParams(location.search).get(key);
+    }
+
+    /* PayHere passes bookingId if you include it in the cancel_url.
+       Example cancel_url:
+         https://your-ngrok.app/pages/PaymentCancel.html?bookingId=42
+       We use it to show the booking chip and build a useful Try Again link. */
+    const bookingId = getParam('bookingId');
+    const eventId   = getParam('eventId');   // passed in cancel_url from Seat.html
+
+    if (bookingId && !isNaN(parseInt(bookingId))) {
+        /* Show the booking chip */
+        document.getElementById('bookingChip').style.display = 'inline-flex';
+        document.getElementById('bookingIdSpan').textContent = '#' + bookingId;
+
+        /* Build Try Again link:
+           - If we know the eventId, go back to Seat.html so the user can re-select
+             and re-initiate payment for the same event.
+           - If no eventId, fall back to home — better than a dead PayHere page. */
+        if (eventId && !isNaN(parseInt(eventId))) {
+            document.getElementById('tryAgainBtn').href =
+                '../Seat.html?eventId=' + encodeURIComponent(eventId);
+        } else {
+            document.getElementById('tryAgainBtn').href =
+                '../Seat.html?bookingId=' + encodeURIComponent(bookingId);
+        }
+    }
+</script>
 </body>
 </html>

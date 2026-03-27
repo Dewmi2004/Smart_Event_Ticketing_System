@@ -1,13 +1,9 @@
-/* ================================================================
-   Refund.js  —  EventHub Refund Management
-   Connects to Spring Boot backend: http://localhost:8080/api/v1/refund
-================================================================ */
+
 
 'use strict';
 
 const API = 'http://localhost:8080/api/v1/refund';
 
-/* ── Auth helper ───────────────────────────────────────────── */
 function getToken() {
     return localStorage.getItem('eh_token') || sessionStorage.getItem('eh_token') || '';
 }
@@ -19,7 +15,6 @@ function authHeaders() {
     return h;
 }
 
-/* ── Toast ─────────────────────────────────────────────────── */
 function toast(msg, type = 'info') {
     const icons = { success: '✅', error: '❌', warning: '⚠️', info: 'ℹ️' };
     const wrap = document.getElementById('toastWrap');
@@ -33,7 +28,6 @@ function toast(msg, type = 'info') {
     }, 3800);
 }
 
-/* ── Tab switching ─────────────────────────────────────────── */
 function switchTab(name, btn) {
     document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
     document.querySelectorAll('.s-tab').forEach(b => b.classList.remove('active'));
@@ -44,7 +38,6 @@ function switchTab(name, btn) {
     if (name === 'process')    loadAllRefunds(true);
 }
 
-/* ── Status badge helper ───────────────────────────────────── */
 function statusBadge(status) {
     const s = (status || '').toUpperCase();
     const cls = s === 'APPROVED' ? 'badge-approved'
@@ -53,7 +46,6 @@ function statusBadge(status) {
     return `<span class="status-badge ${cls}">${status || '—'}</span>`;
 }
 
-/* ── Format ISO datetime ───────────────────────────────────── */
 function fmt(dt) {
     if (!dt) return '—';
     try {
@@ -64,7 +56,6 @@ function fmt(dt) {
     } catch { return dt; }
 }
 
-/* ── Render a detail grid from a RefundDto ─────────────────── */
 function renderDetailGrid(dto) {
     const fields = [
         { label: 'Refund ID',        val: dto.refundId       || '—' },
@@ -88,7 +79,6 @@ function escHtml(s) {
     return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
 }
 
-/* ── Build a process card for a single pending refund ──────── */
 function buildProcessCard(dto) {
     return `
   <div class="process-card" id="pcard-${dto.refundId}">
@@ -127,7 +117,6 @@ function buildProcessCard(dto) {
   </div>`;
 }
 
-/* ── Stats update ──────────────────────────────────────────── */
 function updateStats(list) {
     const total    = list.length;
     const pending  = list.filter(r => (r.status||'').toUpperCase() === 'PENDING').length;
@@ -139,11 +128,6 @@ function updateStats(list) {
     document.getElementById('statRejected').textContent = rejected;
 }
 
-/* ================================================================
-   API CALLS
-================================================================ */
-
-/* POST /api/v1/refund/request */
 async function handleRequestRefund(e) {
     e.preventDefault();
 
@@ -162,9 +146,7 @@ async function handleRequestRefund(e) {
         const res = await fetch(`${API}/request`, {
             method: 'POST',
             headers: authHeaders(),
-            // FIX: send bookingId as a number (integer), not a string.
-            // The backend record type expects Integer — sending a JS string
-            // causes Jackson to fail deserialization → 500.
+
             body: JSON.stringify({ bookingId: bookingId, reason })
         });
 
@@ -193,7 +175,6 @@ async function handleRequestRefund(e) {
     }
 }
 
-/* POST /api/v1/refund/process/{refundId} */
 async function handleProcess() {
     const refundId = parseInt(document.getElementById('proc_refundId').value);
     if (!refundId) { toast('Please enter a Refund ID.', 'warning'); return; }
@@ -201,7 +182,6 @@ async function handleProcess() {
 }
 
 async function quickProcess(refundId) {
-    /* Set the process input and trigger */
     document.getElementById('proc_refundId').value = refundId;
     await processRefundById(refundId, null, 'processResult', 'processResultGrid');
 }
@@ -210,7 +190,6 @@ async function processRefundById(refundId, btnId, resultId, gridId) {
     const btn = btnId ? document.getElementById(btnId) : null;
     if (btn) { btn.disabled = true; btn.innerHTML = '<span class="spinner-inline"></span> Calling PayHere…'; }
 
-    /* Optimistically update the card UI */
     const card = document.getElementById('pcard-' + refundId);
     if (card) {
         const actions = card.querySelector('.pc-actions');
@@ -226,7 +205,7 @@ async function processRefundById(refundId, btnId, resultId, gridId) {
 
         if (!res.ok || json.code !== 200) {
             toast(json.message || `Error ${res.status}`, 'error');
-            if (card) loadAllRefunds(true); /* refresh pending list */
+            if (card) loadAllRefunds(true);
             return;
         }
 
@@ -238,7 +217,6 @@ async function processRefundById(refundId, btnId, resultId, gridId) {
         document.getElementById(resultId).style.display = 'block';
         document.getElementById(gridId).innerHTML = renderDetailGrid(dto);
 
-        /* Refresh both list sections */
         loadAllRefunds(true);
 
     } catch (err) {
@@ -249,7 +227,6 @@ async function processRefundById(refundId, btnId, resultId, gridId) {
     }
 }
 
-/* GET /api/v1/refund/booking/{bookingId} */
 async function handleLookup() {
     const bookingId = parseInt(document.getElementById('lk_bookingId').value);
     if (!bookingId) { toast('Please enter a Booking ID.', 'warning'); return; }
@@ -280,7 +257,6 @@ async function handleLookup() {
     }
 }
 
-/* GET /api/v1/refund */
 async function loadAllRefunds(pendingOnly = false) {
     const listEl    = pendingOnly
         ? document.getElementById('pendingList')
@@ -302,7 +278,6 @@ async function loadAllRefunds(pendingOnly = false) {
         updateStats(list);
 
         if (!pendingOnly) {
-            /* Full table view */
             if (list.length === 0) {
                 listEl.innerHTML = `
           <div class="empty-state">
@@ -360,7 +335,6 @@ async function loadAllRefunds(pendingOnly = false) {
         </div>`;
 
         } else {
-            /* Pending-only cards for the Process tab */
             const pending = list.filter(r => (r.status||'').toUpperCase() === 'PENDING');
             if (pending.length === 0) {
                 listEl.innerHTML = `
@@ -383,7 +357,6 @@ async function loadAllRefunds(pendingOnly = false) {
     }
 }
 
-/* ── Custom reason toggle ──────────────────────────────────── */
 document.addEventListener('DOMContentLoaded', () => {
     const reasonSel = document.getElementById('req_reason');
     const customWrap = document.getElementById('req_custom_wrap');
@@ -394,14 +367,11 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    /* Attach request form submit */
     const formReq = document.getElementById('formRequest');
     if (formReq) formReq.addEventListener('submit', handleRequestRefund);
 
-    /* Enter key on lookup */
     const lkInput = document.getElementById('lk_bookingId');
     if (lkInput) lkInput.addEventListener('keydown', e => { if (e.key === 'Enter') handleLookup(); });
 
-    /* Load stats silently on page open */
     loadAllRefunds(false);
 });

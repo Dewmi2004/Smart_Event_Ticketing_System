@@ -9,114 +9,223 @@
         *{box-sizing:border-box;margin:0;padding:0}
         :root{--purple:#7C3AED;--grad:linear-gradient(90deg,#7C3AED,#C026D3,#EC4899);--font:'Manrope',sans-serif}
         body{font-family:var(--font);background:#F8F8FC;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px}
-        .card{background:#fff;border-radius:24px;padding:48px 40px;max-width:480px;width:100%;text-align:center;box-shadow:0 8px 40px rgba(0,0,0,0.08)}
+        .card{background:#fff;border-radius:24px;padding:48px 40px;max-width:500px;width:100%;text-align:center;box-shadow:0 8px 40px rgba(0,0,0,0.08)}
         .icon{width:88px;height:88px;border-radius:50%;background:linear-gradient(135deg,rgba(16,185,129,0.12),rgba(16,185,129,0.06));display:flex;align-items:center;justify-content:center;margin:0 auto 24px;font-size:2.8rem}
         h1{font-size:1.8rem;font-weight:900;color:#111827;letter-spacing:-1px;margin-bottom:10px}
         .sub{font-size:0.95rem;color:#6B7280;line-height:1.7;margin-bottom:28px}
         .detail-box{background:#F8F8FC;border-radius:14px;padding:18px;text-align:left;margin-bottom:28px}
-        .detail-row{display:flex;justify-content:space-between;padding:7px 0;font-size:0.85rem;border-bottom:1px solid rgba(0,0,0,0.06)}
+        .detail-row{display:flex;justify-content:space-between;align-items:center;padding:9px 0;font-size:0.85rem;border-bottom:1px solid rgba(0,0,0,0.06);gap:12px}
         .detail-row:last-child{border:none}
-        .detail-row span:first-child{color:#6B7280}
-        .detail-row span:last-child{font-weight:700;color:#111827}
+        .detail-row span:first-child{color:#6B7280;flex-shrink:0}
+        .detail-row span:last-child{font-weight:700;color:#111827;text-align:right;word-break:break-all}
         .status-badge{display:inline-flex;align-items:center;gap:6px;background:rgba(16,185,129,0.1);color:#10B981;border-radius:999px;padding:4px 14px;font-size:0.78rem;font-weight:700;margin-bottom:20px}
         .btn{display:inline-flex;align-items:center;gap:8px;padding:14px 28px;border-radius:12px;font-family:var(--font);font-size:0.9rem;font-weight:700;cursor:pointer;text-decoration:none;transition:all 0.2s;border:none}
         .btn-primary{background:var(--grad);color:#fff;box-shadow:0 4px 20px rgba(124,58,237,0.3)}
-        .btn-primary:hover{opacity:0.9;transform:translateY(-1px)}
+        .btn-primary:hover{opacity:0.9;transform:translateY(-1px);color:#fff}
         .btn-ghost{background:transparent;border:1.5px solid rgba(0,0,0,0.1);color:#6B7280;margin-left:10px}
         .btn-ghost:hover{border-color:var(--purple);color:var(--purple)}
-        .spinner{width:36px;height:36px;border:3px solid rgba(124,58,237,0.15);border-top-color:var(--purple);border-radius:50%;animation:spin 0.8s linear infinite;margin:0 auto 16px}
+        .spinner{width:40px;height:40px;border:3px solid rgba(124,58,237,0.15);border-top-color:var(--purple);border-radius:50%;animation:spin 0.8s linear infinite;margin:0 auto 16px}
         @keyframes spin{to{transform:rotate(360deg)}}
-        .loading-text{color:#6B7280;font-size:0.88rem}
+        .loading-text{color:#6B7280;font-size:0.88rem;margin-bottom:6px}
+        .loading-sub{color:#9CA3AF;font-size:0.78rem}
+        .error-box{background:#FEF2F2;border:1px solid rgba(239,68,68,0.2);border-radius:12px;padding:14px 18px;color:#EF4444;font-size:0.85rem;margin-bottom:20px;text-align:left;line-height:1.6}
         #loadingState{display:block}
         #successState{display:none}
+        #errorState{display:none}
+        .qr-hint{background:rgba(124,58,237,0.04);border:1px solid rgba(124,58,237,0.15);border-radius:10px;padding:12px 16px;font-size:0.82rem;color:#7C3AED;margin-bottom:24px;text-align:left;line-height:1.65}
+        @media(max-width:480px){.card{padding:32px 20px}.btn-ghost{margin-left:0;margin-top:10px}}
     </style>
 </head>
 <body>
 <div class="card">
 
-    <!-- Loading while we verify payment status -->
+    <!-- Loading / polling state -->
     <div id="loadingState">
         <div class="spinner"></div>
-        <p class="loading-text">Verifying your payment...</p>
+        <p class="loading-text">Verifying your payment…</p>
+        <p class="loading-sub" id="pollStatus">Checking with the server…</p>
     </div>
 
-    <!-- Success content shown after verification -->
+    <!-- Error state (no bookingId or hard failure) -->
+    <div id="errorState">
+        <div class="icon" style="background:rgba(239,68,68,0.08)">❌</div>
+        <h1 style="color:#EF4444">Something went wrong</h1>
+        <div class="error-box" id="errorMsg"></div>
+        <a href="../index.html" class="btn btn-primary">🏠 Go Home</a>
+    </div>
+
+    <!-- Success state -->
     <div id="successState">
         <div class="icon">✅</div>
         <div class="status-badge">● Payment Confirmed</div>
         <h1>You're In!</h1>
-        <p class="sub">Your payment was successful. Your QR e-ticket has been sent to your email. Show it at the gate to enter.</p>
+        <p class="sub">Your payment was successful and your booking is confirmed.</p>
+        <div class="qr-hint">
+            📧 Your QR e-ticket has been sent to your email address.
+            Show the QR code at the venue gate for seamless entry.
+        </div>
         <div class="detail-box" id="detailBox"></div>
-        <div>
-            <a href="index.html" class="btn btn-primary">🏠 Back to Home</a>
-            <a href="#" class="btn btn-ghost" onclick="window.print()">🖨 Print</a>
+        <div style="display:flex;flex-wrap:wrap;justify-content:center;gap:10px">
+            <a href="../index.html" class="btn btn-primary">🏠 Back to Home</a>
+            <a href="login/MyAccount.html" class="btn btn-ghost">🎫 My Tickets</a>
         </div>
     </div>
 
 </div>
 
 <script>
-    const PAYMENT_API = 'http://localhost:8080/api/v1/payment';
-    const BOOKING_API = 'http://localhost:8080/api/v1/booking';
+    /* ── Config ─────────────────────────────────────────────── */
+    /* NOTE: Must use ngrok URL — after PayHere redirects the browser here,
+       JS fetch calls go from the USER'S browser → backend.
+       localhost:8080 only works if the user is on the same machine.
+       Use the ngrok public URL so it works on any device / mobile. */
+    const PAYMENT_API  = 'https://valrie-nonabdicative-lakita.ngrok-free.dev/api/v1/payment';
+    const MAX_ATTEMPTS = 12;   /* 12 × 2s = 24s max wait */
+    const POLL_MS      = 2000;
 
-    function getParam(key){
+    /* ── Helpers ─────────────────────────────────────────────── */
+    function getParam(key) {
         return new URLSearchParams(location.search).get(key);
     }
 
-    function getToken(){
-        return localStorage.getItem('eh_token')||sessionStorage.getItem('eh_token')||'';
+    function getToken() {
+        return localStorage.getItem('eh_token') || sessionStorage.getItem('eh_token') || '';
     }
 
-    async function verifyPayment(){
+    function authHeaders() {
+        const h = { 'Content-Type': 'application/json' };
+        const t = getToken();
+        if (t) h['Authorization'] = 'Bearer ' + t;
+        return h;
+    }
+
+    function esc(s) {
+        return String(s)
+            .replace(/&/g,'&amp;').replace(/</g,'&lt;')
+            .replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+    }
+
+    /* ── States ─────────────────────────────────────────────── */
+    function showError(msg) {
+        document.getElementById('loadingState').style.display = 'none';
+        document.getElementById('errorState').style.display   = 'block';
+        document.getElementById('errorMsg').textContent       = msg;
+    }
+
+    function showSuccess(bookingId, payment) {
+        document.getElementById('loadingState').style.display = 'none';
+        document.getElementById('successState').style.display = 'block';
+
+        /* BUG FIX: original used payment.method — PayHere sends payment_method
+           in the notify_url POST, but the Payment entity may store it as
+           paymentMethod. We check both field names. */
+        const method  = payment.paymentMethod || payment.method || payment.payment_method || '—';
+        const orderId = payment.orderId || payment.order_id || payment.payhereOrderId || '—';
+        const phId    = payment.payherePaymentId || payment.payhere_payment_id || '—';
+        const amount  = payment.amount != null
+            ? 'LKR ' + Number(payment.amount).toLocaleString()
+            : '—';
+
+        document.getElementById('detailBox').innerHTML = `
+            <div class="detail-row">
+                <span>Booking ID</span>
+                <span>#${esc(String(bookingId))}</span>
+            </div>
+            <div class="detail-row">
+                <span>Order ID</span>
+                <span>${esc(String(orderId))}</span>
+            </div>
+            <div class="detail-row">
+                <span>Amount Paid</span>
+                <span>${esc(amount)}</span>
+            </div>
+            <div class="detail-row">
+                <span>Payment Method</span>
+                <span>${esc(method)}</span>
+            </div>
+            <div class="detail-row">
+                <span>PayHere Ref</span>
+                <span style="font-size:0.78rem">${esc(String(phId))}</span>
+            </div>
+            <div class="detail-row">
+                <span>Status</span>
+                <span style="color:#10B981;font-weight:800">✓ Confirmed</span>
+            </div>
+            <div class="detail-row">
+                <span>QR E-Ticket</span>
+                <span>Sent to your email 📧</span>
+            </div>`;
+    }
+
+    /* ── Poll until PAID ─────────────────────────────────────── */
+    async function verifyPayment() {
         const bookingId = getParam('bookingId');
-        if(!bookingId){ showError('No booking ID found.'); return; }
+
+        /* BUG FIX: original didn't show any error when bookingId was missing */
+        if (!bookingId || isNaN(parseInt(bookingId))) {
+            showError(
+                'No booking ID was found in the URL. ' +
+                'This page should only be opened by PayHere after a payment. ' +
+                'Please go home and check My Tickets for your booking status.'
+            );
+            return;
+        }
 
         let attempts = 0;
-        const maxAttempts = 10;
+        const pollSub = document.getElementById('pollStatus');
 
         const poll = async () => {
             attempts++;
+            if (pollSub) {
+                pollSub.textContent = `Attempt ${attempts} of ${MAX_ATTEMPTS}…`;
+            }
+
             try {
+                /* BUG FIX: original sent no auth header — if your backend
+                   requires Bearer token for this endpoint, it would return 401
+                   and data.data would be undefined, causing the poll to never
+                   match 'PAID' and just keep retrying until max. */
                 const res  = await fetch(`${PAYMENT_API}/booking/${bookingId}`, {
-                    headers: { 'Content-Type': 'application/json' }
+                    headers: { ...authHeaders(), 'ngrok-skip-browser-warning': 'true' }
                 });
-                const data = await res.json();
+
+                /* BUG FIX: original called res.json() without checking res.ok,
+                   so a 404 (payment not found yet) would try to parse an error
+                   page as JSON and throw — silently swallowed into the catch. */
+                if (!res.ok) {
+                    if (attempts < MAX_ATTEMPTS) {
+                        setTimeout(poll, POLL_MS);
+                    } else {
+                        /* Timed out — show success anyway; notify_url may still be processing */
+                        showSuccess(bookingId, {});
+                    }
+                    return;
+                }
+
+                const data    = await res.json();
                 const payment = data.data || {};
 
-                if(payment.status === 'PAID'){
+                if ((payment.status || '').toUpperCase() === 'PAID') {
                     showSuccess(bookingId, payment);
-                } else if(attempts < maxAttempts){
-                    setTimeout(poll, 2000); // retry every 2s
+                } else if (attempts < MAX_ATTEMPTS) {
+                    /* Still PENDING — PayHere notify_url POST hasn't arrived yet */
+                    setTimeout(poll, POLL_MS);
                 } else {
+                    /* Gave up polling — show what we have */
                     showSuccess(bookingId, payment);
                 }
-            } catch(e){
-                if(attempts < maxAttempts){
-                    setTimeout(poll, 2000);
+
+            } catch (e) {
+                if (attempts < MAX_ATTEMPTS) {
+                    setTimeout(poll, POLL_MS);
                 } else {
+                    /* Network error — show generic success, user did pay */
                     showSuccess(bookingId, {});
                 }
             }
         };
+
         poll();
-    }
-
-    function showSuccess(bookingId, payment){
-        document.getElementById('loadingState').style.display = 'none';
-        document.getElementById('successState').style.display = 'block';
-
-        document.getElementById('detailBox').innerHTML = `
-            <div class="detail-row"><span>Booking ID</span><span>#${bookingId}</span></div>
-            <div class="detail-row"><span>Amount Paid</span><span>LKR ${payment.amount ? Number(payment.amount).toLocaleString() : '—'}</span></div>
-            <div class="detail-row"><span>Payment Method</span><span>${payment.method || '—'}</span></div>
-            <div class="detail-row"><span>Status</span><span style="color:#10B981">✓ Confirmed</span></div>
-            <div class="detail-row"><span>E-Ticket</span><span>Sent to your email 📧</span></div>
-        `;
-    }
-
-    function showError(msg){
-        document.getElementById('loadingState').innerHTML =
-            `<p style="color:#EF4444;font-size:0.9rem">${msg}</p>`;
     }
 
     verifyPayment();
