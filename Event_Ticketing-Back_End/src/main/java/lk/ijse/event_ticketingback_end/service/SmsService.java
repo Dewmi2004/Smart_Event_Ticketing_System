@@ -1,44 +1,26 @@
 package lk.ijse.event_ticketingback_end.service;
 
-import com.twilio.Twilio;
-import com.twilio.rest.api.v2010.account.Message;
-import com.twilio.type.PhoneNumber;
-import jakarta.annotation.PostConstruct;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+
+import java.net.URI;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
 
 @Slf4j
 @Service
 public class SmsService {
 
-    @Value("${twilio.account-sid}")
-    private String accountSid;
+    @Value("${textlk.api-key}")
+    private String apiKey;
 
-    @Value("${twilio.auth-token}")
-    private String authToken;
+    @Value("${textlk.sender-id}")
+    private String senderId;
 
-    @Value("${twilio.phone-number}")
-    private String fromNumber;
+    private static final String API_URL = "https://app.text.lk/api/v3/sms/send";
 
-    // Initialise Twilio SDK once when Spring starts
-    @PostConstruct
-    public void init() {
-        Twilio.init(accountSid, authToken);
-        log.info("[Twilio] SDK initialised — from={}", fromNumber);
-    }
-
-    /**
-     * Send a booking confirmation SMS.
-     * Called from PaymentServiceImpl after payment is confirmed.
-     *
-     * @param toPhone     customer phone e.g. "+94771234567"
-     * @param bookingId   booking ID
-     * @param eventName   event name
-     * @param eventDate   event date string
-     * @param seatNumbers comma-separated seat numbers e.g. "A1, A2"
-     * @param totalAmount amount paid
-     */
     public void sendBookingConfirmation(
             String toPhone,
             int    bookingId,
@@ -47,72 +29,75 @@ public class SmsService {
             String seatNumbers,
             double totalAmount
     ) {
-        String body = String.format(
-                "🎫 EventHub Booking Confirmed!\n" +
-                        "Booking #%d\n" +
-                        "Event : %s\n" +
-                        "Date  : %s\n" +
-                        "Seats : %s\n" +
-                        "Paid  : LKR %.2f\n" +
-                        "Show this SMS or check your email for the QR ticket at the gate.",
+        String message = String.format(
+                "EventHub Booking Confirmed! " +
+                        "Booking #%d | " +
+                        "Event: %s | " +
+                        "Date: %s | " +
+                        "Seats: %s | " +
+                        "Paid: LKR %.2f. " +
+                        "Check your email for QR ticket.",
                 bookingId, eventName, eventDate, seatNumbers, totalAmount
         );
 
-        sendSms(toPhone, body);
+        sendSms(toPhone, message);
     }
 
-    /**
-     * Send a payment failure SMS so the customer knows to retry.
-     */
     public void sendPaymentFailed(
             String toPhone,
             int    bookingId,
             String eventName
     ) {
-        String body = String.format(
-                "⚠️ EventHub Payment Failed\n" +
-                        "Booking #%d for %s could not be completed.\n" +
+        String message = String.format(
+                "EventHub: Payment failed for Booking #%d (%s). " +
                         "Please visit EventHub and try again.",
                 bookingId, eventName
         );
 
-        sendSms(toPhone, body);
+        sendSms(toPhone, message);
     }
 
-    /**
-     * Core send method — all SMS go through here.
-     * Logs success/failure without throwing, matching EmailService behaviour
-     * (email failures are caught and logged, not rethrown).
-     */
-    private void sendSms(String toPhone, String body) {
+    private void sendSms(String toPhone, String message) {
         try {
-            // Twilio requires E.164 format: +94771234567
             String normalised = normalisePhone(toPhone);
 
-            Message message = Message.creator(
-                    new PhoneNumber(normalised),
-                    new PhoneNumber(fromNumber),
-                    body
-            ).create();
+            String json = String.format(
+                    "{\"recipient\":\"%s\",\"sender_id\":\"%s\",\"type\":\"plain\",\"message\":\"%s\"}",
+                    normalised,
+                    senderId,
+                    message.replace("\"", "\\\"")
+            );
 
-            log.info("[Twilio] SMS sent — to={} sid={}", normalised, message.getSid());
+            HttpRequest request = HttpRequest.newBuilder()
+                    .uri(URI.create(API_URL))
+                    .header("Authorization", "Bearer " + apiKey)
+                    .header("Content-Type", "application/json")
+                    .header("Accept", "application/json")
+                    .POST(HttpRequest.BodyPublishers.ofString(json))
+                    .build();
+
+            HttpClient client = HttpClient.newHttpClient();
+            HttpResponse<String> response = client.send(
+                    request, HttpResponse.BodyHandlers.ofString());
+
+            if (response.statusCode() == 200) {
+                log.info("[text.lk] SMS sent — to={} response={}", normalised, response.body());
+            } else {
+                log.error("[text.lk] SMS failed — to={} status={} body={}",
+                        normalised, response.statusCode(), response.body());
+            }
 
         } catch (Exception e) {
-            // Log but never throw — SMS failure must not roll back DB changes
-            log.error("[Twilio] SMS failed — to={} error={}", toPhone, e.getMessage());
+            log.error("[text.lk] SMS exception — to={} error={}", toPhone, e.getMessage());
         }
     }
 
-    /**
-     * Converts local SL numbers to E.164.
-     * "0771234567" → "+94771234567"
-     * Already E.164 numbers are returned as-is.
-     */
     private String normalisePhone(String phone) {
         if (phone == null || phone.isBlank()) return phone;
         phone = phone.trim().replaceAll("[\\s\\-()]", "");
-        if (phone.startsWith("+")) return phone;           // already E.164
-        if (phone.startsWith("0"))  return "+94" + phone.substring(1); // local SL
-        return "+" + phone;                                // assume already has country code
+        if (phone.startsWith("+94")) return phone.substring(1); // +94... → 94...
+        if (phone.startsWith("94"))  return phone;              // already correct
+        if (phone.startsWith("0"))   return "94" + phone.substring(1); // 07... → 947...
+        return "94" + phone;
     }
 }
