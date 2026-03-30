@@ -10,14 +10,15 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class BookingDto {
-    private int    bookingId;
-    private int    userId;
-    private int    eventId;
-    private String userEmail;
-    private String phone;
+
+    private Integer bookingId;
+    private Integer userId;
+    private Integer eventId;
+    private String  userEmail;
+    private String  phone;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
-    private Date   bookingDate;
+    private Date bookingDate;
 
     private double totalAmount;
     private String couponCode;

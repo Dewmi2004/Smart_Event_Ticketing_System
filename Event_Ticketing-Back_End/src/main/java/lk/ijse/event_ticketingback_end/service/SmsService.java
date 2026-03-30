@@ -21,6 +21,9 @@ public class SmsService {
 
     private static final String API_URL = "https://app.text.lk/api/v3/sms/send";
 
+    // ─────────────────────────────────────────────────────────────────────────
+    // BOOKING CONFIRMATION SMS
+    // ─────────────────────────────────────────────────────────────────────────
     public void sendBookingConfirmation(
             String toPhone,
             int    bookingId,
@@ -31,18 +34,16 @@ public class SmsService {
     ) {
         String message = String.format(
                 "EventHub Booking Confirmed! " +
-                        "Booking #%d | " +
-                        "Event: %s | " +
-                        "Date: %s | " +
-                        "Seats: %s | " +
-                        "Paid: LKR %.2f. " +
+                        "Booking #%d | Event: %s | Date: %s | Seats: %s | Paid: LKR %.2f. " +
                         "Check your email for QR ticket.",
                 bookingId, eventName, eventDate, seatNumbers, totalAmount
         );
-
         sendSms(toPhone, message);
     }
 
+    // ─────────────────────────────────────────────────────────────────────────
+    // PAYMENT FAILED SMS
+    // ─────────────────────────────────────────────────────────────────────────
     public void sendPaymentFailed(
             String toPhone,
             int    bookingId,
@@ -53,10 +54,23 @@ public class SmsService {
                         "Please visit EventHub and try again.",
                 bookingId, eventName
         );
-
         sendSms(toPhone, message);
     }
 
+    // ─────────────────────────────────────────────────────────────────────────
+    // GENERIC SMS  (EventUpdate, Refund, Promotion, etc.)
+    // ─────────────────────────────────────────────────────────────────────────
+    public void sendGenericNotification(String toPhone, String messageBody) {
+        // SMS has a ~160-char limit per segment; trim gracefully
+        String trimmed = messageBody != null && messageBody.length() > 155
+                ? messageBody.substring(0, 152) + "..."
+                : messageBody;
+        sendSms(toPhone, "EventHub: " + trimmed);
+    }
+
+    // ─────────────────────────────────────────────────────────────────────────
+    // INTERNAL  — builds and sends the HTTP request to text.lk
+    // ─────────────────────────────────────────────────────────────────────────
     private void sendSms(String toPhone, String message) {
         try {
             String normalised = normalisePhone(toPhone);
@@ -76,9 +90,8 @@ public class SmsService {
                     .POST(HttpRequest.BodyPublishers.ofString(json))
                     .build();
 
-            HttpClient client = HttpClient.newHttpClient();
-            HttpResponse<String> response = client.send(
-                    request, HttpResponse.BodyHandlers.ofString());
+            HttpResponse<String> response = HttpClient.newHttpClient()
+                    .send(request, HttpResponse.BodyHandlers.ofString());
 
             if (response.statusCode() == 200) {
                 log.info("[text.lk] SMS sent — to={} response={}", normalised, response.body());
@@ -92,6 +105,9 @@ public class SmsService {
         }
     }
 
+    // ─────────────────────────────────────────────────────────────────────────
+    // PHONE NORMALISER  (Sri Lanka format → 94xxxxxxxxx)
+    // ─────────────────────────────────────────────────────────────────────────
     private String normalisePhone(String phone) {
         if (phone == null || phone.isBlank()) return phone;
         phone = phone.trim().replaceAll("[\\s\\-()]", "");

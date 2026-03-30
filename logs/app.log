@@ -1,21 +1,21 @@
-2026-03-29T21:25:48.923+05:30  INFO 49128 --- [Event_Ticketing-Back_End] [restartedMain] l.i.event_ticketingback_end.Application  : Starting Application using Java 21.0.7 with PID 49128 (C:\Users\USER\Documents\2nd sem Projects\AAD\javaEE\Smart_Event_Ticketing_System\Event_Ticketing-Back_End\target\classes started by USER in C:\Users\USER\Documents\2nd sem Projects\AAD\javaEE\Smart_Event_Ticketing_System)
-2026-03-29T21:25:48.928+05:30  INFO 49128 --- [Event_Ticketing-Back_End] [restartedMain] l.i.event_ticketingback_end.Application  : No active profile set, falling back to 1 default profile: "default"
-2026-03-29T21:25:48.995+05:30  INFO 49128 --- [Event_Ticketing-Back_End] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
-2026-03-29T21:25:48.996+05:30  INFO 49128 --- [Event_Ticketing-Back_End] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
-2026-03-29T21:25:50.095+05:30  INFO 49128 --- [Event_Ticketing-Back_End] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2026-03-29T21:25:50.178+05:30  INFO 49128 --- [Event_Ticketing-Back_End] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 73 ms. Found 7 JPA repository interfaces.
-2026-03-29T21:25:50.859+05:30  INFO 49128 --- [Event_Ticketing-Back_End] [restartedMain] o.s.boot.tomcat.TomcatWebServer          : Tomcat initialized with port 8080 (http)
-2026-03-29T21:25:50.873+05:30  INFO 49128 --- [Event_Ticketing-Back_End] [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
-2026-03-29T21:25:50.874+05:30  INFO 49128 --- [Event_Ticketing-Back_End] [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/11.0.18]
-2026-03-29T21:25:50.920+05:30  INFO 49128 --- [Event_Ticketing-Back_End] [restartedMain] b.w.c.s.WebApplicationContextInitializer : Root WebApplicationContext: initialization completed in 1923 ms
-2026-03-29T21:25:51.091+05:30  INFO 49128 --- [Event_Ticketing-Back_End] [restartedMain] org.hibernate.orm.jpa                    : HHH008540: Processing PersistenceUnitInfo [name: default]
-2026-03-29T21:25:51.174+05:30  INFO 49128 --- [Event_Ticketing-Back_End] [restartedMain] org.hibernate.orm.core                   : HHH000001: Hibernate ORM core version 7.2.4.Final
-2026-03-29T21:25:51.658+05:30  INFO 49128 --- [Event_Ticketing-Back_End] [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
-2026-03-29T21:25:51.695+05:30  INFO 49128 --- [Event_Ticketing-Back_End] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
-2026-03-29T21:25:52.115+05:30  INFO 49128 --- [Event_Ticketing-Back_End] [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@32c7889e
-2026-03-29T21:25:52.117+05:30  INFO 49128 --- [Event_Ticketing-Back_End] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
-2026-03-29T21:25:52.217+05:30  WARN 49128 --- [Event_Ticketing-Back_End] [restartedMain] org.hibernate.orm.deprecation            : HHH90000025: MySQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
-2026-03-29T21:25:52.238+05:30  INFO 49128 --- [Event_Ticketing-Back_End] [restartedMain] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+2026-03-31T00:01:13.030+05:30  INFO 5320 --- [Event_Ticketing-Back_End] [restartedMain] l.i.event_ticketingback_end.Application  : Starting Application using Java 21.0.7 with PID 5320 (C:\Users\USER\Documents\2nd sem Projects\AAD\javaEE\Smart_Event_Ticketing_System\Event_Ticketing-Back_End\target\classes started by USER in C:\Users\USER\Documents\2nd sem Projects\AAD\javaEE\Smart_Event_Ticketing_System)
+2026-03-31T00:01:13.046+05:30  INFO 5320 --- [Event_Ticketing-Back_End] [restartedMain] l.i.event_ticketingback_end.Application  : No active profile set, falling back to 1 default profile: "default"
+2026-03-31T00:01:13.230+05:30  INFO 5320 --- [Event_Ticketing-Back_End] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2026-03-31T00:01:13.235+05:30  INFO 5320 --- [Event_Ticketing-Back_End] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2026-03-31T00:01:14.451+05:30  INFO 5320 --- [Event_Ticketing-Back_End] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-03-31T00:01:14.555+05:30  INFO 5320 --- [Event_Ticketing-Back_End] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 88 ms. Found 8 JPA repository interfaces.
+2026-03-31T00:01:15.349+05:30  INFO 5320 --- [Event_Ticketing-Back_End] [restartedMain] o.s.boot.tomcat.TomcatWebServer          : Tomcat initialized with port 8080 (http)
+2026-03-31T00:01:15.365+05:30  INFO 5320 --- [Event_Ticketing-Back_End] [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-03-31T00:01:15.366+05:30  INFO 5320 --- [Event_Ticketing-Back_End] [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/11.0.18]
+2026-03-31T00:01:15.421+05:30  INFO 5320 --- [Event_Ticketing-Back_End] [restartedMain] b.w.c.s.WebApplicationContextInitializer : Root WebApplicationContext: initialization completed in 2184 ms
+2026-03-31T00:01:15.616+05:30  INFO 5320 --- [Event_Ticketing-Back_End] [restartedMain] org.hibernate.orm.jpa                    : HHH008540: Processing PersistenceUnitInfo [name: default]
+2026-03-31T00:01:15.667+05:30  INFO 5320 --- [Event_Ticketing-Back_End] [restartedMain] org.hibernate.orm.core                   : HHH000001: Hibernate ORM core version 7.2.4.Final
+2026-03-31T00:01:16.206+05:30  INFO 5320 --- [Event_Ticketing-Back_End] [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-03-31T00:01:16.241+05:30  INFO 5320 --- [Event_Ticketing-Back_End] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2026-03-31T00:01:16.643+05:30  INFO 5320 --- [Event_Ticketing-Back_End] [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@5458a0e2
+2026-03-31T00:01:16.645+05:30  INFO 5320 --- [Event_Ticketing-Back_End] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2026-03-31T00:01:16.748+05:30  WARN 5320 --- [Event_Ticketing-Back_End] [restartedMain] org.hibernate.orm.deprecation            : HHH90000025: MySQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2026-03-31T00:01:16.776+05:30  INFO 5320 --- [Event_Ticketing-Back_End] [restartedMain] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
 	Database JDBC URL [jdbc:mysql://localhost:3306/event_db?createDatabaseIfNotExist=true]
 	Database driver: MySQL Connector/J
 	Database dialect: MySQLDialect
@@ -27,24 +27,137 @@
 	Pool: DataSourceConnectionProvider
 	Minimum pool size: undefined/unknown
 	Maximum pool size: undefined/unknown
-2026-03-29T21:25:53.387+05:30  INFO 49128 --- [Event_Ticketing-Back_End] [restartedMain] org.hibernate.orm.core                   : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
-2026-03-29T21:25:53.504+05:30  INFO 49128 --- [Event_Ticketing-Back_End] [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
-2026-03-29T21:25:53.582+05:30  INFO 49128 --- [Event_Ticketing-Back_End] [restartedMain] o.s.d.j.r.query.QueryEnhancerFactories   : Hibernate is in classpath; If applicable, HQL parser will be used.
-2026-03-29T21:25:54.027+05:30  WARN 49128 --- [Event_Ticketing-Back_End] [restartedMain] ConfigServletWebServerApplicationContext : Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'paymentController' defined in file [C:\Users\USER\Documents\2nd sem Projects\AAD\javaEE\Smart_Event_Ticketing_System\Event_Ticketing-Back_End\target\classes\lk\ijse\event_ticketingback_end\controller\PaymentController.class]: Unsatisfied dependency expressed through constructor parameter 0: Error creating bean with name 'paymentServiceImpl' defined in file [C:\Users\USER\Documents\2nd sem Projects\AAD\javaEE\Smart_Event_Ticketing_System\Event_Ticketing-Back_End\target\classes\lk\ijse\event_ticketingback_end\service\impl\PaymentServiceImpl.class]: Unsatisfied dependency expressed through constructor parameter 3: Error creating bean with name 'smsService': Injection of autowired dependencies failed
-2026-03-29T21:25:54.028+05:30  INFO 49128 --- [Event_Ticketing-Back_End] [restartedMain] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
-2026-03-29T21:25:54.031+05:30  INFO 49128 --- [Event_Ticketing-Back_End] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
-2026-03-29T21:25:54.041+05:30  INFO 49128 --- [Event_Ticketing-Back_End] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
-2026-03-29T21:25:54.043+05:30  INFO 49128 --- [Event_Ticketing-Back_End] [restartedMain] o.apache.catalina.core.StandardService   : Stopping service [Tomcat]
-2026-03-29T21:25:54.055+05:30  INFO 49128 --- [Event_Ticketing-Back_End] [restartedMain] .s.b.a.l.ConditionEvaluationReportLogger : 
+2026-03-31T00:01:18.295+05:30  INFO 5320 --- [Event_Ticketing-Back_End] [restartedMain] org.hibernate.orm.core                   : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-03-31T00:01:18.465+05:30  INFO 5320 --- [Event_Ticketing-Back_End] [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-03-31T00:01:18.570+05:30  INFO 5320 --- [Event_Ticketing-Back_End] [restartedMain] o.s.d.j.r.query.QueryEnhancerFactories   : Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-03-31T00:01:19.735+05:30  WARN 5320 --- [Event_Ticketing-Back_End] [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-03-31T00:01:19.847+05:30  INFO 5320 --- [Event_Ticketing-Back_End] [restartedMain] eAuthenticationProviderManagerConfigurer : Global AuthenticationManager configured with AuthenticationProvider bean with name authenticateProvider
+2026-03-31T00:01:19.847+05:30  WARN 5320 --- [Event_Ticketing-Back_End] [restartedMain] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with an AuthenticationProvider bean. UserDetailsService beans will not be used by Spring Security for automatically configuring username/password login. Consider removing the AuthenticationProvider bean. Alternatively, consider using the UserDetailsService in a manually instantiated DaoAuthenticationProvider. If the current configuration is intentional, to turn off this warning, increase the logging level of 'org.springframework.security.config.annotation.authentication.configuration.InitializeUserDetailsBeanManagerConfigurer' to ERROR
+2026-03-31T00:01:20.816+05:30  INFO 5320 --- [Event_Ticketing-Back_End] [restartedMain] o.s.boot.tomcat.TomcatWebServer          : Tomcat started on port 8080 (http) with context path '/'
+2026-03-31T00:01:20.826+05:30  INFO 5320 --- [Event_Ticketing-Back_End] [restartedMain] l.i.event_ticketingback_end.Application  : Started Application in 8.42 seconds (process running for 9.73)
+2026-03-31T00:01:21.430+05:30  WARN 5320 --- [Event_Ticketing-Back_End] [restartedMain] o.s.core.events.SpringDocAppInitializer  : SpringDoc /v3/api-docs endpoint is enabled by default. To disable it in production, set the property 'springdoc.api-docs.enabled=false'
+2026-03-31T00:01:21.431+05:30  WARN 5320 --- [Event_Ticketing-Back_End] [restartedMain] o.s.core.events.SpringDocAppInitializer  : SpringDoc /swagger-ui.html endpoint is enabled by default. To disable it in production, set the property 'springdoc.swagger-ui.enabled=false'
+2026-03-31T00:01:33.225+05:30  INFO 5320 --- [Event_Ticketing-Back_End] [http-nio-8080-exec-2] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-03-31T00:01:33.227+05:30  INFO 5320 --- [Event_Ticketing-Back_End] [http-nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2026-03-31T00:01:33.235+05:30  INFO 5320 --- [Event_Ticketing-Back_End] [http-nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Completed initialization in 7 ms
+2026-03-31T00:02:43.125+05:30  INFO 5320 --- [Event_Ticketing-Back_End] [http-nio-8080-exec-10] l.i.e.s.impl.NotificationServiceImpl     : [Notification] Email dispatched — type=EventUpdate to=dewimasha2004@gmail.com
+2026-03-31T00:02:47.125+05:30  INFO 5320 --- [Event_Ticketing-Back_End] [http-nio-8080-exec-10] l.i.e.service.SmsService                 : [text.lk] SMS sent — to=94775771003 response={"status":"success","message":"Your message was successfully delivered","data":{"uid":"69cac1cecf728","to":"94775771003","from":"TextLKDemo","message":"EventHub: date?","status":"Delivered","cost":"1","sms_count":1}}
+2026-03-31T00:02:47.127+05:30  INFO 5320 --- [Event_Ticketing-Back_End] [http-nio-8080-exec-10] l.i.e.s.impl.NotificationServiceImpl     : [Notification] SMS dispatched — type=EventUpdate to=0775771003
+2026-03-31T00:04:43.560+05:30  WARN 5320 --- [Event_Ticketing-Back_End] [http-nio-8080-exec-2] .m.m.a.ExceptionHandlerExceptionResolver : Resolved [org.springframework.http.converter.HttpMessageNotReadableException: JSON parse error: Cannot map `null` into type `int` (set DeserializationConfig.DeserializationFeature.FAIL_ON_NULL_FOR_PRIMITIVES to 'false' to allow)]
+2026-03-31T00:05:49.856+05:30  WARN 5320 --- [Event_Ticketing-Back_End] [http-nio-8080-exec-6] .m.m.a.ExceptionHandlerExceptionResolver : Resolved [org.springframework.http.converter.HttpMessageNotReadableException: JSON parse error: Cannot map `null` into type `int` (set DeserializationConfig.DeserializationFeature.FAIL_ON_NULL_FOR_PRIMITIVES to 'false' to allow)]
+2026-03-31T00:07:13.697+05:30  INFO 5320 --- [Event_Ticketing-Back_End] [http-nio-8080-exec-4] l.i.e.service.impl.RefundServiceImpl     : [Refund] Request created — refundId=18 bookingId=3 amount=20000.0
+2026-03-31T00:07:19.125+05:30  WARN 5320 --- [Event_Ticketing-Back_End] [http-nio-8080-exec-8] l.i.e.service.impl.RefundServiceImpl     : [Refund] SANDBOX MOCK — auto-approving refundId=18 (no real API call)
+2026-03-31T00:07:19.344+05:30  INFO 5320 --- [Event_Ticketing-Back_End] [http-nio-8080-exec-8] l.i.e.service.impl.RefundServiceImpl     : [Refund] APPROVED — refundId=18 bookingId=3 payhereRefundId=SANDBOX-MOCK-F3FAF795
+2026-03-31T00:10:25.444+05:30  INFO 5320 --- [Event_Ticketing-Back_End] [http-nio-8080-exec-6] l.i.e.c.BookingVerifyController          : [Verify] Scanning bookingId=34
+2026-03-31T00:10:25.457+05:30  INFO 5320 --- [Event_Ticketing-Back_End] [http-nio-8080-exec-6] l.i.e.c.BookingVerifyController          : [Verify] bookingId=34 currentStatus=Used
+2026-03-31T00:10:25.457+05:30  WARN 5320 --- [Event_Ticketing-Back_End] [http-nio-8080-exec-6] l.i.e.c.BookingVerifyController          : [Verify] Ticket already used: 34
+2026-03-31T00:11:20.222+05:30  WARN 5320 --- [Event_Ticketing-Back_End] [http-nio-8080-exec-8] .m.m.a.ExceptionHandlerExceptionResolver : Resolved [org.springframework.http.converter.HttpMessageNotReadableException: JSON parse error: Cannot map `null` into type `int` (set DeserializationConfig.DeserializationFeature.FAIL_ON_NULL_FOR_PRIMITIVES to 'false' to allow)]
+2026-03-31T00:11:34.930+05:30  INFO 5320 --- [Event_Ticketing-Back_End] [SpringApplicationShutdownHook] o.s.boot.tomcat.GracefulShutdown         : Commencing graceful shutdown. Waiting for active requests to complete
+2026-03-31T00:11:34.952+05:30  INFO 5320 --- [Event_Ticketing-Back_End] [tomcat-shutdown] o.s.boot.tomcat.GracefulShutdown         : Graceful shutdown complete
+2026-03-31T00:11:34.963+05:30  INFO 5320 --- [Event_Ticketing-Back_End] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-03-31T00:11:34.969+05:30  INFO 5320 --- [Event_Ticketing-Back_End] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2026-03-31T00:11:34.977+05:30  INFO 5320 --- [Event_Ticketing-Back_End] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2026-03-31T00:20:06.342+05:30  INFO 20964 --- [Event_Ticketing-Back_End] [restartedMain] l.i.event_ticketingback_end.Application  : Starting Application using Java 21.0.7 with PID 20964 (C:\Users\USER\Documents\2nd sem Projects\AAD\javaEE\Smart_Event_Ticketing_System\Event_Ticketing-Back_End\target\classes started by USER in C:\Users\USER\Documents\2nd sem Projects\AAD\javaEE\Smart_Event_Ticketing_System)
+2026-03-31T00:20:06.344+05:30  INFO 20964 --- [Event_Ticketing-Back_End] [restartedMain] l.i.event_ticketingback_end.Application  : No active profile set, falling back to 1 default profile: "default"
+2026-03-31T00:20:06.415+05:30  INFO 20964 --- [Event_Ticketing-Back_End] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2026-03-31T00:20:06.415+05:30  INFO 20964 --- [Event_Ticketing-Back_End] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2026-03-31T00:20:07.673+05:30  INFO 20964 --- [Event_Ticketing-Back_End] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-03-31T00:20:07.787+05:30  INFO 20964 --- [Event_Ticketing-Back_End] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 98 ms. Found 8 JPA repository interfaces.
+2026-03-31T00:20:08.690+05:30  INFO 20964 --- [Event_Ticketing-Back_End] [restartedMain] o.s.boot.tomcat.TomcatWebServer          : Tomcat initialized with port 8080 (http)
+2026-03-31T00:20:08.707+05:30  INFO 20964 --- [Event_Ticketing-Back_End] [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-03-31T00:20:08.708+05:30  INFO 20964 --- [Event_Ticketing-Back_End] [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/11.0.18]
+2026-03-31T00:20:08.790+05:30  INFO 20964 --- [Event_Ticketing-Back_End] [restartedMain] b.w.c.s.WebApplicationContextInitializer : Root WebApplicationContext: initialization completed in 2374 ms
+2026-03-31T00:20:08.983+05:30  INFO 20964 --- [Event_Ticketing-Back_End] [restartedMain] org.hibernate.orm.jpa                    : HHH008540: Processing PersistenceUnitInfo [name: default]
+2026-03-31T00:20:09.038+05:30  INFO 20964 --- [Event_Ticketing-Back_End] [restartedMain] org.hibernate.orm.core                   : HHH000001: Hibernate ORM core version 7.2.4.Final
+2026-03-31T00:20:09.624+05:30  INFO 20964 --- [Event_Ticketing-Back_End] [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-03-31T00:20:09.661+05:30  INFO 20964 --- [Event_Ticketing-Back_End] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2026-03-31T00:20:10.082+05:30  INFO 20964 --- [Event_Ticketing-Back_End] [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@6ee97423
+2026-03-31T00:20:10.085+05:30  INFO 20964 --- [Event_Ticketing-Back_End] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2026-03-31T00:20:10.188+05:30  WARN 20964 --- [Event_Ticketing-Back_End] [restartedMain] org.hibernate.orm.deprecation            : HHH90000025: MySQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2026-03-31T00:20:10.218+05:30  INFO 20964 --- [Event_Ticketing-Back_End] [restartedMain] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [jdbc:mysql://localhost:3306/event_db?createDatabaseIfNotExist=true]
+	Database driver: MySQL Connector/J
+	Database dialect: MySQLDialect
+	Database version: 8.0.42
+	Default catalog/schema: event_db/undefined
+	Autocommit mode: undefined/unknown
+	Isolation level: REPEATABLE_READ [default REPEATABLE_READ]
+	JDBC fetch size: none
+	Pool: DataSourceConnectionProvider
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-03-31T00:20:11.636+05:30  INFO 20964 --- [Event_Ticketing-Back_End] [restartedMain] org.hibernate.orm.core                   : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-03-31T00:20:11.780+05:30  INFO 20964 --- [Event_Ticketing-Back_End] [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-03-31T00:20:11.878+05:30  INFO 20964 --- [Event_Ticketing-Back_End] [restartedMain] o.s.d.j.r.query.QueryEnhancerFactories   : Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-03-31T00:20:13.076+05:30  WARN 20964 --- [Event_Ticketing-Back_End] [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-03-31T00:20:13.188+05:30  INFO 20964 --- [Event_Ticketing-Back_End] [restartedMain] eAuthenticationProviderManagerConfigurer : Global AuthenticationManager configured with AuthenticationProvider bean with name authenticateProvider
+2026-03-31T00:20:13.189+05:30  WARN 20964 --- [Event_Ticketing-Back_End] [restartedMain] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with an AuthenticationProvider bean. UserDetailsService beans will not be used by Spring Security for automatically configuring username/password login. Consider removing the AuthenticationProvider bean. Alternatively, consider using the UserDetailsService in a manually instantiated DaoAuthenticationProvider. If the current configuration is intentional, to turn off this warning, increase the logging level of 'org.springframework.security.config.annotation.authentication.configuration.InitializeUserDetailsBeanManagerConfigurer' to ERROR
+2026-03-31T00:20:14.140+05:30  INFO 20964 --- [Event_Ticketing-Back_End] [restartedMain] o.s.boot.tomcat.TomcatWebServer          : Tomcat started on port 8080 (http) with context path '/'
+2026-03-31T00:20:14.152+05:30  INFO 20964 --- [Event_Ticketing-Back_End] [restartedMain] l.i.event_ticketingback_end.Application  : Started Application in 8.392 seconds (process running for 9.623)
+2026-03-31T00:20:14.752+05:30  WARN 20964 --- [Event_Ticketing-Back_End] [restartedMain] o.s.core.events.SpringDocAppInitializer  : SpringDoc /v3/api-docs endpoint is enabled by default. To disable it in production, set the property 'springdoc.api-docs.enabled=false'
+2026-03-31T00:20:14.753+05:30  WARN 20964 --- [Event_Ticketing-Back_End] [restartedMain] o.s.core.events.SpringDocAppInitializer  : SpringDoc /swagger-ui.html endpoint is enabled by default. To disable it in production, set the property 'springdoc.swagger-ui.enabled=false'
+2026-03-31T00:20:23.369+05:30  INFO 20964 --- [Event_Ticketing-Back_End] [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-03-31T00:20:23.371+05:30  INFO 20964 --- [Event_Ticketing-Back_End] [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2026-03-31T00:20:23.378+05:30  INFO 20964 --- [Event_Ticketing-Back_End] [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 6 ms
+2026-03-31T00:21:01.718+05:30  INFO 20964 --- [Event_Ticketing-Back_End] [http-nio-8080-exec-6] l.i.e.service.impl.PaymentServiceImpl    : [PayHere] merchantId  = 1234608
+2026-03-31T00:21:01.719+05:30  INFO 20964 --- [Event_Ticketing-Back_End] [http-nio-8080-exec-6] l.i.e.service.impl.PaymentServiceImpl    : [PayHere] orderId     = EH-35-E0D52A86
+2026-03-31T00:21:01.720+05:30  INFO 20964 --- [Event_Ticketing-Back_End] [http-nio-8080-exec-6] l.i.e.service.impl.PaymentServiceImpl    : [PayHere] amount      = 9000.00
+2026-03-31T00:21:01.720+05:30  INFO 20964 --- [Event_Ticketing-Back_End] [http-nio-8080-exec-6] l.i.e.service.impl.PaymentServiceImpl    : [PayHere] currency    = LKR
+2026-03-31T00:21:01.721+05:30  INFO 20964 --- [Event_Ticketing-Back_End] [http-nio-8080-exec-6] l.i.e.service.impl.PaymentServiceImpl    : [PayHere] hash        = FEE9D8193AB7E8E5CCE2C3D931D96DB5
+2026-03-31T00:21:01.722+05:30  INFO 20964 --- [Event_Ticketing-Back_End] [http-nio-8080-exec-6] l.i.e.service.impl.PaymentServiceImpl    : [PayHere] notify_url  = https://valrie-nonabdicative-lakita.ngrok-free.dev/api/v1/payment/notify
+2026-03-31T00:21:29.071+05:30  INFO 20964 --- [Event_Ticketing-Back_End] [http-nio-8080-exec-5] l.i.e.controller.PaymentController       : [PayHere Notify] Received: {merchant_id=1234608, order_id=EH-35-E0D52A86, payment_id=320032586214, captured_amount=9000.00, payhere_amount=9000.00, payhere_currency=LKR, status_code=2, md5sig=CEA904266717BE39E7455F25F86A420F, custom_1=, custom_2=, status_message=Successfully received the VISA payment, method=VISA, card_holder_name=dew, card_no=************1292, card_expiry=01/27, recurring=0}
+2026-03-31T00:21:29.076+05:30  INFO 20964 --- [Event_Ticketing-Back_End] [http-nio-8080-exec-5] l.i.e.service.impl.PaymentServiceImpl    : [PayHere Notify] orderId=EH-35-E0D52A86 statusCode=2
+2026-03-31T00:21:36.770+05:30  INFO 20964 --- [Event_Ticketing-Back_End] [http-nio-8080-exec-5] l.i.e.service.impl.PaymentServiceImpl    : [PayHere] Ticket email sent for bookingId=35
+2026-03-31T00:21:40.368+05:30  INFO 20964 --- [Event_Ticketing-Back_End] [http-nio-8080-exec-5] l.i.e.service.SmsService                 : [text.lk] SMS sent — to=94775771003 response={"status":"success","message":"Your message was successfully delivered","data":{"uid":"69cac63c1507f","to":"94775771003","from":"TextLKDemo","message":"EventHub Booking Confirmed! Booking #35 | Event: Subo Summit 2026 | Date: 2026-06-15 | Seats: C10 | Paid: LKR 9000.00. Check your email for QR ticket.","status":"Delivered","cost":"1","sms_count":1}}
+2026-03-31T00:22:31.419+05:30  INFO 20964 --- [Event_Ticketing-Back_End] [File Watcher] rtingClassPathChangeChangedEventListener : Restarting due to 1 class path change (0 additions, 1 deletion, 0 modifications)
+2026-03-31T00:22:31.437+05:30  INFO 20964 --- [Event_Ticketing-Back_End] [Thread-1] o.s.boot.tomcat.GracefulShutdown         : Commencing graceful shutdown. Waiting for active requests to complete
+2026-03-31T00:22:31.468+05:30  INFO 20964 --- [Event_Ticketing-Back_End] [tomcat-shutdown] o.s.boot.tomcat.GracefulShutdown         : Graceful shutdown complete
+2026-03-31T00:22:31.492+05:30  INFO 20964 --- [Event_Ticketing-Back_End] [Thread-1] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-03-31T00:22:31.508+05:30  INFO 20964 --- [Event_Ticketing-Back_End] [Thread-1] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2026-03-31T00:22:31.535+05:30  INFO 20964 --- [Event_Ticketing-Back_End] [Thread-1] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2026-03-31T00:22:31.885+05:30  INFO 20964 --- [Event_Ticketing-Back_End] [restartedMain] l.i.event_ticketingback_end.Application  : Starting Application using Java 21.0.7 with PID 20964 (C:\Users\USER\Documents\2nd sem Projects\AAD\javaEE\Smart_Event_Ticketing_System\Event_Ticketing-Back_End\target\classes started by USER in C:\Users\USER\Documents\2nd sem Projects\AAD\javaEE\Smart_Event_Ticketing_System)
+2026-03-31T00:22:31.887+05:30  INFO 20964 --- [Event_Ticketing-Back_End] [restartedMain] l.i.event_ticketingback_end.Application  : No active profile set, falling back to 1 default profile: "default"
+2026-03-31T00:22:33.094+05:30  INFO 20964 --- [Event_Ticketing-Back_End] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-03-31T00:22:33.219+05:30  INFO 20964 --- [Event_Ticketing-Back_End] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 118 ms. Found 8 JPA repository interfaces.
+2026-03-31T00:22:33.738+05:30  INFO 20964 --- [Event_Ticketing-Back_End] [restartedMain] o.s.boot.tomcat.TomcatWebServer          : Tomcat initialized with port 8080 (http)
+2026-03-31T00:22:33.741+05:30  INFO 20964 --- [Event_Ticketing-Back_End] [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-03-31T00:22:33.742+05:30  INFO 20964 --- [Event_Ticketing-Back_End] [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/11.0.18]
+2026-03-31T00:22:33.891+05:30  INFO 20964 --- [Event_Ticketing-Back_End] [restartedMain] b.w.c.s.WebApplicationContextInitializer : Root WebApplicationContext: initialization completed in 1993 ms
+2026-03-31T00:22:34.083+05:30  INFO 20964 --- [Event_Ticketing-Back_End] [restartedMain] org.hibernate.orm.jpa                    : HHH008540: Processing PersistenceUnitInfo [name: default]
+2026-03-31T00:22:34.235+05:30  INFO 20964 --- [Event_Ticketing-Back_End] [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-03-31T00:22:34.242+05:30  INFO 20964 --- [Event_Ticketing-Back_End] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Starting...
+2026-03-31T00:22:34.302+05:30  INFO 20964 --- [Event_Ticketing-Back_End] [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-2 - Added connection com.mysql.cj.jdbc.ConnectionImpl@8409adc
+2026-03-31T00:22:34.302+05:30  INFO 20964 --- [Event_Ticketing-Back_End] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Start completed.
+2026-03-31T00:22:34.309+05:30  WARN 20964 --- [Event_Ticketing-Back_End] [restartedMain] org.hibernate.orm.deprecation            : HHH90000025: MySQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2026-03-31T00:22:34.312+05:30  INFO 20964 --- [Event_Ticketing-Back_End] [restartedMain] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [jdbc:mysql://localhost:3306/event_db?createDatabaseIfNotExist=true]
+	Database driver: MySQL Connector/J
+	Database dialect: MySQLDialect
+	Database version: 8.0.42
+	Default catalog/schema: event_db/undefined
+	Autocommit mode: undefined/unknown
+	Isolation level: REPEATABLE_READ [default REPEATABLE_READ]
+	JDBC fetch size: none
+	Pool: DataSourceConnectionProvider
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-03-31T00:22:34.989+05:30  INFO 20964 --- [Event_Ticketing-Back_End] [restartedMain] org.hibernate.orm.core                   : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-03-31T00:22:35.098+05:30  INFO 20964 --- [Event_Ticketing-Back_End] [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-03-31T00:22:35.489+05:30  WARN 20964 --- [Event_Ticketing-Back_End] [restartedMain] ConfigServletWebServerApplicationContext : Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'bookingController': Lookup method resolution failed
+2026-03-31T00:22:35.491+05:30  INFO 20964 --- [Event_Ticketing-Back_End] [restartedMain] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-03-31T00:22:35.492+05:30  INFO 20964 --- [Event_Ticketing-Back_End] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Shutdown initiated...
+2026-03-31T00:22:35.507+05:30  INFO 20964 --- [Event_Ticketing-Back_End] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Shutdown completed.
+2026-03-31T00:22:35.509+05:30  INFO 20964 --- [Event_Ticketing-Back_End] [restartedMain] o.apache.catalina.core.StandardService   : Stopping service [Tomcat]
+2026-03-31T00:22:35.524+05:30  INFO 20964 --- [Event_Ticketing-Back_End] [restartedMain] .s.b.a.l.ConditionEvaluationReportLogger : 
 
 Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
-2026-03-29T21:25:54.069+05:30 ERROR 49128 --- [Event_Ticketing-Back_End] [restartedMain] o.s.boot.SpringApplication               : Application run failed
+2026-03-31T00:22:35.620+05:30 ERROR 20964 --- [Event_Ticketing-Back_End] [restartedMain] o.s.boot.SpringApplication               : Application run failed
 
-org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'paymentController' defined in file [C:\Users\USER\Documents\2nd sem Projects\AAD\javaEE\Smart_Event_Ticketing_System\Event_Ticketing-Back_End\target\classes\lk\ijse\event_ticketingback_end\controller\PaymentController.class]: Unsatisfied dependency expressed through constructor parameter 0: Error creating bean with name 'paymentServiceImpl' defined in file [C:\Users\USER\Documents\2nd sem Projects\AAD\javaEE\Smart_Event_Ticketing_System\Event_Ticketing-Back_End\target\classes\lk\ijse\event_ticketingback_end\service\impl\PaymentServiceImpl.class]: Unsatisfied dependency expressed through constructor parameter 3: Error creating bean with name 'smsService': Injection of autowired dependencies failed
-	at org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:804) ~[spring-beans-7.0.5.jar:7.0.5]
-	at org.springframework.beans.factory.support.ConstructorResolver.autowireConstructor(ConstructorResolver.java:240) ~[spring-beans-7.0.5.jar:7.0.5]
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.autowireConstructor(AbstractAutowireCapableBeanFactory.java:1382) ~[spring-beans-7.0.5.jar:7.0.5]
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1221) ~[spring-beans-7.0.5.jar:7.0.5]
+org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'bookingController': Lookup method resolution failed
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.checkLookupMethods(AutowiredAnnotationBeanPostProcessor.java:482) ~[spring-beans-7.0.5.jar:7.0.5]
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.determineCandidateConstructors(AutowiredAnnotationBeanPostProcessor.java:352) ~[spring-beans-7.0.5.jar:7.0.5]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.determineConstructorsFromBeanPostProcessors(AbstractAutowireCapableBeanFactory.java:1321) ~[spring-beans-7.0.5.jar:7.0.5]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1218) ~[spring-beans-7.0.5.jar:7.0.5]
 	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:565) ~[spring-beans-7.0.5.jar:7.0.5]
 	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:525) ~[spring-beans-7.0.5.jar:7.0.5]
 	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:333) ~[spring-beans-7.0.5.jar:7.0.5]
@@ -66,73 +179,43 @@ org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating
 	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103) ~[na:na]
 	at java.base/java.lang.reflect.Method.invoke(Method.java:580) ~[na:na]
 	at org.springframework.boot.devtools.restart.RestartLauncher.run(RestartLauncher.java:52) ~[spring-boot-devtools-4.0.3.jar:4.0.3]
-Caused by: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'paymentServiceImpl' defined in file [C:\Users\USER\Documents\2nd sem Projects\AAD\javaEE\Smart_Event_Ticketing_System\Event_Ticketing-Back_End\target\classes\lk\ijse\event_ticketingback_end\service\impl\PaymentServiceImpl.class]: Unsatisfied dependency expressed through constructor parameter 3: Error creating bean with name 'smsService': Injection of autowired dependencies failed
-	at org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:804) ~[spring-beans-7.0.5.jar:7.0.5]
-	at org.springframework.beans.factory.support.ConstructorResolver.autowireConstructor(ConstructorResolver.java:240) ~[spring-beans-7.0.5.jar:7.0.5]
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.autowireConstructor(AbstractAutowireCapableBeanFactory.java:1382) ~[spring-beans-7.0.5.jar:7.0.5]
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1221) ~[spring-beans-7.0.5.jar:7.0.5]
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:565) ~[spring-beans-7.0.5.jar:7.0.5]
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:525) ~[spring-beans-7.0.5.jar:7.0.5]
-	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:333) ~[spring-beans-7.0.5.jar:7.0.5]
-	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:371) ~[spring-beans-7.0.5.jar:7.0.5]
-	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:331) ~[spring-beans-7.0.5.jar:7.0.5]
-	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:201) ~[spring-beans-7.0.5.jar:7.0.5]
-	at org.springframework.beans.factory.config.DependencyDescriptor.resolveCandidate(DependencyDescriptor.java:229) ~[spring-beans-7.0.5.jar:7.0.5]
-	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1762) ~[spring-beans-7.0.5.jar:7.0.5]
-	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1651) ~[spring-beans-7.0.5.jar:7.0.5]
-	at org.springframework.beans.factory.support.ConstructorResolver.resolveAutowiredArgument(ConstructorResolver.java:912) ~[spring-beans-7.0.5.jar:7.0.5]
-	at org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:791) ~[spring-beans-7.0.5.jar:7.0.5]
+Caused by: java.lang.IllegalStateException: Failed to introspect Class [lk.ijse.event_ticketingback_end.controller.BookingController] from ClassLoader [org.springframework.boot.devtools.restart.classloader.RestartClassLoader@13ab9cb2]
+	at org.springframework.util.ReflectionUtils.getDeclaredMethods(ReflectionUtils.java:483) ~[spring-core-7.0.5.jar:7.0.5]
+	at org.springframework.util.ReflectionUtils.doWithLocalMethods(ReflectionUtils.java:320) ~[spring-core-7.0.5.jar:7.0.5]
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.checkLookupMethods(AutowiredAnnotationBeanPostProcessor.java:460) ~[spring-beans-7.0.5.jar:7.0.5]
 	... 24 common frames omitted
-Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'smsService': Injection of autowired dependencies failed
-	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.postProcessProperties(AutowiredAnnotationBeanPostProcessor.java:499) ~[spring-beans-7.0.5.jar:7.0.5]
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.populateBean(AbstractAutowireCapableBeanFactory.java:1446) ~[spring-beans-7.0.5.jar:7.0.5]
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:602) ~[spring-beans-7.0.5.jar:7.0.5]
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:525) ~[spring-beans-7.0.5.jar:7.0.5]
-	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:333) ~[spring-beans-7.0.5.jar:7.0.5]
-	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:371) ~[spring-beans-7.0.5.jar:7.0.5]
-	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:331) ~[spring-beans-7.0.5.jar:7.0.5]
-	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:201) ~[spring-beans-7.0.5.jar:7.0.5]
-	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveBean(DefaultListableBeanFactory.java:1225) ~[spring-beans-7.0.5.jar:7.0.5]
-	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1704) ~[spring-beans-7.0.5.jar:7.0.5]
-	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1651) ~[spring-beans-7.0.5.jar:7.0.5]
-	at org.springframework.beans.factory.support.ConstructorResolver.resolveAutowiredArgument(ConstructorResolver.java:912) ~[spring-beans-7.0.5.jar:7.0.5]
-	at org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:791) ~[spring-beans-7.0.5.jar:7.0.5]
-	... 38 common frames omitted
-Caused by: org.springframework.util.PlaceholderResolutionException: Could not resolve placeholder 'textlk.api-key' in value "${textlk.api-key}"
-	at org.springframework.util.PlaceholderResolutionException.withValue(PlaceholderResolutionException.java:81) ~[spring-core-7.0.5.jar:7.0.5]
-	at org.springframework.util.PlaceholderParser$ParsedValue.resolve(PlaceholderParser.java:296) ~[spring-core-7.0.5.jar:7.0.5]
-	at org.springframework.util.PlaceholderParser.replacePlaceholders(PlaceholderParser.java:129) ~[spring-core-7.0.5.jar:7.0.5]
-	at org.springframework.util.PropertyPlaceholderHelper.replacePlaceholders(PropertyPlaceholderHelper.java:96) ~[spring-core-7.0.5.jar:7.0.5]
-	at org.springframework.core.env.AbstractPropertyResolver.doResolvePlaceholders(AbstractPropertyResolver.java:286) ~[spring-core-7.0.5.jar:7.0.5]
-	at org.springframework.core.env.AbstractPropertyResolver.resolveRequiredPlaceholders(AbstractPropertyResolver.java:257) ~[spring-core-7.0.5.jar:7.0.5]
-	at org.springframework.context.support.PropertySourcesPlaceholderConfigurer.lambda$processProperties$0(PropertySourcesPlaceholderConfigurer.java:184) ~[spring-context-7.0.5.jar:7.0.5]
-	at org.springframework.beans.factory.support.AbstractBeanFactory.resolveEmbeddedValue(AbstractBeanFactory.java:959) ~[spring-beans-7.0.5.jar:7.0.5]
-	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1672) ~[spring-beans-7.0.5.jar:7.0.5]
-	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1651) ~[spring-beans-7.0.5.jar:7.0.5]
-	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredFieldElement.resolveFieldValue(AutowiredAnnotationBeanPostProcessor.java:764) ~[spring-beans-7.0.5.jar:7.0.5]
-	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredFieldElement.inject(AutowiredAnnotationBeanPostProcessor.java:748) ~[spring-beans-7.0.5.jar:7.0.5]
-	at org.springframework.beans.factory.annotation.InjectionMetadata.inject(InjectionMetadata.java:146) ~[spring-beans-7.0.5.jar:7.0.5]
-	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.postProcessProperties(AutowiredAnnotationBeanPostProcessor.java:493) ~[spring-beans-7.0.5.jar:7.0.5]
-	... 50 common frames omitted
+Caused by: java.lang.NoClassDefFoundError: lk/ijse/event_ticketingback_end/dto/BookingDto
+	at java.base/java.lang.Class.getDeclaredMethods0(Native Method) ~[na:na]
+	at java.base/java.lang.Class.privateGetDeclaredMethods(Class.java:3578) ~[na:na]
+	at java.base/java.lang.Class.getDeclaredMethods(Class.java:2676) ~[na:na]
+	at org.springframework.util.ReflectionUtils.getDeclaredMethods(ReflectionUtils.java:465) ~[spring-core-7.0.5.jar:7.0.5]
+	... 26 common frames omitted
+Caused by: java.lang.ClassNotFoundException: lk.ijse.event_ticketingback_end.dto.BookingDto
+	at java.base/jdk.internal.loader.BuiltinClassLoader.loadClass(BuiltinClassLoader.java:641) ~[na:na]
+	at java.base/jdk.internal.loader.ClassLoaders$AppClassLoader.loadClass(ClassLoaders.java:188) ~[na:na]
+	at java.base/java.lang.ClassLoader.loadClass(ClassLoader.java:526) ~[na:na]
+	at java.base/java.lang.Class.forName0(Native Method) ~[na:na]
+	at java.base/java.lang.Class.forName(Class.java:534) ~[na:na]
+	at java.base/java.lang.Class.forName(Class.java:513) ~[na:na]
+	at org.springframework.boot.devtools.restart.classloader.RestartClassLoader.loadClass(RestartClassLoader.java:123) ~[spring-boot-devtools-4.0.3.jar:4.0.3]
+	at java.base/java.lang.ClassLoader.loadClass(ClassLoader.java:526) ~[na:na]
+	... 30 common frames omitted
 
-2026-03-29T21:27:05.306+05:30  INFO 27708 --- [Event_Ticketing-Back_End] [restartedMain] l.i.event_ticketingback_end.Application  : Starting Application using Java 21.0.7 with PID 27708 (C:\Users\USER\Documents\2nd sem Projects\AAD\javaEE\Smart_Event_Ticketing_System\Event_Ticketing-Back_End\target\classes started by USER in C:\Users\USER\Documents\2nd sem Projects\AAD\javaEE\Smart_Event_Ticketing_System)
-2026-03-29T21:27:05.309+05:30  INFO 27708 --- [Event_Ticketing-Back_End] [restartedMain] l.i.event_ticketingback_end.Application  : No active profile set, falling back to 1 default profile: "default"
-2026-03-29T21:27:05.369+05:30  INFO 27708 --- [Event_Ticketing-Back_End] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
-2026-03-29T21:27:05.369+05:30  INFO 27708 --- [Event_Ticketing-Back_End] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
-2026-03-29T21:27:06.111+05:30  INFO 27708 --- [Event_Ticketing-Back_End] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2026-03-29T21:27:06.166+05:30  INFO 27708 --- [Event_Ticketing-Back_End] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 47 ms. Found 7 JPA repository interfaces.
-2026-03-29T21:27:06.672+05:30  INFO 27708 --- [Event_Ticketing-Back_End] [restartedMain] o.s.boot.tomcat.TomcatWebServer          : Tomcat initialized with port 8080 (http)
-2026-03-29T21:27:06.685+05:30  INFO 27708 --- [Event_Ticketing-Back_End] [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
-2026-03-29T21:27:06.685+05:30  INFO 27708 --- [Event_Ticketing-Back_End] [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/11.0.18]
-2026-03-29T21:27:06.723+05:30  INFO 27708 --- [Event_Ticketing-Back_End] [restartedMain] b.w.c.s.WebApplicationContextInitializer : Root WebApplicationContext: initialization completed in 1354 ms
-2026-03-29T21:27:06.836+05:30  INFO 27708 --- [Event_Ticketing-Back_End] [restartedMain] org.hibernate.orm.jpa                    : HHH008540: Processing PersistenceUnitInfo [name: default]
-2026-03-29T21:27:06.873+05:30  INFO 27708 --- [Event_Ticketing-Back_End] [restartedMain] org.hibernate.orm.core                   : HHH000001: Hibernate ORM core version 7.2.4.Final
-2026-03-29T21:27:07.284+05:30  INFO 27708 --- [Event_Ticketing-Back_End] [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
-2026-03-29T21:27:07.307+05:30  INFO 27708 --- [Event_Ticketing-Back_End] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
-2026-03-29T21:27:07.601+05:30  INFO 27708 --- [Event_Ticketing-Back_End] [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@4f46a633
-2026-03-29T21:27:07.602+05:30  INFO 27708 --- [Event_Ticketing-Back_End] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
-2026-03-29T21:27:07.647+05:30  WARN 27708 --- [Event_Ticketing-Back_End] [restartedMain] org.hibernate.orm.deprecation            : HHH90000025: MySQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
-2026-03-29T21:27:07.661+05:30  INFO 27708 --- [Event_Ticketing-Back_End] [restartedMain] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+2026-03-31T00:22:39.464+05:30  INFO 20964 --- [Event_Ticketing-Back_End] [restartedMain] l.i.event_ticketingback_end.Application  : Starting Application using Java 21.0.7 with PID 20964 (C:\Users\USER\Documents\2nd sem Projects\AAD\javaEE\Smart_Event_Ticketing_System\Event_Ticketing-Back_End\target\classes started by USER in C:\Users\USER\Documents\2nd sem Projects\AAD\javaEE\Smart_Event_Ticketing_System)
+2026-03-31T00:22:39.464+05:30  INFO 20964 --- [Event_Ticketing-Back_End] [restartedMain] l.i.event_ticketingback_end.Application  : No active profile set, falling back to 1 default profile: "default"
+2026-03-31T00:22:40.437+05:30  INFO 20964 --- [Event_Ticketing-Back_End] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-03-31T00:22:40.562+05:30  INFO 20964 --- [Event_Ticketing-Back_End] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 117 ms. Found 8 JPA repository interfaces.
+2026-03-31T00:22:41.750+05:30  INFO 20964 --- [Event_Ticketing-Back_End] [restartedMain] o.s.boot.tomcat.TomcatWebServer          : Tomcat initialized with port 8080 (http)
+2026-03-31T00:22:41.757+05:30  INFO 20964 --- [Event_Ticketing-Back_End] [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-03-31T00:22:41.758+05:30  INFO 20964 --- [Event_Ticketing-Back_End] [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/11.0.18]
+2026-03-31T00:22:41.880+05:30  INFO 20964 --- [Event_Ticketing-Back_End] [restartedMain] b.w.c.s.WebApplicationContextInitializer : Root WebApplicationContext: initialization completed in 2409 ms
+2026-03-31T00:22:42.091+05:30  INFO 20964 --- [Event_Ticketing-Back_End] [restartedMain] org.hibernate.orm.jpa                    : HHH008540: Processing PersistenceUnitInfo [name: default]
+2026-03-31T00:22:42.562+05:30  INFO 20964 --- [Event_Ticketing-Back_End] [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-03-31T00:22:42.573+05:30  INFO 20964 --- [Event_Ticketing-Back_End] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-3 - Starting...
+2026-03-31T00:22:42.619+05:30  INFO 20964 --- [Event_Ticketing-Back_End] [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-3 - Added connection com.mysql.cj.jdbc.ConnectionImpl@36fe0c82
+2026-03-31T00:22:42.620+05:30  INFO 20964 --- [Event_Ticketing-Back_End] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-3 - Start completed.
+2026-03-31T00:22:42.625+05:30  WARN 20964 --- [Event_Ticketing-Back_End] [restartedMain] org.hibernate.orm.deprecation            : HHH90000025: MySQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2026-03-31T00:22:42.629+05:30  INFO 20964 --- [Event_Ticketing-Back_End] [restartedMain] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
 	Database JDBC URL [jdbc:mysql://localhost:3306/event_db?createDatabaseIfNotExist=true]
 	Database driver: MySQL Connector/J
 	Database dialect: MySQLDialect
@@ -144,48 +227,45 @@ Caused by: org.springframework.util.PlaceholderResolutionException: Could not re
 	Pool: DataSourceConnectionProvider
 	Minimum pool size: undefined/unknown
 	Maximum pool size: undefined/unknown
-2026-03-29T21:27:08.851+05:30  INFO 27708 --- [Event_Ticketing-Back_End] [restartedMain] org.hibernate.orm.core                   : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
-2026-03-29T21:27:08.944+05:30  INFO 27708 --- [Event_Ticketing-Back_End] [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
-2026-03-29T21:27:09.016+05:30  INFO 27708 --- [Event_Ticketing-Back_End] [restartedMain] o.s.d.j.r.query.QueryEnhancerFactories   : Hibernate is in classpath; If applicable, HQL parser will be used.
-2026-03-29T21:27:10.422+05:30  WARN 27708 --- [Event_Ticketing-Back_End] [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
-2026-03-29T21:27:10.556+05:30  INFO 27708 --- [Event_Ticketing-Back_End] [restartedMain] eAuthenticationProviderManagerConfigurer : Global AuthenticationManager configured with AuthenticationProvider bean with name authenticateProvider
-2026-03-29T21:27:10.557+05:30  WARN 27708 --- [Event_Ticketing-Back_End] [restartedMain] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with an AuthenticationProvider bean. UserDetailsService beans will not be used by Spring Security for automatically configuring username/password login. Consider removing the AuthenticationProvider bean. Alternatively, consider using the UserDetailsService in a manually instantiated DaoAuthenticationProvider. If the current configuration is intentional, to turn off this warning, increase the logging level of 'org.springframework.security.config.annotation.authentication.configuration.InitializeUserDetailsBeanManagerConfigurer' to ERROR
-2026-03-29T21:27:11.778+05:30  INFO 27708 --- [Event_Ticketing-Back_End] [restartedMain] o.s.boot.tomcat.TomcatWebServer          : Tomcat started on port 8080 (http) with context path '/'
-2026-03-29T21:27:11.788+05:30  INFO 27708 --- [Event_Ticketing-Back_End] [restartedMain] l.i.event_ticketingback_end.Application  : Started Application in 6.855 seconds (process running for 7.609)
-2026-03-29T21:27:12.579+05:30  WARN 27708 --- [Event_Ticketing-Back_End] [restartedMain] o.s.core.events.SpringDocAppInitializer  : SpringDoc /v3/api-docs endpoint is enabled by default. To disable it in production, set the property 'springdoc.api-docs.enabled=false'
-2026-03-29T21:27:12.580+05:30  WARN 27708 --- [Event_Ticketing-Back_End] [restartedMain] o.s.core.events.SpringDocAppInitializer  : SpringDoc /swagger-ui.html endpoint is enabled by default. To disable it in production, set the property 'springdoc.swagger-ui.enabled=false'
-2026-03-29T21:27:29.165+05:30  INFO 27708 --- [Event_Ticketing-Back_End] [http-nio-8080-exec-2] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
-2026-03-29T21:27:29.167+05:30  INFO 27708 --- [Event_Ticketing-Back_End] [http-nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
-2026-03-29T21:27:29.178+05:30  INFO 27708 --- [Event_Ticketing-Back_End] [http-nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Completed initialization in 10 ms
-2026-03-29T21:28:26.530+05:30  INFO 27708 --- [Event_Ticketing-Back_End] [http-nio-8080-exec-4] l.i.e.service.impl.PaymentServiceImpl    : [PayHere] merchantId  = 1234608
-2026-03-29T21:28:26.531+05:30  INFO 27708 --- [Event_Ticketing-Back_End] [http-nio-8080-exec-4] l.i.e.service.impl.PaymentServiceImpl    : [PayHere] orderId     = EH-30-79B55A29
-2026-03-29T21:28:26.532+05:30  INFO 27708 --- [Event_Ticketing-Back_End] [http-nio-8080-exec-4] l.i.e.service.impl.PaymentServiceImpl    : [PayHere] amount      = 20000.00
-2026-03-29T21:28:26.533+05:30  INFO 27708 --- [Event_Ticketing-Back_End] [http-nio-8080-exec-4] l.i.e.service.impl.PaymentServiceImpl    : [PayHere] currency    = LKR
-2026-03-29T21:28:26.533+05:30  INFO 27708 --- [Event_Ticketing-Back_End] [http-nio-8080-exec-4] l.i.e.service.impl.PaymentServiceImpl    : [PayHere] hash        = 3A46150FEF39DFCD555CF3C0612FF7C8
-2026-03-29T21:28:26.534+05:30  INFO 27708 --- [Event_Ticketing-Back_End] [http-nio-8080-exec-4] l.i.e.service.impl.PaymentServiceImpl    : [PayHere] notify_url  = https://valrie-nonabdicative-lakita.ngrok-free.dev/api/v1/payment/notify
-2026-03-29T21:29:42.635+05:30  INFO 27708 --- [Event_Ticketing-Back_End] [SpringApplicationShutdownHook] o.s.boot.tomcat.GracefulShutdown         : Commencing graceful shutdown. Waiting for active requests to complete
-2026-03-29T21:29:42.653+05:30  INFO 27708 --- [Event_Ticketing-Back_End] [tomcat-shutdown] o.s.boot.tomcat.GracefulShutdown         : Graceful shutdown complete
-2026-03-29T21:29:42.662+05:30  INFO 27708 --- [Event_Ticketing-Back_End] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
-2026-03-29T21:29:42.668+05:30  INFO 27708 --- [Event_Ticketing-Back_End] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
-2026-03-29T21:29:42.679+05:30  INFO 27708 --- [Event_Ticketing-Back_End] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
-2026-03-29T21:29:47.886+05:30  INFO 41776 --- [Event_Ticketing-Back_End] [restartedMain] l.i.event_ticketingback_end.Application  : Starting Application using Java 21.0.7 with PID 41776 (C:\Users\USER\Documents\2nd sem Projects\AAD\javaEE\Smart_Event_Ticketing_System\Event_Ticketing-Back_End\target\classes started by USER in C:\Users\USER\Documents\2nd sem Projects\AAD\javaEE\Smart_Event_Ticketing_System)
-2026-03-29T21:29:47.888+05:30  INFO 41776 --- [Event_Ticketing-Back_End] [restartedMain] l.i.event_ticketingback_end.Application  : No active profile set, falling back to 1 default profile: "default"
-2026-03-29T21:29:48.003+05:30  INFO 41776 --- [Event_Ticketing-Back_End] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
-2026-03-29T21:29:48.003+05:30  INFO 41776 --- [Event_Ticketing-Back_End] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
-2026-03-29T21:29:49.489+05:30  INFO 41776 --- [Event_Ticketing-Back_End] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2026-03-29T21:29:49.594+05:30  INFO 41776 --- [Event_Ticketing-Back_End] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 88 ms. Found 7 JPA repository interfaces.
-2026-03-29T21:29:50.356+05:30  INFO 41776 --- [Event_Ticketing-Back_End] [restartedMain] o.s.boot.tomcat.TomcatWebServer          : Tomcat initialized with port 8080 (http)
-2026-03-29T21:29:50.377+05:30  INFO 41776 --- [Event_Ticketing-Back_End] [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
-2026-03-29T21:29:50.378+05:30  INFO 41776 --- [Event_Ticketing-Back_End] [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/11.0.18]
-2026-03-29T21:29:50.447+05:30  INFO 41776 --- [Event_Ticketing-Back_End] [restartedMain] b.w.c.s.WebApplicationContextInitializer : Root WebApplicationContext: initialization completed in 2443 ms
-2026-03-29T21:29:50.672+05:30  INFO 41776 --- [Event_Ticketing-Back_End] [restartedMain] org.hibernate.orm.jpa                    : HHH008540: Processing PersistenceUnitInfo [name: default]
-2026-03-29T21:29:50.730+05:30  INFO 41776 --- [Event_Ticketing-Back_End] [restartedMain] org.hibernate.orm.core                   : HHH000001: Hibernate ORM core version 7.2.4.Final
-2026-03-29T21:29:51.276+05:30  INFO 41776 --- [Event_Ticketing-Back_End] [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
-2026-03-29T21:29:51.311+05:30  INFO 41776 --- [Event_Ticketing-Back_End] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
-2026-03-29T21:29:51.777+05:30  INFO 41776 --- [Event_Ticketing-Back_End] [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@4d616f71
-2026-03-29T21:29:51.779+05:30  INFO 41776 --- [Event_Ticketing-Back_End] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
-2026-03-29T21:29:51.863+05:30  WARN 41776 --- [Event_Ticketing-Back_End] [restartedMain] org.hibernate.orm.deprecation            : HHH90000025: MySQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
-2026-03-29T21:29:51.906+05:30  INFO 41776 --- [Event_Ticketing-Back_End] [restartedMain] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+2026-03-31T00:22:43.568+05:30  INFO 20964 --- [Event_Ticketing-Back_End] [restartedMain] org.hibernate.orm.core                   : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-03-31T00:22:43.676+05:30  INFO 20964 --- [Event_Ticketing-Back_End] [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-03-31T00:22:45.317+05:30  WARN 20964 --- [Event_Ticketing-Back_End] [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-03-31T00:22:45.514+05:30  INFO 20964 --- [Event_Ticketing-Back_End] [restartedMain] eAuthenticationProviderManagerConfigurer : Global AuthenticationManager configured with AuthenticationProvider bean with name authenticateProvider
+2026-03-31T00:22:45.516+05:30  WARN 20964 --- [Event_Ticketing-Back_End] [restartedMain] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with an AuthenticationProvider bean. UserDetailsService beans will not be used by Spring Security for automatically configuring username/password login. Consider removing the AuthenticationProvider bean. Alternatively, consider using the UserDetailsService in a manually instantiated DaoAuthenticationProvider. If the current configuration is intentional, to turn off this warning, increase the logging level of 'org.springframework.security.config.annotation.authentication.configuration.InitializeUserDetailsBeanManagerConfigurer' to ERROR
+2026-03-31T00:22:46.779+05:30  INFO 20964 --- [Event_Ticketing-Back_End] [restartedMain] o.s.boot.tomcat.TomcatWebServer          : Tomcat started on port 8080 (http) with context path '/'
+2026-03-31T00:22:46.790+05:30  INFO 20964 --- [Event_Ticketing-Back_End] [restartedMain] l.i.event_ticketingback_end.Application  : Started Application in 7.397 seconds (process running for 162.26)
+2026-03-31T00:22:46.933+05:30  WARN 20964 --- [Event_Ticketing-Back_End] [restartedMain] o.s.core.events.SpringDocAppInitializer  : SpringDoc /v3/api-docs endpoint is enabled by default. To disable it in production, set the property 'springdoc.api-docs.enabled=false'
+2026-03-31T00:22:46.934+05:30  WARN 20964 --- [Event_Ticketing-Back_End] [restartedMain] o.s.core.events.SpringDocAppInitializer  : SpringDoc /swagger-ui.html endpoint is enabled by default. To disable it in production, set the property 'springdoc.swagger-ui.enabled=false'
+2026-03-31T00:22:46.939+05:30  INFO 20964 --- [Event_Ticketing-Back_End] [restartedMain] .ConditionEvaluationDeltaLoggingListener : Condition evaluation unchanged
+2026-03-31T00:23:12.704+05:30  INFO 20964 --- [Event_Ticketing-Back_End] [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat-1].[localhost].[/]     : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-03-31T00:23:12.705+05:30  INFO 20964 --- [Event_Ticketing-Back_End] [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2026-03-31T00:23:12.710+05:30  INFO 20964 --- [Event_Ticketing-Back_End] [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 4 ms
+2026-03-31T00:23:12.741+05:30  INFO 20964 --- [Event_Ticketing-Back_End] [http-nio-8080-exec-2] l.i.e.c.BookingVerifyController          : [Verify] Scanning bookingId=35
+2026-03-31T00:23:12.775+05:30  INFO 20964 --- [Event_Ticketing-Back_End] [http-nio-8080-exec-2] l.i.e.c.BookingVerifyController          : [Verify] bookingId=35 currentStatus=Confirmed
+2026-03-31T00:23:12.812+05:30  INFO 20964 --- [Event_Ticketing-Back_End] [http-nio-8080-exec-2] l.i.e.c.BookingVerifyController          : [Verify] Entry allowed, marked as Used: 35
+2026-03-31T00:23:36.412+05:30  INFO 20964 --- [Event_Ticketing-Back_End] [SpringApplicationShutdownHook] o.s.boot.tomcat.GracefulShutdown         : Commencing graceful shutdown. Waiting for active requests to complete
+2026-03-31T00:23:36.434+05:30  INFO 20964 --- [Event_Ticketing-Back_End] [tomcat-shutdown] o.s.boot.tomcat.GracefulShutdown         : Graceful shutdown complete
+2026-03-31T00:23:36.442+05:30  INFO 20964 --- [Event_Ticketing-Back_End] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-03-31T00:23:36.444+05:30  INFO 20964 --- [Event_Ticketing-Back_End] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-3 - Shutdown initiated...
+2026-03-31T00:23:36.449+05:30  INFO 20964 --- [Event_Ticketing-Back_End] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-3 - Shutdown completed.
+2026-03-31T00:24:17.083+05:30  INFO 43892 --- [Event_Ticketing-Back_End] [restartedMain] l.i.event_ticketingback_end.Application  : Starting Application using Java 21.0.7 with PID 43892 (C:\Users\USER\Documents\2nd sem Projects\AAD\javaEE\Smart_Event_Ticketing_System\Event_Ticketing-Back_End\target\classes started by USER in C:\Users\USER\Documents\2nd sem Projects\AAD\javaEE\Smart_Event_Ticketing_System)
+2026-03-31T00:24:17.087+05:30  INFO 43892 --- [Event_Ticketing-Back_End] [restartedMain] l.i.event_ticketingback_end.Application  : No active profile set, falling back to 1 default profile: "default"
+2026-03-31T00:24:17.157+05:30  INFO 43892 --- [Event_Ticketing-Back_End] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2026-03-31T00:24:17.157+05:30  INFO 43892 --- [Event_Ticketing-Back_End] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2026-03-31T00:24:18.361+05:30  INFO 43892 --- [Event_Ticketing-Back_End] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-03-31T00:24:18.456+05:30  INFO 43892 --- [Event_Ticketing-Back_End] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 84 ms. Found 8 JPA repository interfaces.
+2026-03-31T00:24:19.272+05:30  INFO 43892 --- [Event_Ticketing-Back_End] [restartedMain] o.s.boot.tomcat.TomcatWebServer          : Tomcat initialized with port 8080 (http)
+2026-03-31T00:24:19.288+05:30  INFO 43892 --- [Event_Ticketing-Back_End] [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-03-31T00:24:19.289+05:30  INFO 43892 --- [Event_Ticketing-Back_End] [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/11.0.18]
+2026-03-31T00:24:19.351+05:30  INFO 43892 --- [Event_Ticketing-Back_End] [restartedMain] b.w.c.s.WebApplicationContextInitializer : Root WebApplicationContext: initialization completed in 2193 ms
+2026-03-31T00:24:19.534+05:30  INFO 43892 --- [Event_Ticketing-Back_End] [restartedMain] org.hibernate.orm.jpa                    : HHH008540: Processing PersistenceUnitInfo [name: default]
+2026-03-31T00:24:19.596+05:30  INFO 43892 --- [Event_Ticketing-Back_End] [restartedMain] org.hibernate.orm.core                   : HHH000001: Hibernate ORM core version 7.2.4.Final
+2026-03-31T00:24:20.172+05:30  INFO 43892 --- [Event_Ticketing-Back_End] [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-03-31T00:24:20.209+05:30  INFO 43892 --- [Event_Ticketing-Back_End] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2026-03-31T00:24:20.662+05:30  INFO 43892 --- [Event_Ticketing-Back_End] [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@15bd8fff
+2026-03-31T00:24:20.665+05:30  INFO 43892 --- [Event_Ticketing-Back_End] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2026-03-31T00:24:20.746+05:30  WARN 43892 --- [Event_Ticketing-Back_End] [restartedMain] org.hibernate.orm.deprecation            : HHH90000025: MySQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2026-03-31T00:24:20.773+05:30  INFO 43892 --- [Event_Ticketing-Back_End] [restartedMain] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
 	Database JDBC URL [jdbc:mysql://localhost:3306/event_db?createDatabaseIfNotExist=true]
 	Database driver: MySQL Connector/J
 	Database dialect: MySQLDialect
@@ -197,411 +277,24 @@ Caused by: org.springframework.util.PlaceholderResolutionException: Could not re
 	Pool: DataSourceConnectionProvider
 	Minimum pool size: undefined/unknown
 	Maximum pool size: undefined/unknown
-2026-03-29T21:29:53.315+05:30  INFO 41776 --- [Event_Ticketing-Back_End] [restartedMain] org.hibernate.orm.core                   : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
-2026-03-29T21:29:53.462+05:30  INFO 41776 --- [Event_Ticketing-Back_End] [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
-2026-03-29T21:29:53.555+05:30  INFO 41776 --- [Event_Ticketing-Back_End] [restartedMain] o.s.d.j.r.query.QueryEnhancerFactories   : Hibernate is in classpath; If applicable, HQL parser will be used.
-2026-03-29T21:29:54.759+05:30  WARN 41776 --- [Event_Ticketing-Back_End] [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
-2026-03-29T21:29:54.877+05:30  INFO 41776 --- [Event_Ticketing-Back_End] [restartedMain] eAuthenticationProviderManagerConfigurer : Global AuthenticationManager configured with AuthenticationProvider bean with name authenticateProvider
-2026-03-29T21:29:54.878+05:30  WARN 41776 --- [Event_Ticketing-Back_End] [restartedMain] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with an AuthenticationProvider bean. UserDetailsService beans will not be used by Spring Security for automatically configuring username/password login. Consider removing the AuthenticationProvider bean. Alternatively, consider using the UserDetailsService in a manually instantiated DaoAuthenticationProvider. If the current configuration is intentional, to turn off this warning, increase the logging level of 'org.springframework.security.config.annotation.authentication.configuration.InitializeUserDetailsBeanManagerConfigurer' to ERROR
-2026-03-29T21:29:55.857+05:30  INFO 41776 --- [Event_Ticketing-Back_End] [restartedMain] o.s.boot.tomcat.TomcatWebServer          : Tomcat started on port 8080 (http) with context path '/'
-2026-03-29T21:29:55.871+05:30  INFO 41776 --- [Event_Ticketing-Back_End] [restartedMain] l.i.event_ticketingback_end.Application  : Started Application in 8.678 seconds (process running for 9.841)
-2026-03-29T21:29:56.464+05:30  WARN 41776 --- [Event_Ticketing-Back_End] [restartedMain] o.s.core.events.SpringDocAppInitializer  : SpringDoc /v3/api-docs endpoint is enabled by default. To disable it in production, set the property 'springdoc.api-docs.enabled=false'
-2026-03-29T21:29:56.465+05:30  WARN 41776 --- [Event_Ticketing-Back_End] [restartedMain] o.s.core.events.SpringDocAppInitializer  : SpringDoc /swagger-ui.html endpoint is enabled by default. To disable it in production, set the property 'springdoc.swagger-ui.enabled=false'
-2026-03-29T21:30:20.505+05:30  INFO 41776 --- [Event_Ticketing-Back_End] [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
-2026-03-29T21:30:20.506+05:30  INFO 41776 --- [Event_Ticketing-Back_End] [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
-2026-03-29T21:30:20.511+05:30  INFO 41776 --- [Event_Ticketing-Back_End] [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 5 ms
-2026-03-29T21:30:21.928+05:30  INFO 41776 --- [Event_Ticketing-Back_End] [http-nio-8080-exec-5] l.i.e.service.impl.PaymentServiceImpl    : [PayHere] merchantId  = 1234608
-2026-03-29T21:30:21.929+05:30  INFO 41776 --- [Event_Ticketing-Back_End] [http-nio-8080-exec-5] l.i.e.service.impl.PaymentServiceImpl    : [PayHere] orderId     = EH-31-C3FB2BAE
-2026-03-29T21:30:21.930+05:30  INFO 41776 --- [Event_Ticketing-Back_End] [http-nio-8080-exec-5] l.i.e.service.impl.PaymentServiceImpl    : [PayHere] amount      = 20000.00
-2026-03-29T21:30:21.930+05:30  INFO 41776 --- [Event_Ticketing-Back_End] [http-nio-8080-exec-5] l.i.e.service.impl.PaymentServiceImpl    : [PayHere] currency    = LKR
-2026-03-29T21:30:21.930+05:30  INFO 41776 --- [Event_Ticketing-Back_End] [http-nio-8080-exec-5] l.i.e.service.impl.PaymentServiceImpl    : [PayHere] hash        = 4A802E5C6DC8AF51CE2C1AC772E76864
-2026-03-29T21:30:21.931+05:30  INFO 41776 --- [Event_Ticketing-Back_End] [http-nio-8080-exec-5] l.i.e.service.impl.PaymentServiceImpl    : [PayHere] notify_url  = https://valrie-nonabdicative-lakita.ngrok-free.dev/api/v1/payment/notify
-2026-03-29T21:30:48.556+05:30  INFO 41776 --- [Event_Ticketing-Back_End] [http-nio-8080-exec-9] l.i.e.controller.PaymentController       : [PayHere Notify] Received: {merchant_id=1234608, order_id=EH-31-C3FB2BAE, payment_id=320032585536, captured_amount=20000.00, payhere_amount=20000.00, payhere_currency=LKR, status_code=2, md5sig=2200593AB970E8A2C7AED94EAA8CDA8B, custom_1=, custom_2=, status_message=Successfully received the VISA payment, method=VISA, card_holder_name=dew, card_no=************1292, card_expiry=01/27, recurring=0}
-2026-03-29T21:30:48.561+05:30  INFO 41776 --- [Event_Ticketing-Back_End] [http-nio-8080-exec-9] l.i.e.service.impl.PaymentServiceImpl    : [PayHere Notify] orderId=EH-31-C3FB2BAE statusCode=2
-2026-03-29T21:30:56.572+05:30  INFO 41776 --- [Event_Ticketing-Back_End] [http-nio-8080-exec-9] l.i.e.service.impl.PaymentServiceImpl    : [PayHere] Ticket email sent for bookingId=31
-2026-03-29T21:30:59.932+05:30 ERROR 41776 --- [Event_Ticketing-Back_End] [http-nio-8080-exec-9] l.i.e.service.SmsService                 : [text.lk] SMS failed — to=94775771003 status=401 body={"status":"error","message":"User not found for the API token or unauthenticated request."}
-2026-03-29T21:36:29.497+05:30  INFO 41776 --- [Event_Ticketing-Back_End] [File Watcher] rtingClassPathChangeChangedEventListener : Restarting due to 1 class path change (0 additions, 1 deletion, 0 modifications)
-2026-03-29T21:36:29.520+05:30  INFO 41776 --- [Event_Ticketing-Back_End] [Thread-1] o.s.boot.tomcat.GracefulShutdown         : Commencing graceful shutdown. Waiting for active requests to complete
-2026-03-29T21:36:29.557+05:30  INFO 41776 --- [Event_Ticketing-Back_End] [tomcat-shutdown] o.s.boot.tomcat.GracefulShutdown         : Graceful shutdown complete
-2026-03-29T21:36:29.581+05:30  INFO 41776 --- [Event_Ticketing-Back_End] [Thread-1] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
-2026-03-29T21:36:29.599+05:30  INFO 41776 --- [Event_Ticketing-Back_End] [Thread-1] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
-2026-03-29T21:36:29.625+05:30  INFO 41776 --- [Event_Ticketing-Back_End] [Thread-1] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
-2026-03-29T21:36:29.963+05:30  INFO 41776 --- [Event_Ticketing-Back_End] [restartedMain] l.i.event_ticketingback_end.Application  : Starting Application using Java 21.0.7 with PID 41776 (C:\Users\USER\Documents\2nd sem Projects\AAD\javaEE\Smart_Event_Ticketing_System\Event_Ticketing-Back_End\target\classes started by USER in C:\Users\USER\Documents\2nd sem Projects\AAD\javaEE\Smart_Event_Ticketing_System)
-2026-03-29T21:36:29.965+05:30  INFO 41776 --- [Event_Ticketing-Back_End] [restartedMain] l.i.event_ticketingback_end.Application  : No active profile set, falling back to 1 default profile: "default"
-2026-03-29T21:36:31.167+05:30  INFO 41776 --- [Event_Ticketing-Back_End] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2026-03-29T21:36:31.309+05:30  INFO 41776 --- [Event_Ticketing-Back_End] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 135 ms. Found 7 JPA repository interfaces.
-2026-03-29T21:36:31.803+05:30  INFO 41776 --- [Event_Ticketing-Back_End] [restartedMain] o.s.boot.tomcat.TomcatWebServer          : Tomcat initialized with port 8080 (http)
-2026-03-29T21:36:31.808+05:30  INFO 41776 --- [Event_Ticketing-Back_End] [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
-2026-03-29T21:36:31.809+05:30  INFO 41776 --- [Event_Ticketing-Back_End] [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/11.0.18]
-2026-03-29T21:36:31.903+05:30  INFO 41776 --- [Event_Ticketing-Back_End] [restartedMain] b.w.c.s.WebApplicationContextInitializer : Root WebApplicationContext: initialization completed in 1925 ms
-2026-03-29T21:36:32.068+05:30  INFO 41776 --- [Event_Ticketing-Back_End] [restartedMain] org.hibernate.orm.jpa                    : HHH008540: Processing PersistenceUnitInfo [name: default]
-2026-03-29T21:36:32.199+05:30  INFO 41776 --- [Event_Ticketing-Back_End] [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
-2026-03-29T21:36:32.205+05:30  INFO 41776 --- [Event_Ticketing-Back_End] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Starting...
-2026-03-29T21:36:32.259+05:30  INFO 41776 --- [Event_Ticketing-Back_End] [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-2 - Added connection com.mysql.cj.jdbc.ConnectionImpl@4cfeae27
-2026-03-29T21:36:32.260+05:30  INFO 41776 --- [Event_Ticketing-Back_End] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Start completed.
-2026-03-29T21:36:32.265+05:30  WARN 41776 --- [Event_Ticketing-Back_End] [restartedMain] org.hibernate.orm.deprecation            : HHH90000025: MySQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
-2026-03-29T21:36:32.267+05:30  INFO 41776 --- [Event_Ticketing-Back_End] [restartedMain] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
-	Database JDBC URL [jdbc:mysql://localhost:3306/event_db?createDatabaseIfNotExist=true]
-	Database driver: MySQL Connector/J
-	Database dialect: MySQLDialect
-	Database version: 8.0.42
-	Default catalog/schema: event_db/undefined
-	Autocommit mode: undefined/unknown
-	Isolation level: REPEATABLE_READ [default REPEATABLE_READ]
-	JDBC fetch size: none
-	Pool: DataSourceConnectionProvider
-	Minimum pool size: undefined/unknown
-	Maximum pool size: undefined/unknown
-2026-03-29T21:36:32.877+05:30  INFO 41776 --- [Event_Ticketing-Back_End] [restartedMain] org.hibernate.orm.core                   : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
-2026-03-29T21:36:32.970+05:30  INFO 41776 --- [Event_Ticketing-Back_End] [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
-2026-03-29T21:36:33.865+05:30  WARN 41776 --- [Event_Ticketing-Back_End] [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
-2026-03-29T21:36:34.534+05:30  INFO 41776 --- [Event_Ticketing-Back_End] [restartedMain] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name userDetailsService
-2026-03-29T21:36:34.979+05:30  INFO 41776 --- [Event_Ticketing-Back_End] [restartedMain] o.s.boot.tomcat.TomcatWebServer          : Tomcat started on port 8080 (http) with context path '/'
-2026-03-29T21:36:34.990+05:30  INFO 41776 --- [Event_Ticketing-Back_End] [restartedMain] l.i.event_ticketingback_end.Application  : Started Application in 5.146 seconds (process running for 408.96)
-2026-03-29T21:36:35.123+05:30  WARN 41776 --- [Event_Ticketing-Back_End] [restartedMain] o.s.core.events.SpringDocAppInitializer  : SpringDoc /v3/api-docs endpoint is enabled by default. To disable it in production, set the property 'springdoc.api-docs.enabled=false'
-2026-03-29T21:36:35.123+05:30  WARN 41776 --- [Event_Ticketing-Back_End] [restartedMain] o.s.core.events.SpringDocAppInitializer  : SpringDoc /swagger-ui.html endpoint is enabled by default. To disable it in production, set the property 'springdoc.swagger-ui.enabled=false'
-2026-03-29T21:36:35.134+05:30  INFO 41776 --- [Event_Ticketing-Back_End] [restartedMain] .ConditionEvaluationDeltaLoggingListener : Condition evaluation delta:
-
-
-==========================
-CONDITION EVALUATION DELTA
-==========================
-
-
-Positive matches:
------------------
-
-   ServletWebSecurityAutoConfiguration.EnableWebSecurityConfiguration matched:
-      - @ConditionalOnClass found required class 'org.springframework.security.config.annotation.web.configuration.EnableWebSecurity' (OnClassCondition)
-      - @ConditionalOnMissingBean (names: springSecurityFilterChain; SearchStrategy: all) did not find any beans (OnBeanCondition)
-
-   ServletWebSecurityAutoConfiguration.SecurityFilterChainConfiguration matched:
-      - AllNestedConditions 2 matched 0 did not; NestedCondition on DefaultWebSecurityCondition.Beans @ConditionalOnMissingBean (types: org.springframework.security.web.SecurityFilterChain; SearchStrategy: all) did not find any beans; NestedCondition on DefaultWebSecurityCondition.Classes @ConditionalOnClass found required classes 'org.springframework.security.web.SecurityFilterChain', 'org.springframework.security.config.annotation.web.builders.HttpSecurity' (DefaultWebSecurityCondition)
-
-
-Negative matches:
------------------
-
-    None
-
-
-Exclusions:
------------
-
-    None
-
-
-Unconditional classes:
-----------------------
-
-    None
-
-
-
-2026-03-29T21:36:37.105+05:30  INFO 41776 --- [Event_Ticketing-Back_End] [File Watcher] rtingClassPathChangeChangedEventListener : Restarting due to 1 class path change (1 addition, 0 deletions, 0 modifications)
-2026-03-29T21:36:37.107+05:30  INFO 41776 --- [Event_Ticketing-Back_End] [Thread-5] o.s.boot.tomcat.GracefulShutdown         : Commencing graceful shutdown. Waiting for active requests to complete
-2026-03-29T21:36:37.126+05:30  INFO 41776 --- [Event_Ticketing-Back_End] [tomcat-shutdown] o.s.boot.tomcat.GracefulShutdown         : Graceful shutdown complete
-2026-03-29T21:36:37.131+05:30  INFO 41776 --- [Event_Ticketing-Back_End] [Thread-5] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
-2026-03-29T21:36:37.131+05:30  INFO 41776 --- [Event_Ticketing-Back_End] [Thread-5] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Shutdown initiated...
-2026-03-29T21:36:37.138+05:30  INFO 41776 --- [Event_Ticketing-Back_End] [Thread-5] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Shutdown completed.
-2026-03-29T21:36:37.264+05:30  INFO 41776 --- [Event_Ticketing-Back_End] [restartedMain] l.i.event_ticketingback_end.Application  : Starting Application using Java 21.0.7 with PID 41776 (C:\Users\USER\Documents\2nd sem Projects\AAD\javaEE\Smart_Event_Ticketing_System\Event_Ticketing-Back_End\target\classes started by USER in C:\Users\USER\Documents\2nd sem Projects\AAD\javaEE\Smart_Event_Ticketing_System)
-2026-03-29T21:36:37.264+05:30  INFO 41776 --- [Event_Ticketing-Back_End] [restartedMain] l.i.event_ticketingback_end.Application  : No active profile set, falling back to 1 default profile: "default"
-2026-03-29T21:36:37.705+05:30  INFO 41776 --- [Event_Ticketing-Back_End] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2026-03-29T21:36:37.820+05:30  INFO 41776 --- [Event_Ticketing-Back_End] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 110 ms. Found 7 JPA repository interfaces.
-2026-03-29T21:36:38.371+05:30  INFO 41776 --- [Event_Ticketing-Back_End] [restartedMain] o.s.boot.tomcat.TomcatWebServer          : Tomcat initialized with port 8080 (http)
-2026-03-29T21:36:38.373+05:30  INFO 41776 --- [Event_Ticketing-Back_End] [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
-2026-03-29T21:36:38.374+05:30  INFO 41776 --- [Event_Ticketing-Back_End] [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/11.0.18]
-2026-03-29T21:36:38.485+05:30  INFO 41776 --- [Event_Ticketing-Back_End] [restartedMain] b.w.c.s.WebApplicationContextInitializer : Root WebApplicationContext: initialization completed in 1220 ms
-2026-03-29T21:36:39.129+05:30  INFO 41776 --- [Event_Ticketing-Back_End] [restartedMain] org.hibernate.orm.jpa                    : HHH008540: Processing PersistenceUnitInfo [name: default]
-2026-03-29T21:36:39.354+05:30  INFO 41776 --- [Event_Ticketing-Back_End] [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
-2026-03-29T21:36:39.358+05:30  INFO 41776 --- [Event_Ticketing-Back_End] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-3 - Starting...
-2026-03-29T21:36:39.405+05:30  INFO 41776 --- [Event_Ticketing-Back_End] [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-3 - Added connection com.mysql.cj.jdbc.ConnectionImpl@58db6282
-2026-03-29T21:36:39.406+05:30  INFO 41776 --- [Event_Ticketing-Back_End] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-3 - Start completed.
-2026-03-29T21:36:39.411+05:30  WARN 41776 --- [Event_Ticketing-Back_End] [restartedMain] org.hibernate.orm.deprecation            : HHH90000025: MySQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
-2026-03-29T21:36:39.414+05:30  INFO 41776 --- [Event_Ticketing-Back_End] [restartedMain] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
-	Database JDBC URL [jdbc:mysql://localhost:3306/event_db?createDatabaseIfNotExist=true]
-	Database driver: MySQL Connector/J
-	Database dialect: MySQLDialect
-	Database version: 8.0.42
-	Default catalog/schema: event_db/undefined
-	Autocommit mode: undefined/unknown
-	Isolation level: REPEATABLE_READ [default REPEATABLE_READ]
-	JDBC fetch size: none
-	Pool: DataSourceConnectionProvider
-	Minimum pool size: undefined/unknown
-	Maximum pool size: undefined/unknown
-2026-03-29T21:36:39.992+05:30  INFO 41776 --- [Event_Ticketing-Back_End] [restartedMain] org.hibernate.orm.core                   : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
-2026-03-29T21:36:40.100+05:30  INFO 41776 --- [Event_Ticketing-Back_End] [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
-2026-03-29T21:36:41.562+05:30  WARN 41776 --- [Event_Ticketing-Back_End] [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
-2026-03-29T21:36:41.787+05:30  INFO 41776 --- [Event_Ticketing-Back_End] [restartedMain] eAuthenticationProviderManagerConfigurer : Global AuthenticationManager configured with AuthenticationProvider bean with name authenticateProvider
-2026-03-29T21:36:41.788+05:30  WARN 41776 --- [Event_Ticketing-Back_End] [restartedMain] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with an AuthenticationProvider bean. UserDetailsService beans will not be used by Spring Security for automatically configuring username/password login. Consider removing the AuthenticationProvider bean. Alternatively, consider using the UserDetailsService in a manually instantiated DaoAuthenticationProvider. If the current configuration is intentional, to turn off this warning, increase the logging level of 'org.springframework.security.config.annotation.authentication.configuration.InitializeUserDetailsBeanManagerConfigurer' to ERROR
-2026-03-29T21:36:43.006+05:30  INFO 41776 --- [Event_Ticketing-Back_End] [restartedMain] o.s.boot.tomcat.TomcatWebServer          : Tomcat started on port 8080 (http) with context path '/'
-2026-03-29T21:36:43.015+05:30  INFO 41776 --- [Event_Ticketing-Back_End] [restartedMain] l.i.event_ticketingback_end.Application  : Started Application in 5.779 seconds (process running for 416.986)
-2026-03-29T21:36:43.145+05:30  WARN 41776 --- [Event_Ticketing-Back_End] [restartedMain] o.s.core.events.SpringDocAppInitializer  : SpringDoc /v3/api-docs endpoint is enabled by default. To disable it in production, set the property 'springdoc.api-docs.enabled=false'
-2026-03-29T21:36:43.146+05:30  WARN 41776 --- [Event_Ticketing-Back_End] [restartedMain] o.s.core.events.SpringDocAppInitializer  : SpringDoc /swagger-ui.html endpoint is enabled by default. To disable it in production, set the property 'springdoc.swagger-ui.enabled=false'
-2026-03-29T21:36:43.151+05:30  INFO 41776 --- [Event_Ticketing-Back_End] [restartedMain] .ConditionEvaluationDeltaLoggingListener : Condition evaluation delta:
-
-
-==========================
-CONDITION EVALUATION DELTA
-==========================
-
-
-Positive matches:
------------------
-
-    None
-
-
-Negative matches:
------------------
-
-   ServletWebSecurityAutoConfiguration.EnableWebSecurityConfiguration:
-      Did not match:
-         - @ConditionalOnMissingBean (names: springSecurityFilterChain; SearchStrategy: all) found beans named springSecurityFilterChain (OnBeanCondition)
-      Matched:
-         - @ConditionalOnClass found required class 'org.springframework.security.config.annotation.web.configuration.EnableWebSecurity' (OnClassCondition)
-
-   ServletWebSecurityAutoConfiguration.SecurityFilterChainConfiguration:
-      Did not match:
-         - AllNestedConditions 1 matched 1 did not; NestedCondition on DefaultWebSecurityCondition.Beans @ConditionalOnMissingBean (types: org.springframework.security.web.SecurityFilterChain; SearchStrategy: all) found beans of type 'org.springframework.security.web.SecurityFilterChain' securityFilterChain; NestedCondition on DefaultWebSecurityCondition.Classes @ConditionalOnClass found required classes 'org.springframework.security.web.SecurityFilterChain', 'org.springframework.security.config.annotation.web.builders.HttpSecurity' (DefaultWebSecurityCondition)
-
-
-Exclusions:
------------
-
-    None
-
-
-Unconditional classes:
-----------------------
-
-    None
-
-
-
-2026-03-29T21:42:11.250+05:30  INFO 41776 --- [Event_Ticketing-Back_End] [SpringApplicationShutdownHook] o.s.boot.tomcat.GracefulShutdown         : Commencing graceful shutdown. Waiting for active requests to complete
-2026-03-29T21:42:11.264+05:30  INFO 41776 --- [Event_Ticketing-Back_End] [tomcat-shutdown] o.s.boot.tomcat.GracefulShutdown         : Graceful shutdown complete
-2026-03-29T21:42:11.269+05:30  INFO 41776 --- [Event_Ticketing-Back_End] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
-2026-03-29T21:42:11.270+05:30  INFO 41776 --- [Event_Ticketing-Back_End] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-3 - Shutdown initiated...
-2026-03-29T21:42:11.275+05:30  INFO 41776 --- [Event_Ticketing-Back_End] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-3 - Shutdown completed.
-2026-03-29T21:47:57.893+05:30  INFO 47728 --- [Event_Ticketing-Back_End] [restartedMain] l.i.event_ticketingback_end.Application  : Starting Application using Java 21.0.7 with PID 47728 (C:\Users\USER\Documents\2nd sem Projects\AAD\javaEE\Smart_Event_Ticketing_System\Event_Ticketing-Back_End\target\classes started by USER in C:\Users\USER\Documents\2nd sem Projects\AAD\javaEE\Smart_Event_Ticketing_System)
-2026-03-29T21:47:57.899+05:30  INFO 47728 --- [Event_Ticketing-Back_End] [restartedMain] l.i.event_ticketingback_end.Application  : No active profile set, falling back to 1 default profile: "default"
-2026-03-29T21:47:58.004+05:30  INFO 47728 --- [Event_Ticketing-Back_End] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
-2026-03-29T21:47:58.005+05:30  INFO 47728 --- [Event_Ticketing-Back_End] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
-2026-03-29T21:47:59.213+05:30  INFO 47728 --- [Event_Ticketing-Back_End] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2026-03-29T21:47:59.313+05:30  INFO 47728 --- [Event_Ticketing-Back_End] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 87 ms. Found 7 JPA repository interfaces.
-2026-03-29T21:48:00.154+05:30  INFO 47728 --- [Event_Ticketing-Back_End] [restartedMain] o.s.boot.tomcat.TomcatWebServer          : Tomcat initialized with port 8080 (http)
-2026-03-29T21:48:00.178+05:30  INFO 47728 --- [Event_Ticketing-Back_End] [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
-2026-03-29T21:48:00.178+05:30  INFO 47728 --- [Event_Ticketing-Back_End] [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/11.0.18]
-2026-03-29T21:48:00.235+05:30  INFO 47728 --- [Event_Ticketing-Back_End] [restartedMain] b.w.c.s.WebApplicationContextInitializer : Root WebApplicationContext: initialization completed in 2229 ms
-2026-03-29T21:48:00.435+05:30  INFO 47728 --- [Event_Ticketing-Back_End] [restartedMain] org.hibernate.orm.jpa                    : HHH008540: Processing PersistenceUnitInfo [name: default]
-2026-03-29T21:48:00.491+05:30  INFO 47728 --- [Event_Ticketing-Back_End] [restartedMain] org.hibernate.orm.core                   : HHH000001: Hibernate ORM core version 7.2.4.Final
-2026-03-29T21:48:01.040+05:30  INFO 47728 --- [Event_Ticketing-Back_End] [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
-2026-03-29T21:48:01.078+05:30  INFO 47728 --- [Event_Ticketing-Back_End] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
-2026-03-29T21:48:01.511+05:30  INFO 47728 --- [Event_Ticketing-Back_End] [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@107ed040
-2026-03-29T21:48:01.514+05:30  INFO 47728 --- [Event_Ticketing-Back_End] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
-2026-03-29T21:48:01.611+05:30  WARN 47728 --- [Event_Ticketing-Back_End] [restartedMain] org.hibernate.orm.deprecation            : HHH90000025: MySQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
-2026-03-29T21:48:01.639+05:30  INFO 47728 --- [Event_Ticketing-Back_End] [restartedMain] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
-	Database JDBC URL [jdbc:mysql://localhost:3306/event_db?createDatabaseIfNotExist=true]
-	Database driver: MySQL Connector/J
-	Database dialect: MySQLDialect
-	Database version: 8.0.42
-	Default catalog/schema: event_db/undefined
-	Autocommit mode: undefined/unknown
-	Isolation level: REPEATABLE_READ [default REPEATABLE_READ]
-	JDBC fetch size: none
-	Pool: DataSourceConnectionProvider
-	Minimum pool size: undefined/unknown
-	Maximum pool size: undefined/unknown
-2026-03-29T21:48:03.271+05:30  INFO 47728 --- [Event_Ticketing-Back_End] [restartedMain] org.hibernate.orm.core                   : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
-2026-03-29T21:48:03.418+05:30  INFO 47728 --- [Event_Ticketing-Back_End] [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
-2026-03-29T21:48:03.526+05:30  INFO 47728 --- [Event_Ticketing-Back_End] [restartedMain] o.s.d.j.r.query.QueryEnhancerFactories   : Hibernate is in classpath; If applicable, HQL parser will be used.
-2026-03-29T21:48:04.677+05:30  WARN 47728 --- [Event_Ticketing-Back_End] [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
-2026-03-29T21:48:04.803+05:30  INFO 47728 --- [Event_Ticketing-Back_End] [restartedMain] eAuthenticationProviderManagerConfigurer : Global AuthenticationManager configured with AuthenticationProvider bean with name authenticateProvider
-2026-03-29T21:48:04.804+05:30  WARN 47728 --- [Event_Ticketing-Back_End] [restartedMain] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with an AuthenticationProvider bean. UserDetailsService beans will not be used by Spring Security for automatically configuring username/password login. Consider removing the AuthenticationProvider bean. Alternatively, consider using the UserDetailsService in a manually instantiated DaoAuthenticationProvider. If the current configuration is intentional, to turn off this warning, increase the logging level of 'org.springframework.security.config.annotation.authentication.configuration.InitializeUserDetailsBeanManagerConfigurer' to ERROR
-2026-03-29T21:48:05.800+05:30  INFO 47728 --- [Event_Ticketing-Back_End] [restartedMain] o.s.boot.tomcat.TomcatWebServer          : Tomcat started on port 8080 (http) with context path '/'
-2026-03-29T21:48:05.809+05:30  INFO 47728 --- [Event_Ticketing-Back_End] [restartedMain] l.i.event_ticketingback_end.Application  : Started Application in 8.531 seconds (process running for 9.584)
-2026-03-29T21:48:06.399+05:30  WARN 47728 --- [Event_Ticketing-Back_End] [restartedMain] o.s.core.events.SpringDocAppInitializer  : SpringDoc /v3/api-docs endpoint is enabled by default. To disable it in production, set the property 'springdoc.api-docs.enabled=false'
-2026-03-29T21:48:06.399+05:30  WARN 47728 --- [Event_Ticketing-Back_End] [restartedMain] o.s.core.events.SpringDocAppInitializer  : SpringDoc /swagger-ui.html endpoint is enabled by default. To disable it in production, set the property 'springdoc.swagger-ui.enabled=false'
-2026-03-29T21:48:23.744+05:30  INFO 47728 --- [Event_Ticketing-Back_End] [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
-2026-03-29T21:48:23.746+05:30  INFO 47728 --- [Event_Ticketing-Back_End] [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
-2026-03-29T21:48:23.751+05:30  INFO 47728 --- [Event_Ticketing-Back_End] [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 4 ms
-2026-03-29T21:48:58.693+05:30  INFO 47728 --- [Event_Ticketing-Back_End] [http-nio-8080-exec-9] l.i.e.service.impl.PaymentServiceImpl    : [PayHere] merchantId  = 1234608
-2026-03-29T21:48:58.695+05:30  INFO 47728 --- [Event_Ticketing-Back_End] [http-nio-8080-exec-9] l.i.e.service.impl.PaymentServiceImpl    : [PayHere] orderId     = EH-32-44F7D05E
-2026-03-29T21:48:58.695+05:30  INFO 47728 --- [Event_Ticketing-Back_End] [http-nio-8080-exec-9] l.i.e.service.impl.PaymentServiceImpl    : [PayHere] amount      = 20000.00
-2026-03-29T21:48:58.695+05:30  INFO 47728 --- [Event_Ticketing-Back_End] [http-nio-8080-exec-9] l.i.e.service.impl.PaymentServiceImpl    : [PayHere] currency    = LKR
-2026-03-29T21:48:58.696+05:30  INFO 47728 --- [Event_Ticketing-Back_End] [http-nio-8080-exec-9] l.i.e.service.impl.PaymentServiceImpl    : [PayHere] hash        = BEB36306A082825E0D903895FA81519B
-2026-03-29T21:48:58.696+05:30  INFO 47728 --- [Event_Ticketing-Back_End] [http-nio-8080-exec-9] l.i.e.service.impl.PaymentServiceImpl    : [PayHere] notify_url  = https://valrie-nonabdicative-lakita.ngrok-free.dev/api/v1/payment/notify
-2026-03-29T21:49:16.626+05:30  INFO 47728 --- [Event_Ticketing-Back_End] [http-nio-8080-exec-10] l.i.e.controller.PaymentController       : [PayHere Notify] Received: {merchant_id=1234608, order_id=EH-32-44F7D05E, payment_id=320032585547, captured_amount=20000.00, payhere_amount=20000.00, payhere_currency=LKR, status_code=2, md5sig=BD91FC71879E3EB4B75016655569ED0F, custom_1=, custom_2=, status_message=Successfully received the VISA payment, method=VISA, card_holder_name=dew, card_no=************1292, card_expiry=01/27, recurring=0}
-2026-03-29T21:49:16.630+05:30  INFO 47728 --- [Event_Ticketing-Back_End] [http-nio-8080-exec-10] l.i.e.service.impl.PaymentServiceImpl    : [PayHere Notify] orderId=EH-32-44F7D05E statusCode=2
-2026-03-29T21:49:26.023+05:30  INFO 47728 --- [Event_Ticketing-Back_End] [http-nio-8080-exec-10] l.i.e.service.impl.PaymentServiceImpl    : [PayHere] Ticket email sent for bookingId=32
-2026-03-29T21:49:28.100+05:30 ERROR 47728 --- [Event_Ticketing-Back_End] [http-nio-8080-exec-10] l.i.e.service.SmsService                 : [text.lk] SMS failed — to=94775771003 status=401 body={"status":"error","message":"User not found for the API token or unauthenticated request."}
-2026-03-29T21:54:16.092+05:30  INFO 47728 --- [Event_Ticketing-Back_End] [http-nio-8080-exec-10] l.i.e.c.BookingVerifyController          : [Verify] Scanning bookingId=32
-2026-03-29T21:54:16.114+05:30  INFO 47728 --- [Event_Ticketing-Back_End] [http-nio-8080-exec-10] l.i.e.c.BookingVerifyController          : [Verify] bookingId=32 currentStatus=Confirmed
-2026-03-29T21:54:16.141+05:30  INFO 47728 --- [Event_Ticketing-Back_End] [http-nio-8080-exec-10] l.i.e.c.BookingVerifyController          : [Verify] Entry allowed, marked as Used: 32
-2026-03-29T21:54:57.880+05:30  INFO 47728 --- [Event_Ticketing-Back_End] [http-nio-8080-exec-3] l.i.e.c.BookingVerifyController          : [Verify] Scanning bookingId=32
-2026-03-29T21:54:57.896+05:30  INFO 47728 --- [Event_Ticketing-Back_End] [http-nio-8080-exec-3] l.i.e.c.BookingVerifyController          : [Verify] bookingId=32 currentStatus=Used
-2026-03-29T21:54:57.896+05:30  WARN 47728 --- [Event_Ticketing-Back_End] [http-nio-8080-exec-3] l.i.e.c.BookingVerifyController          : [Verify] Ticket already used: 32
-2026-03-29T21:55:44.158+05:30 ERROR 47728 --- [Event_Ticketing-Back_End] [http-nio-8080-exec-5] l.i.e.controller.RefundController        : [Refund] Business error: Only confirmed bookings can be refunded. Current status: Used
-2026-03-29T21:55:44.167+05:30  WARN 47728 --- [Event_Ticketing-Back_End] [http-nio-8080-exec-5] .m.m.a.ExceptionHandlerExceptionResolver : Resolved [java.lang.RuntimeException: Only confirmed bookings can be refunded. Current status: Used]
-2026-03-29T21:56:30.557+05:30  INFO 47728 --- [Event_Ticketing-Back_End] [http-nio-8080-exec-7] l.i.e.service.impl.PaymentServiceImpl    : [PayHere] merchantId  = 1234608
-2026-03-29T21:56:30.558+05:30  INFO 47728 --- [Event_Ticketing-Back_End] [http-nio-8080-exec-7] l.i.e.service.impl.PaymentServiceImpl    : [PayHere] orderId     = EH-33-FBDDD736
-2026-03-29T21:56:30.558+05:30  INFO 47728 --- [Event_Ticketing-Back_End] [http-nio-8080-exec-7] l.i.e.service.impl.PaymentServiceImpl    : [PayHere] amount      = 20000.00
-2026-03-29T21:56:30.558+05:30  INFO 47728 --- [Event_Ticketing-Back_End] [http-nio-8080-exec-7] l.i.e.service.impl.PaymentServiceImpl    : [PayHere] currency    = LKR
-2026-03-29T21:56:30.558+05:30  INFO 47728 --- [Event_Ticketing-Back_End] [http-nio-8080-exec-7] l.i.e.service.impl.PaymentServiceImpl    : [PayHere] hash        = 6851F48E329104BAED9959E57B7E74B6
-2026-03-29T21:56:30.559+05:30  INFO 47728 --- [Event_Ticketing-Back_End] [http-nio-8080-exec-7] l.i.e.service.impl.PaymentServiceImpl    : [PayHere] notify_url  = https://valrie-nonabdicative-lakita.ngrok-free.dev/api/v1/payment/notify
-2026-03-29T21:56:49.723+05:30  INFO 47728 --- [Event_Ticketing-Back_End] [http-nio-8080-exec-5] l.i.e.controller.PaymentController       : [PayHere Notify] Received: {merchant_id=1234608, order_id=EH-33-FBDDD736, payment_id=320032585551, captured_amount=20000.00, payhere_amount=20000.00, payhere_currency=LKR, status_code=2, md5sig=10503DF833D27BD48283AD11F8F7DC4D, custom_1=, custom_2=, status_message=Successfully received the VISA payment, method=VISA, card_holder_name=dew, card_no=************1292, card_expiry=01/27, recurring=0}
-2026-03-29T21:56:49.727+05:30  INFO 47728 --- [Event_Ticketing-Back_End] [http-nio-8080-exec-5] l.i.e.service.impl.PaymentServiceImpl    : [PayHere Notify] orderId=EH-33-FBDDD736 statusCode=2
-2026-03-29T21:56:56.379+05:30  INFO 47728 --- [Event_Ticketing-Back_End] [http-nio-8080-exec-5] l.i.e.service.impl.PaymentServiceImpl    : [PayHere] Ticket email sent for bookingId=33
-2026-03-29T21:56:58.249+05:30 ERROR 47728 --- [Event_Ticketing-Back_End] [http-nio-8080-exec-5] l.i.e.service.SmsService                 : [text.lk] SMS failed — to=94775771003 status=401 body={"status":"error","message":"User not found for the API token or unauthenticated request."}
-2026-03-29T21:57:43.603+05:30  INFO 47728 --- [Event_Ticketing-Back_End] [http-nio-8080-exec-10] l.i.e.service.impl.RefundServiceImpl     : [Refund] Request created — refundId=16 bookingId=33 amount=20000.0
-2026-03-29T21:57:48.863+05:30  WARN 47728 --- [Event_Ticketing-Back_End] [http-nio-8080-exec-6] l.i.e.service.impl.RefundServiceImpl     : [Refund] SANDBOX MOCK — auto-approving refundId=16 (no real API call)
-2026-03-29T21:57:48.954+05:30  INFO 47728 --- [Event_Ticketing-Back_End] [http-nio-8080-exec-6] l.i.e.service.impl.RefundServiceImpl     : [Refund] APPROVED — refundId=16 bookingId=33 payhereRefundId=SANDBOX-MOCK-D66775DD
-2026-03-29T21:58:20.727+05:30  INFO 47728 --- [Event_Ticketing-Back_End] [http-nio-8080-exec-10] l.i.e.c.BookingVerifyController          : [Verify] Scanning bookingId=33
-2026-03-29T21:58:20.741+05:30  INFO 47728 --- [Event_Ticketing-Back_End] [http-nio-8080-exec-10] l.i.e.c.BookingVerifyController          : [Verify] bookingId=33 currentStatus=Refunded
-2026-03-29T22:03:19.202+05:30  INFO 47728 --- [Event_Ticketing-Back_End] [SpringApplicationShutdownHook] o.s.boot.tomcat.GracefulShutdown         : Commencing graceful shutdown. Waiting for active requests to complete
-2026-03-29T22:03:19.224+05:30  INFO 47728 --- [Event_Ticketing-Back_End] [tomcat-shutdown] o.s.boot.tomcat.GracefulShutdown         : Graceful shutdown complete
-2026-03-29T22:03:19.235+05:30  INFO 47728 --- [Event_Ticketing-Back_End] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
-2026-03-29T22:03:19.243+05:30  INFO 47728 --- [Event_Ticketing-Back_End] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
-2026-03-29T22:03:19.257+05:30  INFO 47728 --- [Event_Ticketing-Back_End] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
-2026-03-29T22:03:25.027+05:30  INFO 46100 --- [Event_Ticketing-Back_End] [restartedMain] l.i.event_ticketingback_end.Application  : Starting Application using Java 21.0.7 with PID 46100 (C:\Users\USER\Documents\2nd sem Projects\AAD\javaEE\Smart_Event_Ticketing_System\Event_Ticketing-Back_End\target\classes started by USER in C:\Users\USER\Documents\2nd sem Projects\AAD\javaEE\Smart_Event_Ticketing_System)
-2026-03-29T22:03:25.031+05:30  INFO 46100 --- [Event_Ticketing-Back_End] [restartedMain] l.i.event_ticketingback_end.Application  : No active profile set, falling back to 1 default profile: "default"
-2026-03-29T22:03:25.102+05:30  INFO 46100 --- [Event_Ticketing-Back_End] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
-2026-03-29T22:03:25.103+05:30  INFO 46100 --- [Event_Ticketing-Back_End] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
-2026-03-29T22:03:26.270+05:30  INFO 46100 --- [Event_Ticketing-Back_End] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2026-03-29T22:03:26.370+05:30  INFO 46100 --- [Event_Ticketing-Back_End] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 90 ms. Found 7 JPA repository interfaces.
-2026-03-29T22:03:27.189+05:30  INFO 46100 --- [Event_Ticketing-Back_End] [restartedMain] o.s.boot.tomcat.TomcatWebServer          : Tomcat initialized with port 8080 (http)
-2026-03-29T22:03:27.214+05:30  INFO 46100 --- [Event_Ticketing-Back_End] [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
-2026-03-29T22:03:27.214+05:30  INFO 46100 --- [Event_Ticketing-Back_End] [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/11.0.18]
-2026-03-29T22:03:27.271+05:30  INFO 46100 --- [Event_Ticketing-Back_End] [restartedMain] b.w.c.s.WebApplicationContextInitializer : Root WebApplicationContext: initialization completed in 2168 ms
-2026-03-29T22:03:27.470+05:30  INFO 46100 --- [Event_Ticketing-Back_End] [restartedMain] org.hibernate.orm.jpa                    : HHH008540: Processing PersistenceUnitInfo [name: default]
-2026-03-29T22:03:27.529+05:30  INFO 46100 --- [Event_Ticketing-Back_End] [restartedMain] org.hibernate.orm.core                   : HHH000001: Hibernate ORM core version 7.2.4.Final
-2026-03-29T22:03:28.123+05:30  INFO 46100 --- [Event_Ticketing-Back_End] [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
-2026-03-29T22:03:28.157+05:30  INFO 46100 --- [Event_Ticketing-Back_End] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
-2026-03-29T22:03:28.581+05:30  INFO 46100 --- [Event_Ticketing-Back_End] [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@18c79dac
-2026-03-29T22:03:28.596+05:30  INFO 46100 --- [Event_Ticketing-Back_End] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
-2026-03-29T22:03:28.692+05:30  WARN 46100 --- [Event_Ticketing-Back_End] [restartedMain] org.hibernate.orm.deprecation            : HHH90000025: MySQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
-2026-03-29T22:03:28.728+05:30  INFO 46100 --- [Event_Ticketing-Back_End] [restartedMain] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
-	Database JDBC URL [jdbc:mysql://localhost:3306/event_db?createDatabaseIfNotExist=true]
-	Database driver: MySQL Connector/J
-	Database dialect: MySQLDialect
-	Database version: 8.0.42
-	Default catalog/schema: event_db/undefined
-	Autocommit mode: undefined/unknown
-	Isolation level: REPEATABLE_READ [default REPEATABLE_READ]
-	JDBC fetch size: none
-	Pool: DataSourceConnectionProvider
-	Minimum pool size: undefined/unknown
-	Maximum pool size: undefined/unknown
-2026-03-29T22:03:30.111+05:30  INFO 46100 --- [Event_Ticketing-Back_End] [restartedMain] org.hibernate.orm.core                   : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
-2026-03-29T22:03:30.246+05:30  INFO 46100 --- [Event_Ticketing-Back_End] [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
-2026-03-29T22:03:30.348+05:30  INFO 46100 --- [Event_Ticketing-Back_End] [restartedMain] o.s.d.j.r.query.QueryEnhancerFactories   : Hibernate is in classpath; If applicable, HQL parser will be used.
-2026-03-29T22:03:31.541+05:30  WARN 46100 --- [Event_Ticketing-Back_End] [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
-2026-03-29T22:03:31.654+05:30  INFO 46100 --- [Event_Ticketing-Back_End] [restartedMain] eAuthenticationProviderManagerConfigurer : Global AuthenticationManager configured with AuthenticationProvider bean with name authenticateProvider
-2026-03-29T22:03:31.655+05:30  WARN 46100 --- [Event_Ticketing-Back_End] [restartedMain] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with an AuthenticationProvider bean. UserDetailsService beans will not be used by Spring Security for automatically configuring username/password login. Consider removing the AuthenticationProvider bean. Alternatively, consider using the UserDetailsService in a manually instantiated DaoAuthenticationProvider. If the current configuration is intentional, to turn off this warning, increase the logging level of 'org.springframework.security.config.annotation.authentication.configuration.InitializeUserDetailsBeanManagerConfigurer' to ERROR
-2026-03-29T22:03:32.590+05:30  INFO 46100 --- [Event_Ticketing-Back_End] [restartedMain] o.s.boot.tomcat.TomcatWebServer          : Tomcat started on port 8080 (http) with context path '/'
-2026-03-29T22:03:32.618+05:30  INFO 46100 --- [Event_Ticketing-Back_End] [restartedMain] l.i.event_ticketingback_end.Application  : Started Application in 8.158 seconds (process running for 9.272)
-2026-03-29T22:03:34.448+05:30  WARN 46100 --- [Event_Ticketing-Back_End] [restartedMain] o.s.core.events.SpringDocAppInitializer  : SpringDoc /v3/api-docs endpoint is enabled by default. To disable it in production, set the property 'springdoc.api-docs.enabled=false'
-2026-03-29T22:03:34.449+05:30  WARN 46100 --- [Event_Ticketing-Back_End] [restartedMain] o.s.core.events.SpringDocAppInitializer  : SpringDoc /swagger-ui.html endpoint is enabled by default. To disable it in production, set the property 'springdoc.swagger-ui.enabled=false'
-2026-03-29T22:05:13.368+05:30  INFO 46100 --- [Event_Ticketing-Back_End] [SpringApplicationShutdownHook] o.s.boot.tomcat.GracefulShutdown         : Commencing graceful shutdown. Waiting for active requests to complete
-2026-03-29T22:05:13.387+05:30  INFO 46100 --- [Event_Ticketing-Back_End] [tomcat-shutdown] o.s.boot.tomcat.GracefulShutdown         : Graceful shutdown complete
-2026-03-29T22:05:13.413+05:30  INFO 46100 --- [Event_Ticketing-Back_End] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
-2026-03-29T22:05:13.419+05:30  INFO 46100 --- [Event_Ticketing-Back_End] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
-2026-03-29T22:05:13.468+05:30  INFO 46100 --- [Event_Ticketing-Back_End] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
-2026-03-29T22:05:25.170+05:30  INFO 20536 --- [Event_Ticketing-Back_End] [restartedMain] l.i.event_ticketingback_end.Application  : Starting Application using Java 21.0.7 with PID 20536 (C:\Users\USER\Documents\2nd sem Projects\AAD\javaEE\Smart_Event_Ticketing_System\Event_Ticketing-Back_End\target\classes started by USER in C:\Users\USER\Documents\2nd sem Projects\AAD\javaEE\Smart_Event_Ticketing_System)
-2026-03-29T22:05:25.173+05:30  INFO 20536 --- [Event_Ticketing-Back_End] [restartedMain] l.i.event_ticketingback_end.Application  : No active profile set, falling back to 1 default profile: "default"
-2026-03-29T22:05:25.253+05:30  INFO 20536 --- [Event_Ticketing-Back_End] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
-2026-03-29T22:05:25.254+05:30  INFO 20536 --- [Event_Ticketing-Back_End] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
-2026-03-29T22:05:26.470+05:30  INFO 20536 --- [Event_Ticketing-Back_End] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2026-03-29T22:05:26.573+05:30  INFO 20536 --- [Event_Ticketing-Back_End] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 90 ms. Found 7 JPA repository interfaces.
-2026-03-29T22:05:27.358+05:30  INFO 20536 --- [Event_Ticketing-Back_End] [restartedMain] o.s.boot.tomcat.TomcatWebServer          : Tomcat initialized with port 8080 (http)
-2026-03-29T22:05:27.382+05:30  INFO 20536 --- [Event_Ticketing-Back_End] [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
-2026-03-29T22:05:27.383+05:30  INFO 20536 --- [Event_Ticketing-Back_End] [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/11.0.18]
-2026-03-29T22:05:27.445+05:30  INFO 20536 --- [Event_Ticketing-Back_End] [restartedMain] b.w.c.s.WebApplicationContextInitializer : Root WebApplicationContext: initialization completed in 2190 ms
-2026-03-29T22:05:27.616+05:30  INFO 20536 --- [Event_Ticketing-Back_End] [restartedMain] org.hibernate.orm.jpa                    : HHH008540: Processing PersistenceUnitInfo [name: default]
-2026-03-29T22:05:27.668+05:30  INFO 20536 --- [Event_Ticketing-Back_End] [restartedMain] org.hibernate.orm.core                   : HHH000001: Hibernate ORM core version 7.2.4.Final
-2026-03-29T22:05:28.194+05:30  INFO 20536 --- [Event_Ticketing-Back_End] [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
-2026-03-29T22:05:28.226+05:30  INFO 20536 --- [Event_Ticketing-Back_End] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
-2026-03-29T22:05:28.649+05:30  INFO 20536 --- [Event_Ticketing-Back_End] [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@5a6d0dad
-2026-03-29T22:05:28.652+05:30  INFO 20536 --- [Event_Ticketing-Back_End] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
-2026-03-29T22:05:28.731+05:30  WARN 20536 --- [Event_Ticketing-Back_End] [restartedMain] org.hibernate.orm.deprecation            : HHH90000025: MySQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
-2026-03-29T22:05:28.753+05:30  INFO 20536 --- [Event_Ticketing-Back_End] [restartedMain] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
-	Database JDBC URL [jdbc:mysql://localhost:3306/event_db?createDatabaseIfNotExist=true]
-	Database driver: MySQL Connector/J
-	Database dialect: MySQLDialect
-	Database version: 8.0.42
-	Default catalog/schema: event_db/undefined
-	Autocommit mode: undefined/unknown
-	Isolation level: REPEATABLE_READ [default REPEATABLE_READ]
-	JDBC fetch size: none
-	Pool: DataSourceConnectionProvider
-	Minimum pool size: undefined/unknown
-	Maximum pool size: undefined/unknown
-2026-03-29T22:05:30.236+05:30  INFO 20536 --- [Event_Ticketing-Back_End] [restartedMain] org.hibernate.orm.core                   : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
-2026-03-29T22:05:30.359+05:30  INFO 20536 --- [Event_Ticketing-Back_End] [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
-2026-03-29T22:05:30.462+05:30  INFO 20536 --- [Event_Ticketing-Back_End] [restartedMain] o.s.d.j.r.query.QueryEnhancerFactories   : Hibernate is in classpath; If applicable, HQL parser will be used.
-2026-03-29T22:05:31.632+05:30  WARN 20536 --- [Event_Ticketing-Back_End] [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
-2026-03-29T22:05:31.745+05:30  INFO 20536 --- [Event_Ticketing-Back_End] [restartedMain] eAuthenticationProviderManagerConfigurer : Global AuthenticationManager configured with AuthenticationProvider bean with name authenticateProvider
-2026-03-29T22:05:31.746+05:30  WARN 20536 --- [Event_Ticketing-Back_End] [restartedMain] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with an AuthenticationProvider bean. UserDetailsService beans will not be used by Spring Security for automatically configuring username/password login. Consider removing the AuthenticationProvider bean. Alternatively, consider using the UserDetailsService in a manually instantiated DaoAuthenticationProvider. If the current configuration is intentional, to turn off this warning, increase the logging level of 'org.springframework.security.config.annotation.authentication.configuration.InitializeUserDetailsBeanManagerConfigurer' to ERROR
-2026-03-29T22:05:32.751+05:30  INFO 20536 --- [Event_Ticketing-Back_End] [restartedMain] o.s.boot.tomcat.TomcatWebServer          : Tomcat started on port 8080 (http) with context path '/'
-2026-03-29T22:05:32.759+05:30  INFO 20536 --- [Event_Ticketing-Back_End] [restartedMain] l.i.event_ticketingback_end.Application  : Started Application in 8.236 seconds (process running for 10.003)
-2026-03-29T22:05:33.330+05:30  WARN 20536 --- [Event_Ticketing-Back_End] [restartedMain] o.s.core.events.SpringDocAppInitializer  : SpringDoc /v3/api-docs endpoint is enabled by default. To disable it in production, set the property 'springdoc.api-docs.enabled=false'
-2026-03-29T22:05:33.331+05:30  WARN 20536 --- [Event_Ticketing-Back_End] [restartedMain] o.s.core.events.SpringDocAppInitializer  : SpringDoc /swagger-ui.html endpoint is enabled by default. To disable it in production, set the property 'springdoc.swagger-ui.enabled=false'
-2026-03-29T22:06:22.459+05:30  INFO 20536 --- [Event_Ticketing-Back_End] [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
-2026-03-29T22:06:22.460+05:30  INFO 20536 --- [Event_Ticketing-Back_End] [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
-2026-03-29T22:06:22.469+05:30  INFO 20536 --- [Event_Ticketing-Back_End] [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 7 ms
-2026-03-29T22:08:01.072+05:30  INFO 20536 --- [Event_Ticketing-Back_End] [SpringApplicationShutdownHook] o.s.boot.tomcat.GracefulShutdown         : Commencing graceful shutdown. Waiting for active requests to complete
-2026-03-29T22:08:01.095+05:30  INFO 20536 --- [Event_Ticketing-Back_End] [tomcat-shutdown] o.s.boot.tomcat.GracefulShutdown         : Graceful shutdown complete
-2026-03-29T22:08:01.105+05:30  INFO 20536 --- [Event_Ticketing-Back_End] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
-2026-03-29T22:08:01.110+05:30  INFO 20536 --- [Event_Ticketing-Back_End] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
-2026-03-29T22:08:01.120+05:30  INFO 20536 --- [Event_Ticketing-Back_End] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
-2026-03-29T22:08:07.872+05:30  INFO 13892 --- [Event_Ticketing-Back_End] [restartedMain] l.i.event_ticketingback_end.Application  : Starting Application using Java 21.0.7 with PID 13892 (C:\Users\USER\Documents\2nd sem Projects\AAD\javaEE\Smart_Event_Ticketing_System\Event_Ticketing-Back_End\target\classes started by USER in C:\Users\USER\Documents\2nd sem Projects\AAD\javaEE\Smart_Event_Ticketing_System)
-2026-03-29T22:08:07.884+05:30  INFO 13892 --- [Event_Ticketing-Back_End] [restartedMain] l.i.event_ticketingback_end.Application  : No active profile set, falling back to 1 default profile: "default"
-2026-03-29T22:08:08.086+05:30  INFO 13892 --- [Event_Ticketing-Back_End] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
-2026-03-29T22:08:08.087+05:30  INFO 13892 --- [Event_Ticketing-Back_End] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
-2026-03-29T22:08:10.532+05:30  INFO 13892 --- [Event_Ticketing-Back_End] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2026-03-29T22:08:10.746+05:30  INFO 13892 --- [Event_Ticketing-Back_End] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 186 ms. Found 7 JPA repository interfaces.
-2026-03-29T22:08:12.832+05:30  INFO 13892 --- [Event_Ticketing-Back_End] [restartedMain] o.s.boot.tomcat.TomcatWebServer          : Tomcat initialized with port 8080 (http)
-2026-03-29T22:08:12.871+05:30  INFO 13892 --- [Event_Ticketing-Back_End] [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
-2026-03-29T22:08:12.872+05:30  INFO 13892 --- [Event_Ticketing-Back_End] [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/11.0.18]
-2026-03-29T22:08:12.992+05:30  INFO 13892 --- [Event_Ticketing-Back_End] [restartedMain] b.w.c.s.WebApplicationContextInitializer : Root WebApplicationContext: initialization completed in 4903 ms
-2026-03-29T22:08:13.413+05:30  INFO 13892 --- [Event_Ticketing-Back_End] [restartedMain] org.hibernate.orm.jpa                    : HHH008540: Processing PersistenceUnitInfo [name: default]
-2026-03-29T22:08:13.591+05:30  INFO 13892 --- [Event_Ticketing-Back_End] [restartedMain] org.hibernate.orm.core                   : HHH000001: Hibernate ORM core version 7.2.4.Final
-2026-03-29T22:08:14.867+05:30  INFO 13892 --- [Event_Ticketing-Back_End] [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
-2026-03-29T22:08:14.905+05:30  INFO 13892 --- [Event_Ticketing-Back_End] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
-2026-03-29T22:08:15.369+05:30  INFO 13892 --- [Event_Ticketing-Back_End] [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@107ed040
-2026-03-29T22:08:15.372+05:30  INFO 13892 --- [Event_Ticketing-Back_End] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
-2026-03-29T22:08:15.467+05:30  WARN 13892 --- [Event_Ticketing-Back_End] [restartedMain] org.hibernate.orm.deprecation            : HHH90000025: MySQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
-2026-03-29T22:08:15.524+05:30  INFO 13892 --- [Event_Ticketing-Back_End] [restartedMain] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
-	Database JDBC URL [jdbc:mysql://localhost:3306/event_db?createDatabaseIfNotExist=true]
-	Database driver: MySQL Connector/J
-	Database dialect: MySQLDialect
-	Database version: 8.0.42
-	Default catalog/schema: event_db/undefined
-	Autocommit mode: undefined/unknown
-	Isolation level: REPEATABLE_READ [default REPEATABLE_READ]
-	JDBC fetch size: none
-	Pool: DataSourceConnectionProvider
-	Minimum pool size: undefined/unknown
-	Maximum pool size: undefined/unknown
-2026-03-29T22:08:17.059+05:30  INFO 13892 --- [Event_Ticketing-Back_End] [restartedMain] org.hibernate.orm.core                   : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
-2026-03-29T22:08:17.196+05:30  INFO 13892 --- [Event_Ticketing-Back_End] [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
-2026-03-29T22:08:17.324+05:30  INFO 13892 --- [Event_Ticketing-Back_End] [restartedMain] o.s.d.j.r.query.QueryEnhancerFactories   : Hibernate is in classpath; If applicable, HQL parser will be used.
-2026-03-29T22:08:18.630+05:30  WARN 13892 --- [Event_Ticketing-Back_End] [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
-2026-03-29T22:08:18.768+05:30  INFO 13892 --- [Event_Ticketing-Back_End] [restartedMain] eAuthenticationProviderManagerConfigurer : Global AuthenticationManager configured with AuthenticationProvider bean with name authenticateProvider
-2026-03-29T22:08:18.769+05:30  WARN 13892 --- [Event_Ticketing-Back_End] [restartedMain] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with an AuthenticationProvider bean. UserDetailsService beans will not be used by Spring Security for automatically configuring username/password login. Consider removing the AuthenticationProvider bean. Alternatively, consider using the UserDetailsService in a manually instantiated DaoAuthenticationProvider. If the current configuration is intentional, to turn off this warning, increase the logging level of 'org.springframework.security.config.annotation.authentication.configuration.InitializeUserDetailsBeanManagerConfigurer' to ERROR
-2026-03-29T22:08:19.735+05:30  INFO 13892 --- [Event_Ticketing-Back_End] [restartedMain] o.s.boot.tomcat.TomcatWebServer          : Tomcat started on port 8080 (http) with context path '/'
-2026-03-29T22:08:19.746+05:30  INFO 13892 --- [Event_Ticketing-Back_End] [restartedMain] l.i.event_ticketingback_end.Application  : Started Application in 13.626 seconds (process running for 14.932)
-2026-03-29T22:08:20.333+05:30  WARN 13892 --- [Event_Ticketing-Back_End] [restartedMain] o.s.core.events.SpringDocAppInitializer  : SpringDoc /v3/api-docs endpoint is enabled by default. To disable it in production, set the property 'springdoc.api-docs.enabled=false'
-2026-03-29T22:08:20.333+05:30  WARN 13892 --- [Event_Ticketing-Back_End] [restartedMain] o.s.core.events.SpringDocAppInitializer  : SpringDoc /swagger-ui.html endpoint is enabled by default. To disable it in production, set the property 'springdoc.swagger-ui.enabled=false'
-2026-03-29T22:08:47.948+05:30  INFO 13892 --- [Event_Ticketing-Back_End] [http-nio-8080-exec-2] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
-2026-03-29T22:08:47.950+05:30  INFO 13892 --- [Event_Ticketing-Back_End] [http-nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
-2026-03-29T22:08:47.955+05:30  INFO 13892 --- [Event_Ticketing-Back_End] [http-nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Completed initialization in 4 ms
-2026-03-29T22:08:48.212+05:30  INFO 13892 --- [Event_Ticketing-Back_End] [http-nio-8080-exec-5] l.i.e.c.BookingVerifyController          : [Verify] Scanning bookingId=33
-2026-03-29T22:08:48.338+05:30  INFO 13892 --- [Event_Ticketing-Back_End] [http-nio-8080-exec-5] l.i.e.c.BookingVerifyController          : [Verify] bookingId=33 currentStatus=Refunded
-2026-03-29T22:09:27.417+05:30  INFO 13892 --- [Event_Ticketing-Back_End] [SpringApplicationShutdownHook] o.s.boot.tomcat.GracefulShutdown         : Commencing graceful shutdown. Waiting for active requests to complete
-2026-03-29T22:09:27.432+05:30  INFO 13892 --- [Event_Ticketing-Back_End] [tomcat-shutdown] o.s.boot.tomcat.GracefulShutdown         : Graceful shutdown complete
-2026-03-29T22:09:27.442+05:30  INFO 13892 --- [Event_Ticketing-Back_End] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
-2026-03-29T22:09:27.445+05:30  INFO 13892 --- [Event_Ticketing-Back_End] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
-2026-03-29T22:09:27.452+05:30  INFO 13892 --- [Event_Ticketing-Back_End] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2026-03-31T00:24:22.232+05:30  INFO 43892 --- [Event_Ticketing-Back_End] [restartedMain] org.hibernate.orm.core                   : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-03-31T00:24:22.384+05:30  INFO 43892 --- [Event_Ticketing-Back_End] [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-03-31T00:24:22.495+05:30  INFO 43892 --- [Event_Ticketing-Back_End] [restartedMain] o.s.d.j.r.query.QueryEnhancerFactories   : Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-03-31T00:24:23.715+05:30  WARN 43892 --- [Event_Ticketing-Back_End] [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-03-31T00:24:23.848+05:30  INFO 43892 --- [Event_Ticketing-Back_End] [restartedMain] eAuthenticationProviderManagerConfigurer : Global AuthenticationManager configured with AuthenticationProvider bean with name authenticateProvider
+2026-03-31T00:24:23.848+05:30  WARN 43892 --- [Event_Ticketing-Back_End] [restartedMain] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with an AuthenticationProvider bean. UserDetailsService beans will not be used by Spring Security for automatically configuring username/password login. Consider removing the AuthenticationProvider bean. Alternatively, consider using the UserDetailsService in a manually instantiated DaoAuthenticationProvider. If the current configuration is intentional, to turn off this warning, increase the logging level of 'org.springframework.security.config.annotation.authentication.configuration.InitializeUserDetailsBeanManagerConfigurer' to ERROR
+2026-03-31T00:24:24.851+05:30  INFO 43892 --- [Event_Ticketing-Back_End] [restartedMain] o.s.boot.tomcat.TomcatWebServer          : Tomcat started on port 8080 (http) with context path '/'
+2026-03-31T00:24:24.860+05:30  INFO 43892 --- [Event_Ticketing-Back_End] [restartedMain] l.i.event_ticketingback_end.Application  : Started Application in 8.349 seconds (process running for 9.604)
+2026-03-31T00:24:25.472+05:30  WARN 43892 --- [Event_Ticketing-Back_End] [restartedMain] o.s.core.events.SpringDocAppInitializer  : SpringDoc /v3/api-docs endpoint is enabled by default. To disable it in production, set the property 'springdoc.api-docs.enabled=false'
+2026-03-31T00:24:25.473+05:30  WARN 43892 --- [Event_Ticketing-Back_End] [restartedMain] o.s.core.events.SpringDocAppInitializer  : SpringDoc /swagger-ui.html endpoint is enabled by default. To disable it in production, set the property 'springdoc.swagger-ui.enabled=false'
+2026-03-31T00:25:06.472+05:30  INFO 43892 --- [Event_Ticketing-Back_End] [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-03-31T00:25:06.472+05:30  INFO 43892 --- [Event_Ticketing-Back_End] [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2026-03-31T00:25:06.503+05:30  INFO 43892 --- [Event_Ticketing-Back_End] [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 29 ms
+2026-03-31T00:25:06.787+05:30  INFO 43892 --- [Event_Ticketing-Back_End] [http-nio-8080-exec-2] l.i.e.c.BookingVerifyController          : [Verify] Scanning bookingId=35
+2026-03-31T00:25:06.924+05:30  INFO 43892 --- [Event_Ticketing-Back_End] [http-nio-8080-exec-2] l.i.e.c.BookingVerifyController          : [Verify] bookingId=35 currentStatus=Used
+2026-03-31T00:25:06.924+05:30  WARN 43892 --- [Event_Ticketing-Back_End] [http-nio-8080-exec-2] l.i.e.c.BookingVerifyController          : [Verify] Ticket already used: 35
+2026-03-31T00:25:20.754+05:30  INFO 43892 --- [Event_Ticketing-Back_End] [SpringApplicationShutdownHook] o.s.boot.tomcat.GracefulShutdown         : Commencing graceful shutdown. Waiting for active requests to complete
+2026-03-31T00:25:20.774+05:30  INFO 43892 --- [Event_Ticketing-Back_End] [tomcat-shutdown] o.s.boot.tomcat.GracefulShutdown         : Graceful shutdown complete
+2026-03-31T00:25:20.782+05:30  INFO 43892 --- [Event_Ticketing-Back_End] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-03-31T00:25:20.785+05:30  INFO 43892 --- [Event_Ticketing-Back_End] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2026-03-31T00:25:20.793+05:30  INFO 43892 --- [Event_Ticketing-Back_End] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.

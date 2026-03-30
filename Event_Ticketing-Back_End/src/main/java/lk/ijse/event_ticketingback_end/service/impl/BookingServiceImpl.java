@@ -36,6 +36,14 @@ public class BookingServiceImpl implements BookingService {
     @Override
     public BookingDto saveBooking(BookingDto dto) {
 
+        // ✅ Validate required fields before hitting DB
+        if (dto.getEventId() == null) {
+            throw new RuntimeException("eventId is required");
+        }
+        if (dto.getSeatIds() == null || dto.getSeatIds().isEmpty()) {
+            throw new RuntimeException("At least one seat must be selected");
+        }
+
         Event event = eventRepository.findById(dto.getEventId())
                 .orElseThrow(() -> new EventNotFoundException("Event not found: " + dto.getEventId()));
 
@@ -57,7 +65,7 @@ public class BookingServiceImpl implements BookingService {
         }
 
         Booking booking = new Booking();
-        booking.setUserId(dto.getUserId());
+        booking.setUserId(dto.getUserId() != null ? dto.getUserId() : 0); // ✅ safe null fallback
         booking.setUserEmail(dto.getUserEmail());
         booking.setPhone(dto.getPhone());
         booking.setEvent(event);
@@ -88,13 +96,11 @@ public class BookingServiceImpl implements BookingService {
             throw new RuntimeException("Booking " + bookingId + " is already refunded.");
         }
 
-        // Mark all seats as Available again
         booking.getSeats().forEach(seat -> {
             seat.setStatus("Available");
             seatRepository.saveAndFlush(seat);
         });
 
-        // Mark booking as Refunded — QR verify endpoint will deny entry for this status
         booking.setStatus("Refunded");
         bookingRepository.saveAndFlush(booking);
     }

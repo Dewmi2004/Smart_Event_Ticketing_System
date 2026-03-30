@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EventHub Gate Scanner</title>
+    <script src="https://unpkg.com/html5-qrcode@2.3.8/html5-qrcode.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --purple: #7C3AED;
+            --pink:   #EC4899;
+            --bg:     #08080f;
+            --card:   #0e0e1c;
+            --border: rgba(124,58,237,0.25);
+            --green:  #10b981;
+            --red:    #ef4444;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background: var(--bg);
+            color: #fff;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 32px 16px 40px;
+            overflow-x: hidden;
+        }
+
+        /* Ambient glow background */
+        body::before {
+            content: '';
+            position: fixed;
+            top: -200px; left: 50%;
+            transform: translateX(-50%);
+            width: 600px; height: 600px;
+            background: radial-gradient(circle, rgba(124,58,237,0.18) 0%, transparent 70%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 32px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .logo {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: linear-gradient(135deg, var(--purple), var(--pink));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-family: 'Syne', sans-serif;
+            font-size: 28px;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+        }
+
+        .logo-icon {
+            background: linear-gradient(135deg, var(--purple), var(--pink));
+            -webkit-background-clip: unset;
+            -webkit-text-fill-color: unset;
+            background-clip: unset;
+            font-size: 26px;
+        }
+
+        .subtitle {
+            color: rgba(255,255,255,0.4);
+            font-size: 13px;
+            font-weight: 300;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-top: 6px;
+        }
+
+        /* Scanner card */
+        .scanner-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 24px;
+            padding: 24px;
+            width: 100%;
+            max-width: 360px;
+            position: relative;
+            z-index: 1;
+            box-shadow: 0 0 60px rgba(124,58,237,0.08), 0 20px 40px rgba(0,0,0,0.4);
+        }
+
+        .scanner-label {
+            font-size: 11px;
+            font-weight: 500;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.35);
+            text-align: center;
+            margin-bottom: 16px;
+        }
+
+        /* Override html5-qrcode default styles */
+        #reader {
+            width: 100% !important;
+            border: none !important;
+            border-radius: 16px;
+            overflow: hidden;
+            background: #000;
+        }
+
+        #reader video {
+            border-radius: 12px;
+        }
+
+        /* Scan frame corners overlay */
+        .scan-frame {
+            position: relative;
+            border-radius: 16px;
+            overflow: hidden;
+        }
+
+        .scan-frame::before, .scan-frame::after {
+            content: '';
+            position: absolute;
+            width: 28px; height: 28px;
+            border-color: var(--purple);
+            border-style: solid;
+            z-index: 10;
+            border-radius: 3px;
+        }
+
+        .scan-frame::before { top: 12px; left: 12px; border-width: 3px 0 0 3px; }
+        .scan-frame::after  { top: 12px; right: 12px; border-width: 3px 3px 0 0; }
+
+        /* Scanning line animation */
+        @keyframes scanLine {
+            0%   { top: 15%; opacity: 1; }
+            90%  { top: 85%; opacity: 1; }
+            100% { top: 85%; opacity: 0; }
+        }
+
+        .scan-line {
+            position: absolute;
+            left: 10%; right: 10%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--purple), var(--pink), transparent);
+            border-radius: 2px;
+            animation: scanLine 2s ease-in-out infinite;
+            z-index: 11;
+            pointer-events: none;
+            box-shadow: 0 0 8px var(--purple);
+        }
+
+        /* Result box */
+        #result {
+            margin-top: 20px;
+            border-radius: 16px;
+            padding: 20px;
+            text-align: center;
+            display: none;
+            animation: popIn 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        @keyframes popIn {
+            from { transform: scale(0.85); opacity: 0; }
+            to   { transform: scale(1);    opacity: 1; }
+        }
+
+        #result.success {
+            background: rgba(16,185,129,0.1);
+            border: 1px solid rgba(16,185,129,0.4);
+        }
+
+        #result.error {
+            background: rgba(239,68,68,0.1);
+            border: 1px solid rgba(239,68,68,0.35);
+        }
+
+        #result.checking {
+            background: rgba(124,58,237,0.1);
+            border: 1px solid rgba(124,58,237,0.3);
+        }
+
+        .result-icon {
+            font-size: 36px;
+            margin-bottom: 8px;
+        }
+
+        #message {
+            font-family: 'Syne', sans-serif;
+            font-size: 18px;
+            font-weight: 700;
+        }
+
+        #result.success #message { color: var(--green); }
+        #result.error   #message { color: var(--red); }
+        #result.checking #message { color: #a78bfa; }
+
+        #detail {
+            font-size: 12px;
+            margin-top: 6px;
+            opacity: 0.5;
+            font-weight: 300;
+            letter-spacing: 0.5px;
+        }
+
+        .status-bar {
+            margin-top: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            font-size: 12px;
+            color: rgba(255,255,255,0.25);
+            position: relative;
+            z-index: 1;
+        }
+
+        .status-dot {
+            width: 6px; height: 6px;
+            border-radius: 50%;
+            background: var(--green);
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50%       { opacity: 0.4; transform: scale(0.8); }
+        }
+
+        /* Hide html5-qrcode branding/buttons we don't need */
+        #reader__dashboard_section_csr span,
+        #reader__filescan_input { display: none !important; }
+
+        #reader__dashboard_section_swaplink {
+            color: rgba(124,58,237,0.6) !important;
+            font-size: 12px !important;
+        }
+
+        #reader__scan_region {
+            border-radius: 12px;
+            overflow: hidden;
+        }
+    </style>
+</head>
+<body>
+
+<div class="header">
+    <div class="logo">
+        <span class="logo-icon">🎫</span> EventHub
+    </div>
+    <p class="subtitle">Gate Entry Scanner</p>
+</div>
+
+<div class="scanner-card">
+    <p class="scanner-label">Point camera at ticket QR</p>
+    <div class="scan-frame">
+        <div class="scan-line"></div>
+        <div id="reader"></div>
+    </div>
+
+    <div id="result">
+        <div class="result-icon" id="result-icon"></div>
+        <div id="message"></div>
+        <div id="detail"></div>
+    </div>
+</div>
+
+<div class="status-bar">
+    <div class="status-dot"></div>
+    Scanner active · Secure connection
+</div>
+
+<script>
+    const resultDiv  = document.getElementById("result");
+    const messageDiv = document.getElementById("message");
+    const detailDiv  = document.getElementById("detail");
+    const iconDiv    = document.getElementById("result-icon");
+    let scanning     = true;
+
+    const BACKEND_URL = "http://localhost:8080";
+
+    function showResult(valid, message, detail = "", checking = false) {
+        resultDiv.style.display = "block";
+        resultDiv.className     = checking ? "checking" : (valid ? "success" : "error");
+        iconDiv.textContent     = checking ? "⏳" : (valid ? "✅" : "❌");
+        messageDiv.textContent  = message;
+        detailDiv.textContent   = detail;
+
+        setTimeout(() => {
+            resultDiv.style.display = "none";
+            scanning = true;
+        }, 3000);
+    }
+
+    function onScanSuccess(decodedText) {
+        if (!scanning) return;
+        scanning = false; // prevent duplicate scans
+
+        const bookingId = decodedText.trim();
+        showResult(true, "Checking...", "Booking #" + bookingId, true);
+
+        fetch(`${BACKEND_URL}/api/v1/bookings/verify/${bookingId}`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" }
+        })
+            .then(res => res.json())
+            .then(data => {
+                showResult(data.valid, data.message, "Booking #" + bookingId);
+            })
+            .catch(() => {
+                showResult(false, "Server error — try again", "");
+            });
+    }
+
+    new Html5QrcodeScanner(
+        "reader",
+        { fps: 10, qrbox: { width: 250, height: 250 } },
+        false
+    ).render(onScanSuccess);
+</script>
+</body>
+</html>

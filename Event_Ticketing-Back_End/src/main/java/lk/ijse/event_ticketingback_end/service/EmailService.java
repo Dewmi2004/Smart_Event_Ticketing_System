@@ -13,6 +13,9 @@ public class EmailService {
 
     private final JavaMailSender mailSender;
 
+    // ─────────────────────────────────────────────────────────────────────────
+    // BOOKING CONFIRMATION  (rich HTML with QR code)
+    // ─────────────────────────────────────────────────────────────────────────
     public void sendBookingConfirmation(
             String toEmail,
             String userName,
@@ -71,9 +74,65 @@ public class EmailService {
                         "      <img src='" + qrUrl + "' alt='E-Ticket QR Code' style='width:200px;height:200px;border:3px solid #7C3AED;border-radius:12px;padding:8px;'/>" +
                         "    </div>" +
                         "    <div style='background:#f3f4f8;border-radius:10px;padding:16px;text-align:center;margin-top:16px;'>" +
-                        // ✅ Updated: removed incorrect "Pending" note — QR is verified live at scan time
                         "      <p style='color:#7a8899;font-size:12px;margin:0;'>Your QR code is verified in real-time at the venue. It can only be used <strong>once</strong>.</p>" +
                         "      <p style='color:#7a8899;font-size:12px;margin:6px 0 0;'>This is an automated email from EventHub. Please do not reply.</p>" +
+                        "    </div>" +
+                        "  </div>" +
+                        "</div>";
+
+        helper.setText(html, true);
+        mailSender.send(message);
+    }
+
+    // ─────────────────────────────────────────────────────────────────────────
+    // GENERIC NOTIFICATION  (PaymentFailed, EventUpdate, Refund, Promotion …)
+    // ─────────────────────────────────────────────────────────────────────────
+    public void sendGenericNotification(
+            String toEmail,
+            String userName,
+            String notificationType,
+            String messageBody
+    ) throws MessagingException {
+
+        // Human-readable subject line per type
+        String subject = switch (notificationType) {
+            case "PaymentSuccess"   -> "✅ Payment Successful | EventHub";
+            case "PaymentFailed"    -> "❌ Payment Failed | EventHub";
+            case "EventUpdate"      -> "📢 Event Update | EventHub";
+            case "RefundProcessed"  -> "↩ Refund Processed | EventHub";
+            case "Promotion"        -> "🎟 Special Offer | EventHub";
+            default                 -> "📬 Notification | EventHub";
+        };
+
+        // Icon per type
+        String icon = switch (notificationType) {
+            case "PaymentSuccess"   -> "✅";
+            case "PaymentFailed"    -> "❌";
+            case "EventUpdate"      -> "📢";
+            case "RefundProcessed"  -> "↩";
+            case "Promotion"        -> "🎟";
+            default                 -> "🔔";
+        };
+
+        MimeMessage message = mailSender.createMimeMessage();
+        MimeMessageHelper helper = new MimeMessageHelper(message, true, "UTF-8");
+
+        helper.setTo(toEmail);
+        helper.setSubject(subject);
+
+        String html =
+                "<div style='font-family:Arial,sans-serif;max-width:600px;margin:0 auto;background:#f8f8fc;padding:32px;border-radius:16px;'>" +
+                        "  <div style='background:linear-gradient(135deg,#7C3AED,#EC4899);padding:28px;border-radius:12px;text-align:center;'>" +
+                        "    <h1 style='color:#fff;margin:0;font-size:28px;'>" + icon + "</h1>" +
+                        "    <h2 style='color:#fff;margin:8px 0 0;font-size:20px;'>" + notificationType.replaceAll("([A-Z])", " $1").trim() + "</h2>" +
+                        "  </div>" +
+                        "  <div style='background:#fff;border-radius:12px;padding:28px;margin-top:16px;'>" +
+                        "    <p style='color:#1a1a2e;font-size:16px;'>Hi <strong>" + (userName.isBlank() ? "there" : userName) + "</strong>,</p>" +
+                        "    <div style='background:#f3f4f8;border-left:4px solid #7C3AED;border-radius:8px;padding:18px 20px;margin:20px 0;'>" +
+                        "      <p style='color:#1a1a2e;margin:0;font-size:15px;line-height:1.6;'>" + messageBody + "</p>" +
+                        "    </div>" +
+                        "    <div style='background:#f3f4f8;border-radius:10px;padding:14px;text-align:center;margin-top:20px;'>" +
+                        "      <p style='color:#7a8899;font-size:12px;margin:0;'>This is an automated email from EventHub. Please do not reply.</p>" +
                         "    </div>" +
                         "  </div>" +
                         "</div>";
