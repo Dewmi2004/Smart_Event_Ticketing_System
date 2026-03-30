@@ -55,7 +55,10 @@ public class SecurityConfig {
                                 "/api/v1/seat/event/**"
                         ).permitAll()
 
-                        .requestMatchers("/api/v1/payment/notify").permitAll()
+                        .requestMatchers(
+                                "/api/v1/payment/notify",
+                                "/api/v1/bookings/verify/**"
+                        ).permitAll()
                         .requestMatchers("/api/v1/refund/**").permitAll()
 
                         .anyRequest().authenticated()

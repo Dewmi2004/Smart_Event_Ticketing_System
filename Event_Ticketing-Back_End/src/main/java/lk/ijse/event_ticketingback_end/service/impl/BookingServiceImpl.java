@@ -80,6 +80,26 @@ public class BookingServiceImpl implements BookingService {
     }
 
     @Override
+    public void refundBooking(int bookingId) {
+        Booking booking = bookingRepository.findById(bookingId)
+                .orElseThrow(() -> new EventNotFoundException("Booking not found: " + bookingId));
+
+        if ("Refunded".equalsIgnoreCase(booking.getStatus())) {
+            throw new RuntimeException("Booking " + bookingId + " is already refunded.");
+        }
+
+        // Mark all seats as Available again
+        booking.getSeats().forEach(seat -> {
+            seat.setStatus("Available");
+            seatRepository.saveAndFlush(seat);
+        });
+
+        // Mark booking as Refunded — QR verify endpoint will deny entry for this status
+        booking.setStatus("Refunded");
+        bookingRepository.saveAndFlush(booking);
+    }
+
+    @Override
     public void deleteBooking(int bookingId) {
         Booking booking = bookingRepository.findById(bookingId)
                 .orElseThrow(() -> new EventNotFoundException("Booking not found: " + bookingId));

@@ -163,13 +163,9 @@ public class PaymentServiceImpl implements PaymentService {
                     .map(Seat::getSeatNumber)
                     .collect(Collectors.joining(", "));
 
-            String qrData = String.format(
-                    "{\"bookingId\":%d,\"event\":\"%s\",\"seats\":\"%s\",\"amount\":%.2f,\"status\":\"Confirmed\"}",
-                    booking.getBookingId(),
-                    booking.getEvent().getEvent_name(),
-                    seatNumbers,
-                    booking.getTotalAmount()
-            );
+            // ✅ QR contains only bookingId — no static status baked in
+            // Scanner must call POST /api/v1/bookings/verify/{bookingId} to get live DB status
+            String qrData = String.valueOf(booking.getBookingId());
             String qrUrl = "https://api.qrserver.com/v1/create-qr-code/?size=300x300&ecc=M&data="
                     + java.net.URLEncoder.encode(qrData, StandardCharsets.UTF_8);
 

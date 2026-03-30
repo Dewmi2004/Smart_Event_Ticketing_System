@@ -71,7 +71,8 @@ public class EmailService {
                         "      <img src='" + qrUrl + "' alt='E-Ticket QR Code' style='width:200px;height:200px;border:3px solid #7C3AED;border-radius:12px;padding:8px;'/>" +
                         "    </div>" +
                         "    <div style='background:#f3f4f8;border-radius:10px;padding:16px;text-align:center;margin-top:16px;'>" +
-                        "      <p style='color:#7a8899;font-size:12px;margin:0;'>Booking status is <strong>Pending</strong> until payment is completed.</p>" +
+                        // ✅ Updated: removed incorrect "Pending" note — QR is verified live at scan time
+                        "      <p style='color:#7a8899;font-size:12px;margin:0;'>Your QR code is verified in real-time at the venue. It can only be used <strong>once</strong>.</p>" +
                         "      <p style='color:#7a8899;font-size:12px;margin:6px 0 0;'>This is an automated email from EventHub. Please do not reply.</p>" +
                         "    </div>" +
                         "  </div>" +
