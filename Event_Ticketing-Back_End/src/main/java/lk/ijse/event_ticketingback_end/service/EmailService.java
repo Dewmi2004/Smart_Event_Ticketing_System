@@ -13,9 +13,6 @@ public class EmailService {
 
     private final JavaMailSender mailSender;
 
-    // ─────────────────────────────────────────────────────────────────────────
-    // BOOKING CONFIRMATION  (rich HTML with QR code)
-    // ─────────────────────────────────────────────────────────────────────────
     public void sendBookingConfirmation(
             String toEmail,
             String userName,
@@ -84,9 +81,7 @@ public class EmailService {
         mailSender.send(message);
     }
 
-    // ─────────────────────────────────────────────────────────────────────────
-    // GENERIC NOTIFICATION  (PaymentFailed, EventUpdate, Refund, Promotion …)
-    // ─────────────────────────────────────────────────────────────────────────
+
     public void sendGenericNotification(
             String toEmail,
             String userName,
@@ -94,7 +89,6 @@ public class EmailService {
             String messageBody
     ) throws MessagingException {
 
-        // Human-readable subject line per type
         String subject = switch (notificationType) {
             case "PaymentSuccess"   -> "✅ Payment Successful | EventHub";
             case "PaymentFailed"    -> "❌ Payment Failed | EventHub";
@@ -104,7 +98,6 @@ public class EmailService {
             default                 -> "📬 Notification | EventHub";
         };
 
-        // Icon per type
         String icon = switch (notificationType) {
             case "PaymentSuccess"   -> "✅";
             case "PaymentFailed"    -> "❌";

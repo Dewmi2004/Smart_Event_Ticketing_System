@@ -36,7 +36,6 @@ public class BookingServiceImpl implements BookingService {
     @Override
     public BookingDto saveBooking(BookingDto dto) {
 
-        // ✅ Validate required fields before hitting DB
         if (dto.getEventId() == null) {
             throw new RuntimeException("eventId is required");
         }
@@ -65,7 +64,7 @@ public class BookingServiceImpl implements BookingService {
         }
 
         Booking booking = new Booking();
-        booking.setUserId(dto.getUserId() != null ? dto.getUserId() : 0); // ✅ safe null fallback
+        booking.setUserId(dto.getUserId() != null ? dto.getUserId() : 0);
         booking.setUserEmail(dto.getUserEmail());
         booking.setPhone(dto.getPhone());
         booking.setEvent(event);

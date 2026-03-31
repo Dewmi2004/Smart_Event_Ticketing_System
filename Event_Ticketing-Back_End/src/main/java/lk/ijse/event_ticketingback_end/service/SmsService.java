@@ -21,9 +21,7 @@ public class SmsService {
 
     private static final String API_URL = "https://app.text.lk/api/v3/sms/send";
 
-    // ─────────────────────────────────────────────────────────────────────────
-    // BOOKING CONFIRMATION SMS
-    // ─────────────────────────────────────────────────────────────────────────
+
     public void sendBookingConfirmation(
             String toPhone,
             int    bookingId,
@@ -41,9 +39,6 @@ public class SmsService {
         sendSms(toPhone, message);
     }
 
-    // ─────────────────────────────────────────────────────────────────────────
-    // PAYMENT FAILED SMS
-    // ─────────────────────────────────────────────────────────────────────────
     public void sendPaymentFailed(
             String toPhone,
             int    bookingId,
@@ -57,20 +52,15 @@ public class SmsService {
         sendSms(toPhone, message);
     }
 
-    // ─────────────────────────────────────────────────────────────────────────
-    // GENERIC SMS  (EventUpdate, Refund, Promotion, etc.)
-    // ─────────────────────────────────────────────────────────────────────────
+
     public void sendGenericNotification(String toPhone, String messageBody) {
-        // SMS has a ~160-char limit per segment; trim gracefully
         String trimmed = messageBody != null && messageBody.length() > 155
                 ? messageBody.substring(0, 152) + "..."
                 : messageBody;
         sendSms(toPhone, "EventHub: " + trimmed);
     }
 
-    // ─────────────────────────────────────────────────────────────────────────
-    // INTERNAL  — builds and sends the HTTP request to text.lk
-    // ─────────────────────────────────────────────────────────────────────────
+
     private void sendSms(String toPhone, String message) {
         try {
             String normalised = normalisePhone(toPhone);
@@ -105,15 +95,12 @@ public class SmsService {
         }
     }
 
-    // ─────────────────────────────────────────────────────────────────────────
-    // PHONE NORMALISER  (Sri Lanka format → 94xxxxxxxxx)
-    // ─────────────────────────────────────────────────────────────────────────
     private String normalisePhone(String phone) {
         if (phone == null || phone.isBlank()) return phone;
         phone = phone.trim().replaceAll("[\\s\\-()]", "");
-        if (phone.startsWith("+94")) return phone.substring(1); // +94... → 94...
-        if (phone.startsWith("94"))  return phone;              // already correct
-        if (phone.startsWith("0"))   return "94" + phone.substring(1); // 07... → 947...
+        if (phone.startsWith("+94")) return phone.substring(1);
+        if (phone.startsWith("94"))  return phone;
+        if (phone.startsWith("0"))   return "94" + phone.substring(1);
         return "94" + phone;
     }
 }

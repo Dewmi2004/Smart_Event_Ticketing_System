@@ -89,7 +89,6 @@ public class PaymentServiceImpl implements PaymentService {
         payment.setStatus("PENDING");
         paymentRepository.save(payment);
 
-        // Save phone onto booking so handleNotify can use it for SMS
         if (customerPhone != null && !customerPhone.isBlank()) {
             booking.setPhone(customerPhone);
             bookingRepository.saveAndFlush(booking);
@@ -163,8 +162,7 @@ public class PaymentServiceImpl implements PaymentService {
                     .map(Seat::getSeatNumber)
                     .collect(Collectors.joining(", "));
 
-            // ✅ QR contains only bookingId — no static status baked in
-            // Scanner must call POST /api/v1/bookings/verify/{bookingId} to get live DB status
+
             String qrData = String.valueOf(booking.getBookingId());
             String qrUrl = "https://api.qrserver.com/v1/create-qr-code/?size=300x300&ecc=M&data="
                     + java.net.URLEncoder.encode(qrData, StandardCharsets.UTF_8);
@@ -189,7 +187,6 @@ public class PaymentServiceImpl implements PaymentService {
                 }
             }
 
-            // SMS confirmation — uses phone stored on booking entity
             if (booking.getPhone() != null && !booking.getPhone().isBlank()) {
                 smsService.sendBookingConfirmation(
                         booking.getPhone(),

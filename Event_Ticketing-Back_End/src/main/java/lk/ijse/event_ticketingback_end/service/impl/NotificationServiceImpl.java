@@ -29,15 +29,11 @@ public class NotificationServiceImpl implements NotificationService {
     private final EmailService           emailService;
     private final SmsService             smsService;
 
-    // ─────────────────────────────────────────────────────────────────────────
-    // SAVE  —  dispatch Email / SMS / Both first, then persist with final status
-    // ─────────────────────────────────────────────────────────────────────────
     @Override
     public void saveNotification(NotificationDto dto) {
         dto.setNotificationId(0);
         if (dto.getSentAt() == null) dto.setSentAt(LocalDateTime.now());
 
-        // Attempt delivery and capture the final status
         String deliveryStatus = dispatch(dto);
         dto.setStatus(deliveryStatus);
 
@@ -45,14 +41,6 @@ public class NotificationServiceImpl implements NotificationService {
         notificationRepository.save(notification);
     }
 
-    // ─────────────────────────────────────────────────────────────────────────
-    // DISPATCH  —  routes to Email / SMS / Both based on dto.channel
-    //
-    // FIX: initialise emailOk / smsOk to false so that if a channel
-    // was never attempted (blank recipient), it does NOT count as success.
-    // Previously both were initialised to true, which meant the "Both"
-    // branch could return "Delivered" even when one channel was skipped.
-    // ─────────────────────────────────────────────────────────────────────────
     private String dispatch(NotificationDto dto) {
         String channel = dto.getChannel();
         if (channel == null || channel.isBlank()) {
@@ -60,7 +48,6 @@ public class NotificationServiceImpl implements NotificationService {
             return "Pending";
         }
 
-        // FIX: default to false — only set true if the send actually succeeds
         boolean emailOk = false;
         boolean smsOk   = false;
 
@@ -79,9 +66,6 @@ public class NotificationServiceImpl implements NotificationService {
         };
     }
 
-    // ─────────────────────────────────────────────────────────────────────────
-    // EMAIL dispatch  —  picks the right EmailService method by notification type
-    // ─────────────────────────────────────────────────────────────────────────
     private boolean sendEmail(NotificationDto dto) {
         if (dto.getToEmail() == null || dto.getToEmail().isBlank()) {
             log.warn("[Notification] Email channel requested but toEmail is blank — userId={}", dto.getUserId());
@@ -115,9 +99,6 @@ public class NotificationServiceImpl implements NotificationService {
         }
     }
 
-    // ─────────────────────────────────────────────────────────────────────────
-    // SMS dispatch  —  picks the right SmsService method by notification type
-    // ─────────────────────────────────────────────────────────────────────────
     private boolean sendSms(NotificationDto dto) {
         if (dto.getToPhone() == null || dto.getToPhone().isBlank()) {
             log.warn("[Notification] SMS channel requested but toPhone is blank — userId={}", dto.getUserId());
@@ -151,9 +132,6 @@ public class NotificationServiceImpl implements NotificationService {
         }
     }
 
-    // ─────────────────────────────────────────────────────────────────────────
-    // UPDATE / DELETE / GET
-    // ─────────────────────────────────────────────────────────────────────────
     @Override
     public void updateNotification(NotificationDto dto) {
         Notification existing = notificationRepository
@@ -198,7 +176,6 @@ public class NotificationServiceImpl implements NotificationService {
                 new TypeToken<List<NotificationDto>>() {}.getType());
     }
 
-    // ── Null-safe helpers ────────────────────────────────────────────────────
     private String nullSafe(String v)       { return v != null ? v : ""; }
     private int    nullSafeInt(Integer v)   { return v != null ? v : 0;  }
     private double nullSafeDouble(Double v) { return v != null ? v : 0.0;}

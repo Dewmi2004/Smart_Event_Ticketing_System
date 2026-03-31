@@ -38,12 +38,10 @@ public class SecurityConfig {
                 .cors(cors -> cors.configurationSource(corsConfigurationSource()))
                 .authorizeHttpRequests(auth -> auth
 
-                        // ── Auth (public) ────────────────────────────────────────────
                         .requestMatchers(
                                 "/api/v1/auth/signIn",
                                 "/api/v1/auth/signUp"
                         ).permitAll()
-                        // ── Swagger ─────────────────────────────────────────────
                         .requestMatchers(
                                 "/swagger-ui/**",
                                 "/v3/api-docs/**",
@@ -56,26 +54,21 @@ public class SecurityConfig {
                                 "/api/v1/seat/event/**"
                         ).permitAll()
 
-                        // ── Payment webhook & booking verify (public callbacks) ───────
                         .requestMatchers(
                                 "/api/v1/payment/notify",
                                 "/api/v1/bookings/verify/**"
                         ).permitAll()
 
-                        // ── Refund (public) ───────────────────────────────────────────
                         .requestMatchers("/api/v1/refund/**").permitAll()
 
-                        // ── Notification: user reads own notifications (authenticated) ─
-                        //    MUST be declared BEFORE the broader ADMIN rule below
+
                         .requestMatchers(
                                 org.springframework.http.HttpMethod.GET,
                                 "/api/v1/notification/user/**"
                         ).authenticated()
 
-                        // ── Notification: all other operations are ADMIN only ─────────
                         .requestMatchers("/api/v1/notification/**").hasRole("ADMIN")
 
-                        // ── Everything else requires authentication ───────────────────
                         .anyRequest().authenticated()
                 )
                 .sessionManagement(session -> session

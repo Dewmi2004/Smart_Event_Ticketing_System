@@ -19,20 +19,17 @@ public class NotificationController {
 
     private final NotificationService notificationService;
 
-    // ADMIN only – manually log / create a notification record and dispatch it
     @PostMapping
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<APIResponse<String>> saveNotification(
             @RequestBody NotificationDto notificationDto) {
 
         notificationService.saveNotification(notificationDto);
-        // FIX: body status code now matches the HTTP status (both 201)
         return new ResponseEntity<>(
                 new APIResponse<>(201, "Notification Saved", null),
                 HttpStatus.CREATED);
     }
 
-    // ADMIN only – update delivery status or message
     @PutMapping
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<APIResponse<String>> updateNotification(
@@ -44,7 +41,6 @@ public class NotificationController {
                 HttpStatus.OK);
     }
 
-    // ADMIN only – delete a notification log entry
     @DeleteMapping
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<APIResponse<String>> deleteNotification(
@@ -56,7 +52,6 @@ public class NotificationController {
                 HttpStatus.OK);
     }
 
-    // ADMIN – view all notification logs
     @GetMapping
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<APIResponse<List<NotificationDto>>> getAllNotifications() {
@@ -66,7 +61,6 @@ public class NotificationController {
                 HttpStatus.OK);
     }
 
-    // Authenticated user – view their own notifications
     @GetMapping("/user/{userId}")
     @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
     public ResponseEntity<APIResponse<List<NotificationDto>>> getByUser(

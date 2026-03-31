@@ -13,22 +13,19 @@ import java.time.LocalDateTime;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class NotificationDto {
 
-    // ── Persisted fields ─────────────────────────────────────────────────────
     private int            notificationId;
     private int            userId;
-    private String         type;      // BookingConfirmation | PaymentSuccess | PaymentFailed | EventUpdate | RefundProcessed | Promotion
-    private String         channel;   // Email | SMS | Both
-    private String         message;   // Plain-text summary (always populated)
-    private String         status;    // Delivered | Pending | Failed
+    private String         type;
+    private String         channel;
+    private String         message;
+    private String         status;
     private LocalDateTime  sentAt;
 
-    // ── Delivery routing (used at dispatch time, NOT persisted) ──────────────
-    private String toEmail;    // recipient email address
-    private String toPhone;    // recipient phone  (SmsService normalises format)
-    private String userName;   // used in the email greeting "Hi <userName>,"
+    private String toEmail;
+    private String toPhone;
+    private String userName;
 
-    // ── Rich email payload fields (BookingConfirmation) ───────────────────────
-    // Populated by BookingService when triggering a booking-confirmed notification.
+    //  when triggering a booking-confirmed notification.
     private Integer bookingId;
     private String  eventName;
     private String  eventDate;

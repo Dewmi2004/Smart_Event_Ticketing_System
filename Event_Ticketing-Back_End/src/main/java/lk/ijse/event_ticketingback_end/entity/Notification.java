@@ -19,7 +19,7 @@ public class Notification {
     private int notificationId;
 
     @Column(nullable = false)
-    private int userId;             // camelCase — Spring Data parses this as a single token
+    private int userId;
 
     @Column(nullable = false)
     private String type;
